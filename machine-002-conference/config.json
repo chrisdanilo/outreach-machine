@@ -1,0 +1,194 @@
+{
+  "_README": "Machine 002 settings. Every number and rule the scripts use lives here. Rulings are dated and attributed to Chris. Edit here, not in the scripts.",
+  "machine": "outreach-machine-002-conference",
+  "cluster": {
+    "id": "CL-2026-Q4-Conf",
+    "tlp_cluster": "Cluster 002 — keynote + MC / conference design",
+    "product": "The Human Conference Design (ruling 2026-10-15)",
+    "price": "$6,000 flat day rate (+ travel)",
+    "tagline": "The Future is Human. (ruling 2026-10-15)",
+    "market": "Organizations that own and run a recurring event for an adult early-childhood workforce audience — ALL org types in ONE bucket, no order by type (ruling 2026-10-20)",
+    "next_markets_queue": "After ECE is exhausted: HR / L&D departments, learning organizations, for-purpose organizations' conferences (ruling 2026-10-13). Each needs its own Green Sheet first."
+  },
+  "unit_of_work": "event (ruling 2026-10-13)",
+  "waves": {
+    "_rule": "Chris 2026-10-20: work by time, not by state or org type. Estimate each event's 2027 month (confirmed date if posted, else same month as the last dated edition). Reach out ~6 months ahead. Start with Jan–May 2027 events now for a busy spring. No events in 2026; anything in 2027 is fair game, including October 2027.",
+    "lead_months": 6,
+    "wave1_first": "2027-01",
+    "wave1_last": "2027-05",
+    "earliest_event_month": "2027-01",
+    "wave1_order": "soonest event first (default — Jan–Apr events get less than 6 months' notice)"
+  },
+  "qualification_gates": {
+    "_rule": "Gates the DRAFTER applies before an event gets an Email 1. The refresh only records the facts.",
+    "keynote_path_required": "Chris 2026-10-19 (NAA27): conferences whose open call is breakouts-only with no external keynote path are not targets. Events with keynote_slot 'no' are not drafted; 'unknown' is drafted only after a human look.",
+    "hold_if_keynote_announced": "If the next edition's keynote is already announced, hold until the following cycle (design 2026-10-13).",
+    "rfp_goes_to_bid_lane": "procurement 'rfp' → bid lane, not cold email (design 2026-10-13).",
+    "do_not_contact": "Anyone on ../do-not-contact/register.jsonl is never contacted by any machine (ruling 2026-10-13, permanent)."
+  },
+  "org_types": [
+    "head_start_state_assoc",
+    "head_start_regional_assoc",
+    "head_start_grantee",
+    "aeyc_affiliate",
+    "ccrr_or_cca",
+    "state_system_intermediary",
+    "state_agency",
+    "education_service_agency",
+    "workforce_board",
+    "trade_or_provider_assoc",
+    "family_child_care_assoc",
+    "franchise_or_corporate",
+    "nonprofit_network",
+    "university_or_college",
+    "infant_mental_health_or_ei",
+    "afterschool_school_age",
+    "national_org",
+    "canada",
+    "other",
+    "diocese_or_parish_system",
+    "independent_school",
+    "independent_school_assoc",
+    "school_district",
+    "nonprofit_assoc",
+    "hr_assoc",
+    "hospital_assoc",
+    "library_assoc",
+    "community_action_assoc",
+    "child_welfare_assoc",
+    "faith_school_network"
+  ],
+  "machine_001_contacted": "../outreach-machine/contacted.jsonl",
+  "do_not_contact_register": "../do-not-contact/register.jsonl",
+  "refresh": {
+    "_rule": "Chris 2026-10-20: every refresh (button or schedule) does the same four things — find new events, re-check every listed event's website for a confirmed 2027 date, fill gaps (person in charge, date, website), and flag any open call for proposals / presenters / RFP.",
+    "trigger": "Scheduled task 'Conference event refresh (Machine 002)' with NO schedule — start it with Run now, or ask Claude in chat to refresh the event list. A schedule can be added later without changing anything else.",
+    "research_segments": [
+      "headstart_assoc",
+      "headstart_grantees",
+      "aeyc",
+      "ccrr_ne",
+      "ccrr_south",
+      "ccrr_mw_west",
+      "state_system",
+      "trade_assoc",
+      "franchise_network",
+      "headstart_grantees_300plus",
+      "ece_intermediaries",
+      "dioceses",
+      "independent_schools",
+      "adjacent_assocs",
+      "esa_districts"
+    ],
+    "research_model": "sonnet (one research agent per segment, run in parallel)",
+    "never": [
+      "send or draft any email",
+      "edit Machine 001 files",
+      "guess an email address",
+      "write a date without a source URL"
+    ],
+    "search_budget": {
+      "_rule": "Learned 2026-10-22: one run (one turn) gets 200 WebSearch calls TOTAL, shared by every agent. Re-checks use WebFetch on the known event_url (no search cost); searches go to finding new events and filling gaps.",
+      "per_run_total": 200,
+      "reserve_for_main_session": 20,
+      "per_segment_share": 20
+    },
+    "_2026_10_23": "Chris 2026-10-23: build the full list now (one big run), confirm events now rather than nightly, present for review; Stage 3 (people + Apollo) only on his say-so. Target 2,000 organizations by end of May 2027 at 25 Email 1s per sending day. Head Start grantee universe from the OHS dataset: Lists/conference-pipeline/head-start-grantees/."
+  },
+  "drafting": {
+    "status": "LIVE 2026-10-23 — copy file Marketing/Cold-Outreach-Sequence-Conference.md (E1 v2, E2 v1, E3 v1). Round 0: 9 Email 1 drafts created by Zapier 2026-10-23 (see runs/2026-10-23/round0-drafts.jsonl). Nightly drafter + follow-up sender not yet built; follow-ups for Round 0 are due 2026-10-30 (E2) and 2026-11-06 (E3).",
+    "open_rulings": [
+      "Orgs Machine 001 emailed that never replied (silent no-reply): never re-contact, re-contact after N months with the conference offer, or Email 4 on the old thread?",
+      "Two-clusters-in-test cap: does 002 displace CL-2026-Q4 ELC Directors, or does CL-2026-Q3 CCR&R close?",
+      "Nightly drafter time (must not overlap 001's 3 AM MT run).",
+      "Colorado events: 001 reserves Colorado for Chris personally — same for 002?",
+      "Events with no past date found: hold on a 'date unknown' list, or Email 1 asks them when their event is?"
+    ],
+    "sequence_gap_days": 7,
+    "sequence_length": 3,
+    "labels": {
+      "parent": "Label_17 (Conference outreach)",
+      "0_drafted": "Label_18",
+      "1_sent": "Label_19",
+      "_note": "Mirror Machine 001's set; /2 /3 ★ X ⚠ ⏸ to be created when the follow-up sender is built"
+    },
+    "zapier": {
+      "same_as": "../outreach-machine/config.json draft_writer.zapier",
+      "email_1_attachment": {
+        "filename": "SpeakerGuide_2027.pdf",
+        "size_bytes": 3414709,
+        "source_message_id": "<thread-id>",
+        "_why": "Chris's own template send to <ASSISTANT_EMAIL> 2026-10-23; fetch a fresh hydrate reference every run"
+      },
+      "email_3_attachment": {
+        "filename": "HST_3PackStarterKit.pdf",
+        "source_message_id": "<thread-id>"
+      },
+      "gif": "HST_WorkshopInAction.gif stays manual — Chris drops it in after the results bullets (Zapier cannot embed inline)",
+      "hubspot_bcc": "<HUBSPOT_BCC_ADDRESS>",
+      "html_rules": "one tag per line (newline between tags) so Zapier's text/plain part keeps the bullets on separate lines"
+    }
+  },
+  "vertical_of_org_type": {
+    "head_start_state_assoc": "ECE",
+    "head_start_regional_assoc": "ECE",
+    "head_start_grantee": "ECE",
+    "aeyc_affiliate": "ECE",
+    "ccrr_or_cca": "ECE",
+    "state_system_intermediary": "ECE",
+    "state_agency": "ECE",
+    "education_service_agency": "ECE",
+    "workforce_board": "ECE",
+    "trade_or_provider_assoc": "ECE",
+    "family_child_care_assoc": "ECE",
+    "franchise_or_corporate": "ECE",
+    "nonprofit_network": "ECE",
+    "university_or_college": "ECE",
+    "infant_mental_health_or_ei": "ECE",
+    "afterschool_school_age": "ECE",
+    "national_org": "ECE",
+    "canada": "ECE",
+    "other": "ECE",
+    "diocese_or_parish_system": "adjacent",
+    "independent_school": "adjacent",
+    "independent_school_assoc": "adjacent",
+    "school_district": "adjacent",
+    "nonprofit_assoc": "adjacent",
+    "hr_assoc": "adjacent",
+    "hospital_assoc": "adjacent",
+    "library_assoc": "adjacent",
+    "community_action_assoc": "adjacent",
+    "child_welfare_assoc": "adjacent",
+    "faith_school_network": "adjacent",
+    "_rule": "Chris 2026-10-23: adjacent verticals go in the same list, tagged so patterns can be analysed later. ECE = early-childhood workforce buyers; adjacent = school systems, for-purpose and HR/L&D associations."
+  },
+  "machine_001_exclusion": {
+    "_rule": "Chris 2026-10-23: the ~411 organizations Machine 001 has emailed are EXCLUDED from Machine 002 for now. Computed field excluded_machine_001 = true when the event/org domain matches Machine 001's contacted.jsonl. Rows stay in the database; the drafter never drafts them. Snapshot of the domains: exclusions-machine1-domains-2026-10-23.txt",
+    "excluded_rows_are_kept": true
+  },
+  "evidence_grade": {
+    "_rule": "Computed per event by bin/events.py: A = a named outside keynote (keynote_slot yes) or a documented RFP; B = an annual event with a confirmed or estimated 2027 date; C = organization or event recorded, event date/keynote unverified. Chris 2026-10-23: tag rows so the funnel can be cut by segment, vertical and evidence later."
+  },
+  "geography": {
+    "_rule": "Chris 2026-10-23: CO, KY and GA — off-limits in Machine 001 — are FAIR GAME for Machine 002. Any event/org that could be connected to an existing client (HubSpot customer, open deal, or a Clients/ folder org) is HELD and flagged for Chris to review a warm-intro path before any cold email.",
+    "open_states": [
+      "CO",
+      "KY",
+      "GA"
+    ],
+    "existing_client_hold": true,
+    "existing_client_sources": [
+      "../outreach-machine/hubspot-suppression.md (customers/open deals)",
+      "3.Human Skills Training/Clients/ folder names"
+    ]
+  },
+  "recipients": {
+    "_rule": "Chris 2026-10-23: Machine 001's thread rule applies — 1 in To, up to 2 in Cc, three people never four; the greeting names every first name on the thread; the Cc is insurance (one bounce still leaves two people who can hold each other to replying). Tiers are re-cut for the conference buyer.",
+    "to": "The person who OWNS the event: conference chair, Director of Events/Conferences/Professional Learning, or the ED when the ED runs it",
+    "cc1": "The budget-holder — ED / CEO / President / Superintendent / Head of School / Dean — when not already the To",
+    "cc2": "The second person the org's own pages tie to the event: program/events coordinator, conference committee chair, PD director, division director over the event",
+    "selection_pool": "Everyone named on the EVENT page + the staff/leadership page. The event page outranks the staff page because it names who actually runs the event.",
+    "checks": "Every address passes Check 1 (named on the org's own pages) and Check 2 (Apollo/validator). Tier-1/2 people with no published address are looked up before the thread is built (never choose three from a pool of one — CAPA-2026-08-18). Generic inboxes are tier 4, never an exclusion. Never guess a pronoun.",
+    "bounce": "Email 2/3 carry Machine 001's bounce parenthetical when a recipient from Email 1 hard-bounced: '(I think I got <First>'s email address wrong, so I'm not including them on this)' — its own line under the greeting."
+  }
+}

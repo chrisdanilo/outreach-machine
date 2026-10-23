@@ -1,0 +1,575 @@
+{
+  "_README": "MACHINE-READABLE SETTINGS. This file is the single source of truth for every number a script reads. STATE.md keeps the PROSE RATIONALE for each key and points here for the value. Chris edits this file directly. Never duplicate a value into a script.",
+  "_owner": "Chris Danilo",
+  "_updated": "2026-10-09",
+  "target_drafts": 25,
+  "active_cluster": "CL-2026-Q3",
+  "_active_cluster_why": "TLBS: one cluster = one Method x one Market x one Message, id CL-YYYY-QN. CL-2026-Q3 = MTH-001 Verified Cold Outreach x MKT-001 CCR&Rs/ECE intermediaries x MSG-001 v3. Source of truth: 3.Human Skills Training/Ops/Reference/cluster-pipeline.md. This machine SERVES the cluster In Test; it does not define one.",
+  "active_market": "MKT-001",
+  "_active_market_why": "MKT-001 = staffed agencies that serve child-care providers rather than operating centers. FUNCTION TEST, NOT DOMAIN TEST and NOT GEOGRAPHY. Definition owned by Ops/Reference/Market-Library.md - never redefined here.",
+  "new_market_requires_green_sheet": true,
+  "_new_market_why": "🔴 Chris 2026-08-31: 'I want to launch new clusters systematically and not while we're outreaching to CCR&Rs. Let's stick with CCR&Rs until I create a new Green Sheet for the next cluster, then we'll launch a new one.' LEVEL-2 HARD LIMIT (method §0.7.2). The machine may work any GEOGRAPHY inside MKT-001 freely, and may NOT open a new org TYPE. Green Sheet is the ⭐ non-negotiable first collateral piece in ClusterChecklist Phase 1; the Q2 2026 lesson is that building the outreach engine before the Green Sheet produced high volume and low conversion.",
+  "out_of_market_org_types": [],
+  "_out_of_market_why": "🔄 EMPTIED 2026-10-09 (Chris): workforce development boards (TX) and government / school-district / county units are now IN MKT-001 and drafted under CL-2026-Q3 — 'I don't want to exclude TX ... anymore' and 'Let's include government / school district / county units'. PRIOR (2026-08-31): 🔴 Named by Chris 2026-08-31 as SEPARATE MARKETS requiring their own cluster and Green Sheet. Retrospective: 21 Workforce Solutions boards were outreached 08-19 to 08-26 under CL-2026-Q3 with no Green Sheet and no cluster slot. Live sequences finish; NO NEW workforce-board organisations are drafted.",
+  "geography_is_not_a_market": true,
+  "_geography_why": "🔴 Chris 2026-08-31: 'A new state is not a new market. So, multiple CCR&Rs in different states are still part of the same cluster.' The tags CCRR-core (FL), TX-workforce-boards, NY-ccrr, NC-ccrr and CA-ccrr were MACHINE-INVENTED and are RETIRED. The correct word for a geography is REGION or SWEEP. Same defect class as the banned word 'approach': a TLBS term reused locally with a different meaning.",
+  "market_boundary_test": "message-lands-unedited",
+  "_boundary_test_why": "Market-Library, Chris + machine 2026-08-12: if the standing Message lands on an org type WITHOUT editing the template it is the same market; the moment an org type forces a copy rewrite it is a different market and a different cluster. This is the ONLY test. An ambiguous org type is HELD and flagged under D-DOUBT, never drafted.",
+  "queue_ceiling": 50,
+  "sequence_gap_days": 7,
+  "sequence_length": 3,
+  "max_bounce_rate_pct": 3.0,
+  "bounce_rate_baseline": "2026-08-18",
+  "_bounce_rate_baseline_why": "First day of sends made AFTER the two 2026-08-17 bounces were diagnosed. 08-17 was evaluated and REJECTED: two of those bounces came from sends made ON 08-17. Ruled by Chris 2026-08-25.",
+  "catch_all_domains": "<redacted for sharing: 11 list entries of real addresses/domains removed>",
+  "_catch_all_why": "Excluded from the bounce rate in BOTH directions - a catch-all non-bounce proves nothing. Chris 2026-08-11. 🔴 org0134.example ADDED 2026-08-28: Apollo returned email_domain_catchall:true for [Org 0434] (amandah@, nancym@) on the roster sweep. Excluded from the bounce rate in BOTH directions per Chris 2026-08-11 - silence from a catch-all proves nothing. 🔴 org0049.example, org0430.example and org0455.example ADDED 2026-09-01: Apollo returned email_domain_catchall:true on the roster sweep for [Org 0698], ICES and KCAO. Excluded from the bounce rate in BOTH directions per Chris 2026-08-11 — a ZeroBounce 'valid' on a catch-all domain proves the server accepts everything, not that the mailbox exists. 🔴 org0509.example and org0081.example ADDED 2026-09-03: Apollo returned email_domain_catchall:true on the R6b employment check for [Person 0421] and [Person 0431]. Excluded from the bounce rate in BOTH directions per Chris 2026-08-11 — silence from a catch-all proves nothing, and a delivery from one proves nothing either.",
+  "never_recipients": "<redacted for sharing: 1 list entries of real addresses/domains removed>",
+  "_never_recipients_why": "Appear in Ledger B DELIVERED but were never addressed. Excluded from every denominator. person0094@org0728.example replied from an address that was never on the thread. 🔴 person0830@org0320.example was REMOVED 2026-08-25 (Chris, D1): the stated basis - 'never addressed' - became false at 15:28Z when Chris put her in the To of [Org 0539]'s Email 2 under the human-reply-outranks-the-inbox rule (method.md §0.8.5). She is now a normal addressed recipient and counts in the bounce denominator. Effect on the rate: 1 of 67 = 1.49% (was 1 of 66 = 1.52%). Ceiling 3.0%, clear either way.",
+  "hard_bounces": "<redacted for sharing: 20 dict entries of real addresses/domains removed>",
+  "_hard_bounces_why": "DSN-confirmed only. person1074@org0077.example is EXCLUDED - an auto-reply is not a DSN and never counts toward the rate. 🔴 info@org0700.example ADDED 2026-08-28. DSN 550 5.1.1 'The email account that you tried to reach does not exist', 15 SECONDS after send. SOURCE: the org's OWN live site footer, mailto:info@org0700.example, read 2026-08-28 and quoted on the card. This is the SECOND failure of the live-page exception in five days (tony.armadillo@ 08-24 was the first) and the SECOND V3 generic-inbox failure. Both were published by the organisation itself on a current page inside the 90-day window, and both were dead. 🔴 findcare@org0242.example ADDED 2026-09-01. DSN 2026-08-31T19:45:38Z, Status 5.7.0, 'permanent failure for one or more recipients (findcare@org0242.example:blocked)', Barracuda MTA. NOTE THE CLASS DIFFERENCE: this is a POLICY BLOCK, not a 5.1.1 no-such-mailbox. Counted as a bounce because it is a permanent failure. SOURCE: the org's OWN live contact page, read 2026-08-31. THIRD failure of the live-page exception in eight days and the THIRD V3 generic inbox (tony.armadillo@ 08-24, info@org0700.example 08-28). Zero named-human V2 addresses have ever bounced.",
+  "domain_aliases": "<redacted for sharing: 90 dict entries of real addresses/domains removed>",
+  "_domain_aliases_why": "Recipients whose address domain differs from the organisation's own domain. Promoted 2026-08-25 from a bounce-rate patch to the CANONICAL ORG-IDENTITY REGISTER per CAPA-2026-08-25-org-domain-identity, Chris approved. bin/dedup_check.py reads this and treats each pair as ONE organisation for R1/R11 - a candidate matching either side is R1-CLOSED. ENTRIES: org0572.example/org0434.example - ICP Oswego has two recipients at a state-agency address; without this, bounce_rate.py cannot resolve the send date and the address falls out of the denominator SILENTLY. org0253.example/org0251.example - [Org 0462] MAILS from org0253.example but its site 301-redirects to org0251.example, which is also what Apollo returns as primary_domain; without this a future discovery pass finding the canonical host reads the org as never-contacted and drafts it a SECOND time, which is exactly the failure R1 exists to prevent. org0174.example/org0389.example - same shape, already both present in Ledger A, declared here so the group is explicit rather than incidental. org0170.example/org0229.example - CPC's Early Childhood Learning & Wellness Services runs a separate public site, cited on org0229.example; declared BEFORE it is ever used so a future Gate 1 read of it cannot open a second thread. 🔴 org0103.example/[Org 0329].org ADDED 2026-08-25 23:5xZ — CAUGHT LIVE. [Org 0329] was emailed 2026-08-20 (thread <thread-id>, Email 2 due 08-27) under its MAIL domain org0103.example. Its WEBSITE is [Org 0329].org, which is what discovery surfaces and what a de-dup on the website domain returns CLEAR for. The run researched it as a NEW organisation tonight and only the E1.8 dual-domain capture stopped a SECOND cold thread to an org mid-sequence. This is the exact failure R1 exists to prevent and it was 90 minutes from happening. 🔴 SIX PAIRS ADDED 2026-08-27 from the ECLC 35-member NYS CCR&R directory (T3 discovery). org0120.example/org0190.example is the DANGEROUS one and was caught before drafting: Child Care Solutions was emailed 2026-08-12 under org0120.example, but the statewide directory and the org's own site both use org0190.example - a future discovery pass would have read it as never-contacted and opened a SECOND cold thread. Identical shape to the [Org 0329] catch of 08-25. The other five are website-vs-mail splits on never-contacted orgs, declared BEFORE first use. 🔴 DELIBERATELY NOT ALIASED: org0102.example/org0227.example - Child Care Council of [Org 0438] mails from a SHARED UNIVERSITY DOMAIN. Aliasing org0227.example would make every future org0227.example address read as this one organisation. Handled as a single-domain org with a note on its card instead. 🔴 2026-08-27 (Chris D2): shared institutional tenants are handled by the NEW shared_tenant_domains key, not here. The existing org0572.example/org0434.example entry is now understood as a MISTAKE OF CLASS - it was added to make bounce_rate.py resolve a send date, and it happens to be harmless only because no second org0572.example org had been drafted until tonight. It should be reviewed. 🔴 [Org 0598]/org0664.example ADDED 2026-08-27 — CLOSES R15, open 5 runs. Both are official domains of ONE organisation ([Org 0502]): the website serves from [Org 0598], the org publishes info@org0664.example as its contact, and person0177@org0341.example auto-replied FROM person0178@org0664.example - which also PROVES the addresses we used deliver. This is a genuine org-owned pair (same shape as Rockland), NOT a shared tenant, so it belongs here and not in shared_tenant_domains. 🔴 TWO PAIRS ADDED 2026-08-28 (North Carolina cluster, T3 discovery). org0701.example/org0700.example - [Org 1119] publishes its PEOPLE at org0701.example (person0319@org0701.example) and its GENERAL INBOX at org0700.example (info@org0700.example), both on its own site org0701.example; declared BEFORE first use so a future discovery pass finding either cannot open a second thread. org0401.example/org0412.example - [Org 0671] (formerly United Day Care Services / Guilford Child Development) publishes BOTH domains on the SAME staff page, with several people appearing at both (victoria.vample@ at each); genuine org-owned pair, declared before first use. 🔴 DELIBERATELY NOT ALIASED 2026-08-28: (a) org0185.example/ccrr.org - [Org 0289] carries stale legacy ccrr.org duplicate links. ccrr.org is a BARE GENERIC ACRONYM domain and aliasing it would merge every future org at that host into this one - the org0227.example failure mode. CCRC is handled as a single-domain org on org0185.example and no ccrr.org address is ever used. (b) org0279.example/childcareservices.org - [Org 0511] is the former Child Care Services Association and the NC CCR&R Council still links Region 12 to childcareservices.org, but the redirect COULD NOT BE VERIFIED this run (web_fetch is provenance-restricted and no other fetch route is permitted). Under fail_closed an unverified redirect is not evidence, so no alias was written. [Org 0511] is drafted as a single-domain org on org0279.example, which is where every published address actually lives and which returns CLEAR on its own. ⚠️ FLAGGED TO CHRIS: if childcareservices.org does 301 to org0279.example, this pair should be declared. (c) org0017.example/[Org 0030].org - Albemarle Alliance is HELD this run, so the pair is declared when the org is actually worked, not before. 🔴 org0225.example/org0134.example ADDED 2026-08-28 (California cluster): [Org 0434]'s WEBSITE is org0225.example (also Apollo's primary_domain) but every mailbox is at org0134.example (amandah@, nancym@, itzell@). Same shape as [Org 0329] and Child Care Solutions CNY - a future discovery pass finding the website domain would read the org as never-contacted and open a SECOND cold thread. Declared BEFORE first use. ⚠️ 2026-08-28 AMENDMENT — org0701.example/org0700.example: the alias is STILL CORRECT AS ORG IDENTITY (both are SWCDC's own domains, both published on its own site) and must NOT be removed - removing it would let a future discovery pass read org0700.example as a different organisation and open a second cold thread. BUT org0700.example DOES NOT ACCEPT MAIL: info@org0700.example hard-bounced 2026-08-28. 🔴 ORG IDENTITY AND MAIL DELIVERABILITY ARE DIFFERENT QUESTIONS and this pair is the proof. Never harvest an address at org0700.example again; people are at org0701.example.",
+  "gate2b_mode": "apollo-waterfall-source-matched",
+  "_gate2b_why": "Chris 2026-08-25 evening: no Zapier; ZeroBounce runs inside Apollo as the Waterfall validator. Probe-verified same evening: verdict at emails[].vendor_validation_statuses[] (raw_status + timestamp); DSN-delivered address returned 'valid' for 1 credit; null fill cost 0. Live-page addresses are governed by E1.7 classes V2/V3, never a vendor. See method.md §0.9 revision block.",
+  "gate2b_verdict_path": "emails[].vendor_validation_statuses[]",
+  "warm_lane": "track-and-brief",
+  "_warm_lane_why": "Chris 2026-08-25: machine tracks reply hand-offs in warm.jsonl and writes context briefs; Chris writes every reply himself. Headline scoreboard metric is MEETINGS HELD.",
+  "dedup_mode": "set-intersection-over-alias-groups",
+  "_dedup_mode_why": "Chris 2026-08-25. R1/R11 were a substring grep, and a zero-hit grep cannot tell 'never contacted' from 'contacted under the other domain' - it returns 0 for both. bin/dedup_check.py replaces it: CLOSED on any intersection, CLEAR on none, and HOLD on a PARTIAL match, which was previously the silent case. Run it per candidate org before research and before drafting.",
+  "shared_tenant_domains": "<redacted for sharing: 24 list entries of real addresses/domains removed>",
+  "_shared_tenant_domains_why": "🔴 INSTALLED 2026-08-27 on Chris's D2 ruling: 'keep them separate. we will email each as a new org.' These are mail domains that MULTIPLE UNRELATED organisations send from - a state agency tenant, a university tenant, a consumer provider. They are NOT org identity. 🔴 NEVER add one to domain_aliases: doing so would merge every organisation sharing the tenant into one org under R1, which is the opposite of what R1 is for. org0572.example is the live example - it is ALREADY aliased to org0434.example (ICP Oswego), and [Org 1128] also mails from it. Under this ruling each org is its own org, deduped on its WEBSITE domain, with the shared tenant recorded on the card and in Ledger A but never aliased. Both St. Lawrence and Cornell Oneida were drafted 2026-08-27 under this ruling. 🔴 SEVEN ADDED 2026-09-03 as the machine left its first university-heavy region. org0646.example ([Org 0519] is embedded in Salisbury University; every staff address is a university address) · org0485.example ([Org 0795] is hosted by the University of Maine System) · org0305.example (the [Org 0160] is run by Education Development Center, which hosts dozens of unrelated programmes) · sc.edu + org0484.example + org0350.example ([Org 1061] sits inside the University of South Carolina and prints THREE different USC mail domains on ONE roster — do not normalise them) · org0606.example (Pine Technical & Community College, a Minnesota State college hosting the Region 7E CCR&R). 🔴 org0446.example IS A NEW SUB-CLASS AND IS THE MOST IMPORTANT OF THE SEVEN: it is a SHARED **WEBSITE**, not a shared mail tenant. ONE site, org0446.example, is the public face of FIVE SEPARATE EMPLOYERS (org0354.example, org0778.example, org0582.example, org0508.example, org0073.example), one per CCR&R region. Aliasing org0446.example would merge five unrelated organisations into one under R1 — the exact org0227.example failure, arriving from the opposite direction. Each Iowa region is deduped on its MAIL domain and carries org0446.example on its card as a shared host. The general rule these all instance: an organisation is identified by the domain that is UNIQUELY ITS OWN, whichever side of the website/mail split that happens to be on.",
+  "ooo_return_date": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "_ooo_return_date_why": "🔄 CHANGED 2026-10-09 (Chris): 'If the delay is due to only one person on the thread, let's resume sending to all contacts.' An out-of-office from ONE recipient (To or Cc) never delays the thread; it is sent on schedule to every recipient. The thread waits only when EVERY recipient is out, until the earliest stated return + 1 working day. Supersedes the 2026-08-27 to-recipient-only rule. PRIOR: 🔄 CHANGED 2026-08-27 (Chris, method §0.14 rule 2). Was soonest-of-anyone-on-the-thread, set 08-21. Under the old rule a delay needed EVERY recipient out; a non-responder implied return-today, so with 3 recipients it never fired - zero holds between 08-21 and 08-27 including a 20-message sweep. Now: delay when the TO is out, to their return date +1 working day. A Cc absence delays nothing. The To is the wedge buyer; the Cc slots are R2 redundancy.",
+  "ooo_email_3_waits_while_active": true,
+  "_ooo_email_3_why": "Chris 2026-08-27 OVERRULED the proposal, which recommended Email 3 never delays. Email 3 waits on the same terms as Email 2 while the To's out-of-office is still active (stated return date not yet passed). A closing gift landing in an unread inbox is a wasted goodbye.",
+  "ooo_departure_successor": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "_ooo_departure_successor_why": "🔴 Chris 2026-08-27, method §0.14 rule 5: 'A named successor after a departure should claim the To. We want to follow their org's instructions, if given, on who to contact in this case.' STRONGER than the proposal, which said 'may'. A deliberate carve-out from R5 and from ooo_covering_contacts. Trigger: unambiguous Class B departure that NAMES a replacement. ⚠️ IMPLEMENTED as claims-the-DEPARTED-PERSON'S-slot, not always the To - read literally it would demote a live To when the departed person was only a Cc. Flagged to Chris; overrule and it becomes literal.",
+  "when_in_doubt": "label-to-chris",
+  "_when_in_doubt_why": "D-DOUBT, method §0.2. Chris 2026-08-27: 'When in doubt, label to my attention.' Any uncertainty resolves to CCR&R outreach/⚠ (Label_14) plus a report line. The machine never breaks a tie in its own favour. Over-closing and over-sending are both invisible from the inside; a flag costs one line.",
+  "stage_labels": {
+    "0": "Label_8",
+    "1": "Label_9",
+    "2": "Label_10",
+    "3": "Label_11",
+    "replied": "Label_12",
+    "closed": "Label_13",
+    "attention": "Label_14",
+    "parent": "Label_2",
+    "hold": "Label_15"
+  },
+  "_stage_labels_why": "method §0.12/§0.13. Write tools take the ID; the SEARCH operator takes the display name - label:Label_9 returns {} with no error, label:\"CCR&R outreach/1\" works. Stages are mutually exclusive: unlabel the old before labelling the new. ⚠ is not a stage and rides alongside. 🆕 2026-10-04: `hold` = Label_15 ('CCR&R outreach/⏸'), the follow-up sender's hold/veto label — rides alongside the stage like ⚠ (config.followup_sender.hold_label).",
+  "max_to": 1,
+  "max_cc": 3,
+  "_max_cc_why": "🔄 RAISED 2 -> 3 ON 2026-08-28 (Chris): 'I think it's okay to have 1 TO and 3 CC. For some orgs, it might be best for us to do this because they're so big and have so many different roles.' The To remains exactly ONE. 🔴 CEILING, NOT A TARGET - R4 still ranks and the 4th slot is used only where a genuinely distinct role justifies it at a large multi-function org; it is never a way to pad Redundancy or to meet the outreach floor by widening the Cc (method.md 0.8.3 binds). Enforced in method.md 0.4 U1 and bin/preflight.py.",
+  "calibration_log": "required",
+  "_calibration_log_why": "🆕 INSTALLED 2026-08-28 (Chris): 'I want to keep a record of how many emails we thought were invalid but ended up being okay to send (didn't bounce) and how many we thought were safe to send but ended up bouncing... so that we can learn about our process and how much we can trust tools like zerobounce and apollo and these websites themselves.' Data: calibration-log.jsonl. Script: bin/calibration.py. Run appends at method.md 0.3 step 18b; the one-line stat heads EVERY dossier and is a 0.6 mandatory report line. 🔴 A held address is never sent, so most holds are CENSORED and unscorable - FP=0 means 'we never found out', NOT 'we do not over-block'. The censored count is printed beside FP so the zero cannot be misread. hold_type 'selection' (e.g. R4 excluding a CEO) is a preference, not a validity claim, and NEVER scores.",
+  "_domain_aliases_added_2026_09_01": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "expected_outputs": [
+    {
+      "path": "dossier-<date>.md",
+      "binding": true,
+      "why": "THE DELIVERABLE. The file Chris opens to send from. Missing on 08-31 and 09-01 and nothing noticed - CAPA-2026-09-01-missing-dossier"
+    },
+    {
+      "path": "review-<date>.md",
+      "binding": true,
+      "why": "The learning artifact - decisions, findings, mandated lines"
+    },
+    {
+      "path": "runs/<date>/dossier_check.json",
+      "binding": false,
+      "why": "bin/dossier_check.py - does the produced dossier match dossier-template.md's REQUIRED HEADINGS block, in order? Installed 2026-09-03 on Chris's instruction after the dossier shape drifted for a SECOND time. SHADOW until ratified, per the graduated-gate precedent in method 0.10."
+    },
+    {
+      "path": "runs/<date>/bounce_rate.json",
+      "binding": true,
+      "why": "THE bounce gate number. method §0.10: artifact missing or not dated today -> new-org drafting HOLDS"
+    },
+    {
+      "path": "runs/<date>/drafts.json",
+      "binding": false,
+      "required": "if_drafts",
+      "why": "preflight.py's input. Written before ACT for the full planned batch"
+    },
+    {
+      "path": "runs/<date>/preflight.json",
+      "binding": false,
+      "required": "if_drafts",
+      "why": "preflight.py's verdicts. SHADOW until 3 consecutive runs agree with the LLM pass"
+    },
+    {
+      "path": "runs/<date>/drafts_observed.json",
+      "binding": false,
+      "required": "if_drafts",
+      "why": "UNFILTERED list_drafts read-back (D-SWEEP). Proves the mailbox holds what drafts.json claims. §0.11's read-it-back principle applied to the whole batch"
+    },
+    {
+      "path": "runs/<date>/sent_sweep.json",
+      "binding": false,
+      "why": "The unfiltered 3-day sent sweep. Feeds BOTH ledger_reconcile.py (listed LIVE in §0.10 and never once executed for want of this file) AND the as-sent delta"
+    },
+    {
+      "path": "runs/<date>/calibration.json",
+      "binding": false,
+      "why": "calibration.py - the dossier's top line"
+    },
+    {
+      "path": "runs/<date>/queue_health.json",
+      "binding": false,
+      "why": "queue_health.py - the Queue and Pace lines"
+    },
+    {
+      "path": "runs/<date>/dashboard_seed.json",
+      "binding": false,
+      "why": "The visual dashboard's figures. NON-BINDING by design - a dashboard failure must never gate outreach drafting."
+    },
+    {
+      "path": "territory.json",
+      "binding": true,
+      "why": "🔴 THE WALK. One row per state; the machine works ONE territory at a time in the declared order and may not open the next until the current is SATURATED. Installed 2026-09-03. binding:true because a missing ledger means the machine has no idea where it is."
+    },
+    {
+      "path": "runs/<date>/territory.json",
+      "binding": false,
+      "why": "bin/territory_check.py - the two §0.6 territory report lines + the order verdict. SHADOW until ratified."
+    },
+    {
+      "path": "runs/<date>/territory_reconcile.json",
+      "binding": false,
+      "why": "bin/territory_reconcile.py - does the territory ledger agree with contacted.jsonl and candidates.jsonl? Report-only by design."
+    },
+    {
+      "path": "sequence-tracker.md",
+      "binding": false,
+      "why": "Declared 2026-09-26 (Chris authorised the Cowork build steps). §0.3 step 17 names this file as a per-run write and the 09-21 run skipped it unseen — review-2026-09-22 Finding 2: none of the step-17 ledgers was in this list, so run_integrity.py could not see the omission. SHADOW for 3 runs per the §0.10 graduated-gate precedent, then binding."
+    },
+    {
+      "path": "verification-log.md",
+      "binding": false,
+      "why": "Declared 2026-09-26 (Chris authorised the Cowork build steps). §0.3 step 17 names this file as a per-run write and the 09-21 run skipped it unseen — review-2026-09-22 Finding 2: none of the step-17 ledgers was in this list, so run_integrity.py could not see the omission. SHADOW for 3 runs per the §0.10 graduated-gate precedent, then binding."
+    },
+    {
+      "path": "recipient-profile.md",
+      "binding": false,
+      "why": "Declared 2026-09-26 (Chris authorised the Cowork build steps). §0.3 step 17 names this file as a per-run write and the 09-21 run skipped it unseen — review-2026-09-22 Finding 2: none of the step-17 ledgers was in this list, so run_integrity.py could not see the omission. SHADOW for 3 runs per the §0.10 graduated-gate precedent, then binding."
+    },
+    {
+      "path": "contacted.md",
+      "binding": false,
+      "why": "Declared 2026-09-26 (Chris authorised the Cowork build steps). §0.3 step 17 names this file as a per-run write and the 09-21 run skipped it unseen — review-2026-09-22 Finding 2: none of the step-17 ledgers was in this list, so run_integrity.py could not see the omission. SHADOW for 3 runs per the §0.10 graduated-gate precedent, then binding."
+    },
+    {
+      "path": "contacted.jsonl",
+      "binding": false,
+      "why": "Declared 2026-09-26 (Chris authorised the Cowork build steps). §0.3 step 17 names this file as a per-run write and the 09-21 run skipped it unseen — review-2026-09-22 Finding 2: none of the step-17 ledgers was in this list, so run_integrity.py could not see the omission. SHADOW for 3 runs per the §0.10 graduated-gate precedent, then binding. Dual-write partner of contacted.md."
+    },
+    {
+      "path": "discovery-pipeline.md",
+      "binding": false,
+      "why": "Declared 2026-09-26 (Chris authorised the Cowork build steps). §0.3 step 17 names this file as a per-run write and the 09-21 run skipped it unseen — review-2026-09-22 Finding 2: none of the step-17 ledgers was in this list, so run_integrity.py could not see the omission. SHADOW for 3 runs per the §0.10 graduated-gate precedent, then binding."
+    },
+    {
+      "path": "../CCRR-Outreach-Log.md",
+      "binding": false,
+      "why": "Declared 2026-09-26 (Chris authorised the Cowork build steps). §0.3 step 17 names this file as a per-run write and the 09-21 run skipped it unseen — review-2026-09-22 Finding 2: none of the step-17 ledgers was in this list, so run_integrity.py could not see the omission. SHADOW for 3 runs per the §0.10 graduated-gate precedent, then binding. Lives one folder up, in Marketing/."
+    },
+    {
+      "path": "candidates.jsonl",
+      "binding": false,
+      "why": "Declared 2026-09-26. The no-rework ledger (§0.10): every candidate outcome is appended the moment it is known, so a run that drafted or held anything must have touched it. SHADOW for 3 runs."
+    },
+    {
+      "path": "STATE.md",
+      "binding": false,
+      "why": "Declared 2026-09-26. Written at §0.3 steps 2, 2c, 11c, 14c and 22 — a run that did not touch STATE.md today did not run. SHADOW for 3 runs."
+    },
+    {
+      "path": "funnel-conversion.json",
+      "binding": false,
+      "why": "Declared 2026-09-26. Input to dashboard_seed.py (step 20b); was 2 runs stale on 09-24 while the Dashboard line said PROBLEM. SHADOW for 3 runs; report-only by design like the dashboard itself."
+    },
+    {
+      "path": "warm.jsonl",
+      "binding": false,
+      "why": "Declared 2026-09-26. The warm-lane hand-off ledger (config.warm_lane = track-and-brief). Reported NOT written for 20 runs under open decision D6 — listing it here makes the omission a counted object rather than a sentence in the report. SHADOW; stays shadow until Chris rules D6."
+    },
+    {
+      "path": "runs/<date>/config.pre-run.json",
+      "binding": false,
+      "why": "bin/run_snapshot.py (§0.3 step 2b, installed 2026-09-26) — start-of-run copy that lets bin/replay.py re-test this night's scripts. SHADOW for 3 runs."
+    },
+    {
+      "path": "runs/<date>/contacted.pre-run.jsonl",
+      "binding": false,
+      "why": "bin/run_snapshot.py (§0.3 step 2b, installed 2026-09-26) — start-of-run copy that lets bin/replay.py re-test this night's scripts. SHADOW for 3 runs."
+    },
+    {
+      "path": "runs/<date>/candidates.pre-run.jsonl",
+      "binding": false,
+      "why": "bin/run_snapshot.py (§0.3 step 2b, installed 2026-09-26) — start-of-run copy that lets bin/replay.py re-test this night's scripts. SHADOW for 3 runs."
+    },
+    {
+      "path": "runs/<date>/calibration.pre-run.jsonl",
+      "binding": false,
+      "why": "bin/run_snapshot.py (§0.3 step 2b, installed 2026-09-26) — start-of-run copy that lets bin/replay.py re-test this night's scripts. SHADOW for 3 runs."
+    },
+    {
+      "path": "runs/<date>/territory.pre-run.json",
+      "binding": false,
+      "why": "bin/run_snapshot.py (§0.3 step 2b, installed 2026-09-26) — start-of-run copy that lets bin/replay.py re-test this night's scripts. SHADOW for 3 runs."
+    },
+    {
+      "path": "runs/<date>/STATE.pre-run.md",
+      "binding": false,
+      "why": "bin/run_snapshot.py (§0.3 step 2b, installed 2026-09-26) — start-of-run copy that lets bin/replay.py re-test this night's scripts. SHADOW for 3 runs."
+    },
+    {
+      "path": "runs/<date>/classifier.json",
+      "binding": false,
+      "required": "always",
+      "why": "Every permission-classifier denial of a write, as a counted object - [] when none (CAPA-2026-09-30 C5). run_integrity.py computes the Classifier: line from it (BQ-023, 2026-10-04). Absent = NOT RECORDED, a finding, never zero. SHADOW per the 0.10 graduated gate; flip binding after 3 clean runs"
+    }
+  ],
+  "_expected_outputs_why": "🔴 THE DECLARED DELIVERABLES OF A RUN. Installed 2026-09-01 per CAPA-2026-09-01-missing-dossier. bin/run_integrity.py reads this list and checks each file exists and is dated today. THIS LIST IS THE POINT OF THE WHOLE CONTROL: the run manifest is generated FROM method §0, so any artifact that lives only as a habit is invisible to it. Declaring outputs as DATA rather than prose means adding a deliverable is one line here, and P7b (method RUN EFFICIENCY) makes that line mandatory in the same session the deliverable is invented. binding:true fails the run today. binding:false reports and earns its teeth over 3 runs, per the graduated-gate precedent in §0.10. 🔴 2026-09-26: eleven run-written ledgers added (the six §0.3 step-17 files, contacted.jsonl, candidates.jsonl, STATE.md, funnel-conversion.json, warm.jsonl). Freshness test for a path without <date> is 'modified today' (run_integrity.py). All SHADOW for 3 runs, then flip binding:true here — one field, no code.",
+  "_domain_aliases_added_2026_09_02": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "_domain_aliases_added_2026_09_03": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "dossier_shape_source": "dossier-template.md",
+  "_dossier_shape_source_why": "🔴 Chris 2026-09-03: 'Why does the structure of the dossier keep changing? Build an outline template for the dossier that each scheduled task run will just fill in.' method 0.6a pinned the section ORDER in prose on 2026-09-02 and the shape drifted again on 2026-09-03 - measured, not asserted: bin/dossier_check.py scores the 09-02 dossier at 3 of 9 required headings and the 09-03 dossier at 8 of 9. A paragraph describing a heading list is not a heading list. dossier-template.md is now the SHAPE (a fill-in skeleton with {{tokens}} and a machine-readable REQUIRED HEADINGS block); method 0 remains the LAW. 🔴 When 0 changes the dossier's shape, dossier-template.md MUST be edited in the same session - that is P7b applied to the template. The 2026-08-11 file was a CARD template only, never described the whole file, was 3 weeks stale, and although RUN EFFICIENCY says 'load it EVERY run that cards an org' the 09-03 run did not load it. Superseded copy: archive/dossier-template-2026-08-11-card-only-SUPERSEDED.md",
+  "max_new_orgs_per_run": 25,
+  "_max_new_orgs_per_run_why": "🔴 RAISED 10 → 25 ON 2026-10-08 (Chris): 'give me 25 new organizations instead of 10 each day.' target_drafts, max_new_orgs_per_run and queue_ceiling moved together (25 / 25 / 50) so the 2026-08-25 ratio holds: queue_ceiling = 2 × target_drafts, one full batch always survives a blocked run. Rate = ceiling, as before. ORIGINAL: 🔴 INSTALLED 2026-09-03 per CAPA-2026-09-03-floor-overshoot, after the run drafted 15 against a prescribed 10 and reported it as 'FLOOR MET AT 150%'. Chris 2026-08-20 defined this as a RATE - 'I was thinking of 10 new outreaches a day. So that would mean 10 new organizations.' - and §0.8 stored it as a FLOOR. A floor with no ceiling produced 15. 🔴 THIS IS THE CEILING. When it and queue_ceiling disagree, THIS ONE WINS: queue_ceiling governs the buffer across runs, this governs Chris's hands on one morning, and hands are the scarcer resource. Every Email 1 costs him a GIF drag, a PDF attach and three unfamiliar recipients to eyeball. Also: organisations 11-15 are BY CONSTRUCTION the weakest five, because the cascade ranks - overshoot dilutes the batch as well as enlarging it.",
+  "surplus_goes_to_ready_queue": true,
+  "_surplus_why": "🔴 INSTALLED 2026-09-03, CAPA-2026-09-03-floor-overshoot C3. Research to the cascade's natural stopping point; draft to max_new_orgs_per_run; WRITE THE REMAINDER TO ready-queue.md with its evidence intact. The 09-03 run had ~30 gate-passed organisations and drafted 15 because it had nowhere else to put them. There IS somewhere: ready-queue.md IS the cascade's T1 tier, and it had been empty and 7 runs stale - which is exactly why every recent run had to descend to T3 and re-research from scratch. This converts overshoot from a cost into a buffer and cuts the next run's discovery cost to near zero.",
+  "territory_ledger": "territory.json",
+  "territory_unit": "state",
+  "_territory_why": "🔴 INSTALLED 2026-09-03 on Chris's instruction: 'Why are there 7 new states in this one run? I want this machine to be systematic and methodical by going county by county across the United States.' The 09-03 run touched 23 states and drafted into 9. It broke no rule because there was none - method.md contained ZERO instances of saturat*/territor*/density/enumerat*. §0.8.3 forbids meeting the floor by descending the TIER ladder; §0.7.2 forbids descending the MARKET; NOTHING forbade changing the TERRITORY, the cheapest door and the only one marked 'Free'. 🔴 UNIT IS THE STATE, NOT THE COUNTY - CCR&Rs are multi-county lead agencies (Iowa is 5 employers across 99 counties), so a literal county walk would re-hit the same agency and break R1. Counties are kept as the SCOREBOARD so the county sentence survives; agencies remain the work. Design: PROPOSAL-2026-09-03-systematic-territory-model. Gate: method §0.8.6. Scripts: bin/territory_check.py (order, SHADOW until ratified), bin/territory_reconcile.py (ledger agreement).",
+  "_domain_aliases_added_2026_09_04": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "_domain_aliases_added_2026_09_07": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "_domain_aliases_added_2026_09_07b": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "_domain_aliases_added_2026_09_15": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "_domain_aliases_added_2026_09_16": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "_shared_tenant_domains_added_2026_09_16": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "cleanup_departed": "<redacted for sharing: 2 dict entries of real addresses/domains removed>",
+  "_cleanup_departed_why": "2026-09-22 (Chris): addresses of people who have LEFT their organisation, keyed by email -> {org, evidence, date}. bin/hubspot_cleanup.py tags each one delete_bounced_left for Chris to delete from HubSpot. Add a row when an auto-reply says the person is gone. Hard bounces are read from hard_bounces; do not duplicate them here.",
+  "hubspot_cleanup": {
+    "property": "outreach_cleanup",
+    "values": [
+      "remove"
+    ],
+    "contact_limit": 1000,
+    "log": "hubspot-cleanup.jsonl",
+    "runs": "runs/cleanup/<date>/",
+    "schedule": "weekly, Monday",
+    "grace_days": 14,
+    "forwarded_kept": true,
+    "note": "2026-10-07 Chris: single value in HubSpot; reasons (delete_no_reply/declined/bounced_left) kept in hubspot-cleanup.jsonl only"
+  },
+  "_hubspot_cleanup_why": "2026-09-22 (Chris): stay under the HubSpot plan's 1,000-contact limit. The machine TAGS dead cold-outreach contacts; Chris reviews and bulk-deletes. The machine NEVER deletes. Not a do-not-contact list. See method §0.15. AMENDED 2026-09-30 (Chris): grace after Email 3 is 14 days (grace_days, separate from the outreach sequence_gap_days); FORWARDED orgs are kept (the forwarder may still be a useful contact); hard_bounces and cleanup_departed are the sources of truth for bounced/departed and those are removed from HubSpot entirely; anyone who talked to or met Chris stays.",
+  "_domain_aliases_added_2026_09_23": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "cluster_profiles": {
+    "CL-2026-Q3": {
+      "status": "IN TEST",
+      "label": "CCR&R cold outreach",
+      "method": "MTH-001 Verified Cold Outreach",
+      "market": "MKT-001",
+      "message": "MSG-001 v3",
+      "opened": "2026-08-11",
+      "green_sheet": "TLP/GreenSheets/Green-Sheet-Q2-2026.md",
+      "_green_sheet_note": "CL-2026-Q3 is the Q2 cluster relaunched with the machine (cluster-pipeline.md: 'ITERATED into CL-2026-Q3'). If a Q3-specific sheet exists, point here at it.",
+      "market_card": "Ops/Reference/Market-Library.md#MKT-001",
+      "cluster_card": "Ops/Reference/cluster-pipeline.md",
+      "copy_file": "Marketing/Cold-Outreach-Sequence-CCR&R.md",
+      "gmail_label_parent": "CCR&R outreach",
+      "target_list_source": "each state's own CCR&R lead-agency directory, enumerated per territory (§0.3 step 12b)",
+      "settings": {
+        "active_market": "MKT-001",
+        "out_of_market_org_types": [],
+        "target_drafts": 25,
+        "max_new_orgs_per_run": 25,
+        "queue_ceiling": 50,
+        "sequence_gap_days": 7,
+        "sequence_length": 3,
+        "stage_labels": {
+          "0": "Label_8",
+          "1": "Label_9",
+          "2": "Label_10",
+          "3": "Label_11",
+          "replied": "Label_12",
+          "closed": "Label_13",
+          "attention": "Label_14",
+          "parent": "Label_2",
+          "hold": "Label_15"
+        },
+        "territory_ledger": "territory.json",
+        "territory_unit": "state"
+      }
+    },
+    "CL-2026-Q4": {
+      "status": "ON DECK — Green Sheet v1 exists; NOT launched; nothing here is applied",
+      "label": "Directors of Early Learning Centers",
+      "method": "MTH-001 Trainer",
+      "market": "MKT-102",
+      "message": "MSG-004 'Human Skills Are the Future' — entry hook MSG-107 'The conversation you're avoiding'",
+      "opened": null,
+      "green_sheet": "TLP/GreenSheets/Green-Sheet-Q4-2026-ELC-Directors.md",
+      "market_card": "Ops/Reference/Market-Library.md#MKT-102",
+      "cluster_card": "Ops/Reference/cluster-pipeline.md",
+      "copy_file": null,
+      "_copy_file_note": "No approved copy exists yet. bin/cluster.py apply REFUSES a profile with copy_file null — the machine never writes body copy (method 'Approved copy').",
+      "gmail_label_parent": null,
+      "target_list_source": null,
+      "settings": {
+        "active_market": "MKT-102",
+        "out_of_market_org_types": [
+          "workforce development boards (Texas Workforce Solutions and every state equivalent)",
+          "school districts",
+          "CCR&Rs and ECE intermediaries (MKT-001 — its own cluster, CL-2026-Q3)"
+        ],
+        "target_drafts": 25,
+        "max_new_orgs_per_run": 25,
+        "queue_ceiling": 50,
+        "sequence_gap_days": 7,
+        "sequence_length": 3,
+        "stage_labels": null,
+        "territory_ledger": "territory-CL-2026-Q4.json",
+        "territory_unit": "state"
+      },
+      "_settings_note": "Copied from CL-2026-Q3 as a starting point on 2026-09-26. stage_labels null = the Gmail labels for this cluster do not exist yet (create them, put the IDs here). territory ledger is per cluster so the walk restarts."
+    }
+  },
+  "_cluster_profiles_why": "🔴 INSTALLED 2026-09-26 (Chris authorised: 'a new cluster is a new settings block, not a prose rewrite'). ONE PROFILE PER CLUSTER. The profile is the SOURCE; the top-level keys the scripts read (active_market, out_of_market_org_types, target_drafts, max_new_orgs_per_run, queue_ceiling, sequence_gap_days, sequence_length, stage_labels, territory_ledger, territory_unit) are the APPLIED COPY of cluster_profiles[active_cluster].settings. `python3 bin/cluster.py check` (§0.3 step 3) proves the two agree and prints the `Cluster:` report line; a disagreement is a finding, and the profile wins. LAUNCHING A CLUSTER = (1) Chris writes the Green Sheet (ClusterChecklist gate, unchanged), (2) fill the profile — copy_file, gmail_label_parent, stage_labels, target_list_source, (3) `python3 bin/cluster.py apply CL-YYYY-QN`, which refuses while green_sheet or copy_file is missing on disk or stage_labels is null, then rewrites active_cluster + the applied copy, (4) `python3 bin/replay.py --all` must still pass. Only Chris runs step 3 (§0.7.2 hard gate). Edit a value in the PROFILE, then apply; never edit the applied copy alone.",
+  "_domain_aliases_added_2026_09_29": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "_domain_aliases_added_2026_09_30": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "draft_writer": {
+    "_why": "Chris 2026-10-03: Emails 2 and 3 are created through Zapier's Gmail actions so (a) hrefs stay CLEAN - the native claude.ai Gmail connector rewrites every href to https://www.google.com/url?q=... before any send (CAPA-2026-08-26-google-link-wrapper; re-confirmed 2026-10-02 on drafts r1412449617824686553 and r-7394064063338103017) - and (b) the Email 3 Starter Kit is a REAL ATTACHMENT at creation, so Chris never drags a file. Email 1 stays on the native path for now (it needs the inline GIF, which Zapier cannot embed - no Content-ID); its clean-link fix is a later piece (BQ-022). Verified 2026-10-03 on test thread <thread-id>: E2 draft r-152795373115723823 (href clean, Label_2 at creation, In-Reply-To set), E3 draft r5011810863406385004 (has:attachment filename:pdf true, 7,236,697 bytes). Zapier reply drafts carry NO quoted history and NO 'Re:' prefix (they reuse the thread subject verbatim) - Chris saw both on 2026-10-03 and ruled the result 'exactly as I wanted'. No quote also means the Email 1 inline GIF no longer rides along as an attachment on follow-ups (Chris 2026-10-03: that attachment 'does nothing but increase the risk of hitting a spam filter').",
+    "email_1": "zapier",
+    "email_2": "zapier",
+    "email_3": "zapier",
+    "fallback": "native",
+    "_fallback_why": "If a Zapier call fails for one draft, that draft is created with the native connector (the old path: wrapped link, no attachment, Email 3 card gets the old manual-drag gate) and the report counts it on the 'Draft writer:' line. The floor never waits on Zapier.",
+    "zapier": {
+      "selected_api": "GoogleMailV2CLIAPI",
+      "connection": "<SENDER_EMAIL>",
+      "reply_action": {
+        "action": "draft_v2_reply",
+        "tool_name": "gmail_create_draft_reply",
+        "tool": "execute_zapier_write_action"
+      },
+      "new_thread_action": {
+        "action": "draft_v2",
+        "tool_name": "gmail_create_draft",
+        "tool": "execute_zapier_write_action",
+        "_note": "USED for Email 1 from 2026-10-04 (new thread). Params: to, cc, subject (the approved subject convention), body_type html, body = approved v7 HTML with the greeting, label_ids [Label_2, Label_8 (/0 drafted)], signature (fresh) + signature_delimiter false, file [fresh flyer reference]."
+      },
+      "attachment_lookup_action": {
+        "action": "attachment",
+        "tool": "execute_zapier_read_action",
+        "params": [
+          "message_id",
+          "attachment_filename"
+        ],
+        "_note": "enabled 2026-10-03 by action key alone - the 09-30 problem (enabling Find Email also enabled Send Email) does not occur when a single action key is passed. Returns a zapier.com/engine/hydrate/... reference; pass it in the reply action's file list. Fetch a FRESH reference every run; never store one in a file."
+      },
+      "thread_id_is": "the Gmail THREAD id (list_drafts/search_threads threadId), never a message id - tested both ways 2026-09-30",
+      "body_type": "html",
+      "html_rules": "write the body as <div dir=\"ltr\"> with one <p> per paragraph and a NEWLINE between every tag - Zapier derives the text/plain part from the HTML and drops line breaks between <li> items when the source has no newlines (CAPA-2026-09-30 s4). Bold is copy; hrefs written clean. Email 1 body = the approved v7 copy (Chris 2026-10-10) as <p> paragraphs, the FOUR results as <ul><li> with their bold as <b> (never <strong>) and the one italic as <i>can</i> in bullet 3 (Leaders who do what they <i>can</i> do to <b>protect themselves from burnout</b>), the video line as <p><b><a href=...>URL</a></b></p>; NO image tag and NO placeholder text where the GIF goes (anything left in would ship) - the card tells Chris where to drop it. Email 3 body = the approved v3 copy as <p> paragraphs with the three kit items as <ul><li>; the template's **bold** renders as <b> in FIVE places (<b>Human Skills Starter Kit.</b> / <b>10 Questions</b> That Stop <b>Small Talk</b> / <b>3 Phrases</b> For <b>Difficult Conversations</b> / <b>1 Technique</b> To Start Meetings... / <b>It's yours.</b>) - ratified by Chris 2026-10-04 from the as-sent form (44 of 44 kit sends since 09-29 carry it); a draft without them is NOT U8-clean.",
+      "label_ids": [
+        "Label_2"
+      ],
+      "_label_ids_why": "CCR&R outreach applied at creation; stage labels (/2 Label_10, /3 Label_11) are applied afterwards by the run as before.",
+      "email_3_attachment": {
+        "filename": "HST_3PackStarterKit.pdf",
+        "size_bytes": 7236697,
+        "source_message_id": "<thread-id>",
+        "_source_why": "Chris's own sent Email 3 to Tri-Valley (sent 2026-10-01T12:00Z, 9,657,810 bytes) carries the kit; the Zapier 'attachment' lookup pulls the file from it each night. Chris 2026-10-02: 'use the existing training flyer and starter kit files' - the 7.2 MB Canva original, as sent since August. If this message is ever trashed, point source_message_id at any other sent Email 3 (search: in:sent filename:HST_3PackStarterKit.pdf)."
+      },
+      "verify": {
+        "email_2": "native get_draft FULL_CONTENT on the new draft id -> count of 'google.com/url' in html_body must be 0; label_ids contains Label_2; threadId == the Email 1 thread",
+        "email_3": "native list_drafts query 'subject:\"<E1 subject>\" has:attachment filename:pdf' must return the new draft id; NEVER get_draft RAW on an Email 3 (the connector session expires on ~7 MB drafts - CAPA-2026-09-30 C-a); label_ids contains Label_2",
+        "both": "exactly ONE live draft on the thread after creation. A pre-existing draft on the thread must be deleted FOREVER by Chris BEFORE the Zapier reply is created (reply_parent_rule) - trashing it is not enough; if that cannot happen tonight, create the reply and flag the card COMPOSE-LINK-ONLY. Never leave two live drafts: if a trash is denied, report BOTH compose links with SEND THIS ONE / DELETE THIS ONE (CAPA-2026-09-30 C1)",
+        "email_1": "native get_draft FULL_CONTENT on the new draft id -> count of 'google.com/url' in html_body must be 0 and the YouTube href is https://www.youtube.com/watch?v=iNCItCda-8g; list_drafts 'subject:\"<subject>\" has:attachment filename:HST_Flyer.pdf' must return the draft id; label_ids contains Label_2 and Label_8. The card then reads: 📎 FLYER ATTACHED BY ZAPIER ✅ <draft id> · GIF: drop HST_WorkshopInAction.gif in by hand directly under the 'AI-powered world.' line, no blank line"
+      },
+      "never": "update_draft on a Zapier-created draft - the native connector rebuilds the message, strips the attachment and re-wraps the hrefs. An edit = trash the old draft -> Chris deletes it forever -> create the new Zapier draft (reply_parent_rule, 2026-10-04). 'Create new then trash old' is RETIRED: it produced 24 drafts invisible in the conversation view.",
+      "signature": {
+        "enabled": true,
+        "delimiter": false,
+        "_why": "Chris 2026-10-04: 'activate Zapier's draft action to include the default signature'. Verified on test draft r-6400161156897406260 (thread <thread-id>): signature appended AFTER the body, no '--' delimiter, hrefs still clean. Machine emails carried NO signature before this (checked sent E1 <thread-id> and E2 <thread-id>).",
+        "_how": "Resolve it FRESH every run, never store the HTML: inspect_zapier_actions(tool_name='gmail_create_draft_reply' or 'gmail_create_draft', enum_property='signature') returns ONE dynamic_enum_values entry whose `value` IS the signature HTML - pass that string as `signature` and pass `signature_delimiter: false`. A changed Gmail signature is picked up automatically.",
+        "_u8": "The signature is appended by Zapier below the body. U8 (body byte-identical to the approved template) compares the body ABOVE the signature; the signature block is not part of the template.",
+        "_fact": "The signature's Connect link is a shortened http://linkd.in/1lTi0aK (a redirect) and the site link is plain http://, as set in Gmail. Recorded because of Chris's firewall/scan-filter concern (2026-09-29); not changed here."
+      },
+      "reply_parent_rule": {
+        "_what": "FOUND 2026-10-04 (root cause of CAPA-2026-09-30 Finding 2). Zapier's Create Draft Reply attaches the new draft to the NEWEST message on the thread - drafts and TRASHED messages included (proven: a reply created after every draft on the test thread was trashed still carried In-Reply-To = the trashed draft's Message-Id). Gmail's conversation view renders a draft only under a VISIBLE parent, so a draft whose parent is a (trashed) draft does not appear in the conversation - only in the Drafts list and from its own compose link - and the thread shows '1 deleted message in this conversation'. All 24 drafts rebuilt on 2026-10-03 are in this state (each replies to the native draft that was trashed right after).",
+        "rule": "Create a Zapier reply ONLY when the newest message on the thread is a real message (sent mail, bounce, auto-reply, reply). Trashing an older draft does NOT clear the way; only Chris deleting it FOREVER (Trash > Delete forever, or Empty Trash) removes it from the thread. The machine cannot delete forever.",
+        "detect": "hidden = get_thread(threadId).messageCount - messages it lists - live drafts on the thread (the native connector omits drafts and trashed messages). hidden > 0 => assume a trashed draft is the newest message => the new draft will be COMPOSE-LINK-ONLY. Say so on the card and count it on the Draft writer: line. Never silently create an invisible draft without flagging it.",
+        "rebuild": "An edit/rebuild of a Zapier draft = trash the old draft, ASK CHRIS to delete it forever (or empty Trash), THEN create the replacement. If it cannot wait: create it, flag COMPOSE-LINK-ONLY on the card.",
+        "normal_nights": "Unaffected: a due follow-up's thread normally ends with Chris's sent mail (or a bounce/auto-reply), which is a visible parent. The risk case is a thread where Chris trashed a draft without sending and the machine drafts it again.",
+        "subject_inheritance": "FOUND 2026-10-04 during the 36-draft rebuild: a Zapier reply also inherits the SUBJECT of the message it replies to. YWCA's E1 thread had the Cc hard-bounce as its newest message, so the reply was titled 'Delivery Status Notification (Failure)'. An auto-reply as newest message would give 'Automatic reply: …'. The 15 other Email 2 replies (parent = Email 1) read 'Question about PD/Training at …' with no Re:; the 8 Email 3 replies (parent = sent Email 2) read 'Re: …'.",
+        "subject_check": "BEFORE creating a reply: read the thread with the native get_thread (MINIMAL) and take the newest listed message's subject. If it is not the thread's own subject (ignoring 'Re: ') - i.e. the newest message is a bounce, auto-reply or anything else - do NOT reply on that thread. Create the follow-up with draft_v2 as a NEW thread, subject 'Re: <the thread's subject>', same To/Cc, same body, signature, label; record new_thread on the card and in the ledger status (the recipient still sees a normal 'Re:' email; on Chris's side it is a separate conversation). Done for YWCA 2026-10-04: draft r3352886311815312191 on thread <thread-id>."
+      },
+      "email_1_attachment": {
+        "filename": "HST_Flyer.pdf",
+        "size_bytes": 3501128,
+        "source_message_id": "<thread-id>",
+        "_source_why": "Chris's own sent Email 1 to [Org 0081] (2026-09-23 14:00Z) carries HST_Flyer.pdf (and the GIF); the Zapier 'attachment' lookup pulls the flyer from it each night (fresh reference every run, never stored). If this message is ever trashed, point at any other sent Email 1 (search: in:sent filename:HST_Flyer.pdf). The GIF is NOT attached by the machine - Zapier cannot embed it inline; Chris drops it in by hand."
+      }
+    },
+    "_recording": "BQ-023 (2026-10-04): the run RECORDS, the scripts TOTAL. Each drafts.json row carries writer / writer_fallback_reason / attachment_verified / zapier_readback (schema: bin/preflight.py docstring); denials go to runs/<date>/classifier.json. preflight.py scores W1-W4 (only on rows carrying writer, so older nights replay unchanged); run_integrity.py prints the Draft writer: and Classifier: lines. Both SHADOW until 3 clean runs.",
+    "_email_1_why": "Chris 2026-10-04: 'the links and attachments are handled by the machine; I will drop the GIF inline for the initial email and that's it.' Proven the same day: Zapier draft_v2 E1 test r6955272248874273371 - clean href, HST_Flyer.pdf attached by Zapier - and after Chris inserted the GIF by hand in Gmail the href STAYED clean, the GIF sat inline under the thesis line (cid), and the flyer survived the re-save. 12 waiting Email 1 drafts were rebuilt this way (new threads) and verified. Zapier cannot embed an inline image (no Content-ID), so the GIF is Chris's one manual step; the card names the insertion point."
+  },
+  "_domain_aliases_added_2026_10_04": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "followup_sender": {
+    "_why": "🔴 INSTALLED 2026-10-04 (Chris). Emails 2 and 3 are SENT by the follow-up sender (a separate scheduled task, method §0.16, bin/followup_send.py); Email 1 stays drafts-only forever. Chris's rulings, verbatim: (1) 'You have my approval to only send emails 2 and 3 and only according to the timeline and instructions outlined in the machine's instructions.' (2) window 08:30–10:00 recipient-local, later -> next business day: 'Sure.' (3) 'Yes. Business days only. Go look up the major bank holidays in the USA and use those as your never send on these dates list.' (4) split-zone states default to the majority zone: 'Accepted.' (5) 'If there is a hardcoded BCC option to loop in Hubspot, let's do that for emails 2 and 3.' (6) Mac reachable at fire time: 'I don't want to change too many things at once, here. Let's assume this will be true. If we run into a problem multiple times, we can change this.' Plan approved 2026-10-04: 'Okay, then I approve of this implementation plan. Make sure it's live and running for the next run.' DESIGN (simplified 2026-10-04 at Chris's request): no new ledger — THE GMAIL THREAD IS THE LEDGER (own-message count = emails sent, newest own message date = last send, previous email's To/Cc/greeting = next email's recipients/greeting); no queue file — the sender reads the thread live at fire time; ONE scheduled task fires at 8:30 local for each US zone in turn; idempotency = own-message count; nightly stops drafting Email n only once n is in enabled_emails (§0.3 step 12), so rollback = this key alone.",
+    "enabled_emails": [
+      "2",
+      "3"
+    ],
+    "_enabled_emails_why": "['2','3'] = BOTH LIVE from 2026-10-06 08:30 ET. Chris 2026-10-05: 'I just looked at the outbox and the drafts look good. I'm ready to fully automate emails 2 and 3 so that they can go out autonomously (with the appropriate checks and parameters like: review by the outreach machine to see if Chris needs to review it, appropriate time zone scheduling, any requisite delays based on OOO replies).' This waives the staged rollout in the approved plan (3 dry-run weekdays -> Email 2 -> one week -> Email 3). Day 1 of the dry run (2026-10-05) is recorded in runs/2026-10-05/sender/ and verification-log. [] = plan-only (dry run, nothing sent). ['2'] = Email 2 only. ONLY CHRIS FLIPS THIS. Rollback = [] and disable the task; the nightly resumes drafting the same night.",
+    "send_local_time": "08:30",
+    "send_window_end": "10:00",
+    "_window_why": "Ruling 2. A fire later than send_window_end does NOT send; the row rolls to the next business day. The hourly fires (8:30/9:30/10:30/11:30 ET = 8:30 local per zone) give every zone one retry inside the window.",
+    "business_days_only": true,
+    "never_send_dates": [
+      "2026-10-12",
+      "2026-11-11",
+      "2026-11-26",
+      "2026-12-25",
+      "2027-01-01",
+      "2027-01-18",
+      "2027-02-15",
+      "2027-05-31",
+      "2027-07-05",
+      "2027-09-06",
+      "2027-10-11",
+      "2027-11-11",
+      "2027-11-25"
+    ],
+    "_never_send_dates_why": "Ruling 3. Federal Reserve bank holidays (K.8, https://www.federalreserve.gov/aboutthefed/k8.htm), looked up 2026-10-04. Saturday holidays omitted (no weekend sends: 2026-07-04, 2027-06-19, 2027-12-25); Sunday 2027-07-04 is observed Monday 2027-07-05. A due date landing on a weekend or one of these dates rolls FORWARD to the next business day. REFRESH ANNUALLY: the nightly prints 'Holiday list ends <date>' and warns under holiday_coverage_warn_days; the sender FAILS CLOSED (sends nothing) if today is past the last listed year — an unknown holiday is never assumed open.",
+    "holiday_coverage_warn_days": 60,
+    "state_timezones": {
+      "AK": "America/Anchorage",
+      "AL": "America/Chicago",
+      "AR": "America/Chicago",
+      "AZ": "America/Phoenix",
+      "CA": "America/Los_Angeles",
+      "CO": "America/Denver",
+      "CT": "America/New_York",
+      "DC": "America/New_York",
+      "DE": "America/New_York",
+      "FL": "America/New_York",
+      "GA": "America/New_York",
+      "HI": "Pacific/Honolulu",
+      "IA": "America/Chicago",
+      "ID": "America/Denver",
+      "IL": "America/Chicago",
+      "IN": "America/New_York",
+      "KS": "America/Chicago",
+      "KY": "America/New_York",
+      "LA": "America/Chicago",
+      "MA": "America/New_York",
+      "MD": "America/New_York",
+      "ME": "America/New_York",
+      "MI": "America/New_York",
+      "MN": "America/Chicago",
+      "MO": "America/Chicago",
+      "MS": "America/Chicago",
+      "MT": "America/Denver",
+      "NC": "America/New_York",
+      "ND": "America/Chicago",
+      "NE": "America/Chicago",
+      "NH": "America/New_York",
+      "NJ": "America/New_York",
+      "NM": "America/Denver",
+      "NV": "America/Los_Angeles",
+      "NY": "America/New_York",
+      "OH": "America/New_York",
+      "OK": "America/Chicago",
+      "OR": "America/Los_Angeles",
+      "PA": "America/New_York",
+      "RI": "America/New_York",
+      "SC": "America/New_York",
+      "SD": "America/Chicago",
+      "TN": "America/Chicago",
+      "TX": "America/Chicago",
+      "UT": "America/Denver",
+      "VA": "America/New_York",
+      "VT": "America/New_York",
+      "WA": "America/Los_Angeles",
+      "WI": "America/Chicago",
+      "WV": "America/New_York",
+      "WY": "America/Denver"
+    },
+    "_state_timezones_why": "Ruling 4. State -> IANA zone, majority zone for split states: FL->ET (panhandle is CT), TX/TN/ND/SD/NE/KS->CT, KY/IN/MI->ET, ID->MT, OR->PT, AZ->America/Phoenix (no DST). The org's state is read from its contacted.jsonl org row. A missing state or an unmapped value HOLDS the row (never a guess).",
+    "tz_overrides": {},
+    "_tz_overrides_why": "mail domain -> IANA zone, for an org in a split state's minority zone when Chris wants it exact. Empty by design.",
+    "hubspot_bcc": "<HUBSPOT_BCC_ADDRESS>",
+    "_hubspot_bcc_why": "Ruling 5. Read 2026-10-04 from the Bcc: header of Chris's own sent Email 1 to Child Care Connection NJ (message <thread-id>, 2026-10-01T12:00Z) — the address his browser extension adds at send. The sender puts it in bcc on every Email 2 and Email 3 it sends. On 08-17 the BCC copy bounced on 6 of 7 attachment-bearing sends (size); recipients were unaffected (a bounce is per recipient). A DSN whose failed recipient is this address is IGNORED by the sender's read-back and never counts toward the bounce rate. Drafts (U7) stay bcc-empty: the extension adds the BCC when Chris sends Email 1.",
+    "hold_label": "Label_15",
+    "_hold_label_why": "'CCR&R outreach/⏸' created 2026-10-04 (color gray). The sender NEVER sends a thread carrying it. Set by the nightly (§0.3 step 9) while the To's out-of-office is still active (§0.14 rule 2/3), cleared when the stated return date has passed; also Chris's veto — apply it before 8:30 local and nothing goes out. Not a stage: rides alongside the stage label like ⚠.",
+    "due_search": "label:\"CCR&R outreach\" from:me older_than:6d newer_than:45d -label:\"CCR&R outreach/★\" -label:\"CCR&R outreach/X\" -label:\"CCR&R outreach/⚠\" -label:\"CCR&R outreach/⏸\"",
+    "_due_search_why": "The ONE Gmail query a fire starts from: threads where Chris's own message is at least 6 days old (and not older than 45 days — the bound only limits result size; it must stay wider than any ⏸ hold so a thread released from hold is still found) and nothing has stopped the sequence. The search operator takes label DISPLAY names (method §0.12 mechanic 3 — re-verified 2026-10-04: label:\"CCR&R outreach\" returns threads, label:Label_2 returns {}). Per-thread facts then come from the thread itself (gather.json, same family as §0.15 threads.json). The script computes the exact due date from message timestamps; the day-granular search only narrows the set. Threads whose last own send is older than the window are Chris's (they usually carry a live draft anyway).",
+    "gather_shape": "runs/<date>/sender/<fire>/gather.json — {generated, query, drafts_threads: [thread ids with a live draft], threads: [{thread, subject, labels: [union of labelIds], message_count, sends: [{id, date, to, cc, bcc, subject}], others: [{id, sender, date, subject}], complete}]}; the newest own message's plaintext_body goes in sends[-1].body (greeting parse).",
+    "zapier": {
+      "selected_api": "GoogleMailV2CLIAPI",
+      "send_action": {
+        "action": "reply_to_message",
+        "tool_name": "gmail_reply_to_email",
+        "tool": "execute_zapier_write_action"
+      },
+      "_send_action_why": "Enabled 2026-10-04 by its single action key (the 09-30 lesson: never enable an app wholesale). Schema read back the same day: thread_id (REQUIRED — the Gmail THREAD id), to, cc, bcc (lists), from, from_name, reply_to, subject, body_type, body (REQUIRED), signature, render_signature_in_html, signature_delimiter, label_ids, file (Attachments, list). The 'subject' field is UNTESTED (BQ-030) — if honoured, it would let the sender reply over a bounce/auto-reply without inheriting its subject.",
+      "resolve": {
+        "{{SIGNATURE}}": "inspect_zapier_actions(tool_name='gmail_reply_to_email', enum_property='signature') -> the ONE dynamic_enum_values[].value; pass as `signature` with signature_delimiter false. Fresh every fire, never stored (config.draft_writer.zapier.signature._how).",
+        "{{KIT_FILE}}": "execute_zapier_read_action action 'attachment' with message_id = config.draft_writer.zapier.email_3_attachment.source_message_id and attachment_filename = its filename -> the zapier.com/engine/hydrate reference; pass as `file: [ref]`. Fresh every fire, never stored."
+      },
+      "body_type": "html",
+      "label_ids": [
+        "Label_2"
+      ],
+      "html_rules": "config.draft_writer.zapier.html_rules apply unchanged: <div dir=\"ltr\">, one <p> per paragraph, a NEWLINE between every tag, Email 2 v4 / Email 3 v3 with its five <b> bolds, hrefs clean.",
+      "subject_param_honored": true,
+      "_subject_param_why": "BQ-030 CLOSED 2026-10-05: reply_to_message with an explicit `subject` sent message <thread-id> on test thread <thread-id> carrying that subject verbatim ('... [subject-param check]') instead of the inherited one. So the sender ALWAYS passes the thread's own subject (the previous email's), which makes replying over a bounce or auto-reply safe — the reply attaches to the newest message (Zapier's rule) but carries the thread subject, never 'Delivery Status Notification' or 'Automatic reply:'. Set this to false and the sender HOLDS every thread whose newest message is not Chris's own (the nightly then drafts it under §0.3 step 12)."
+    },
+    "stage_after_send": {
+      "2": {
+        "remove": "Label_9",
+        "add": "Label_10"
+      },
+      "3": {
+        "remove": "Label_10",
+        "add": "Label_11"
+      }
+    },
+    "_stage_after_send_why": "§0.12 timing option C: the numbered stage describes something actually SENT, so the flip happens only after the Sent read-back confirms the message (followup_send.py --verify prints the exact label calls).",
+    "artifacts": "runs/<date>/sender/<HHMM><ZONE>/{gather.json, plan.json, readback.json, followup_sends.json} — one folder per fire. The nightly's 'Sender:' line (§0.6) is computed from YESTERDAY's folders by followup_send.py --report-yesterday; never totalled by hand.",
+    "model": "sonnet",
+    "_model_why": "The sender decides nothing: it runs printed queries, saves results, calls a tool with printed params. Right-sized per Chris's model-routing rule (2026-09-26).",
+    "holds_are_labels": true,
+    "_holds_are_labels_why": "INSTALLED 2026-10-05 from day 1 of the dry run: the nightly HELD both due follow-ups for judgment reasons (Bear River USU — open decision D2/D14; SW Iowa — To away 'until further notice', D-DOUBT) but recorded the holds only in the dossier prose; neither thread carried ⚠ or ⏸, so the sender read both as would-send. RULE: a hold that is not a label on the thread does not exist for the sender. Every follow-up the nightly holds for ANY reason gets ⚠ (needs Chris) or ⏸ (timed OOO hold) on its thread in the same step (§0.3 steps 9 and 12, §0.16). Both threads were labelled ⚠ by hand on 2026-10-05 21:10Z.",
+    "fire_lock_minutes": 50,
+    "_fire_lock_minutes_why": "CAPA 2026-10-06 (duplicate sends). The run folder is the lock: --queries FAILS CLOSED while another fire of the same day has a queries.json younger than this and no followup_sends.json; --plan and --arm repeat the check; a fire that started in the same instant yields (queries.json aborted:true). 50 min = under the 60-min slot spacing, over the longest fire seen (24 min, 0935ET on 2026-10-06). A fire older than this with no verify is treated as crashed and only reported. On 2026-10-06 fire 0935ET's --queries at 13:35:41Z would have failed closed on 0929ET's 13:29:31Z.",
+    "arm_ttl_seconds": 180,
+    "_arm_ttl_seconds_why": "CAPA 2026-10-06. --plan carries no params. --arm prints one get_thread METADATA_ONLY per armable row; pass 2 arms a row only if that read is younger than this, lists exactly the gather's message ids, the same own count, no own message dated today (org local), no stage label for this email, no stop label, no hidden message, and the thread is not planned/armed by another in-flight fire (claims). armed.json is the ONLY file with send params. On 2026-10-06 the fresh read at 13:48Z would have shown 0929ET's send + Label_10 -> 0 of 8 armed. The 180 s budget also bounds how long the session may sit between the read and the Zapier call; --verify then reconciles recipients and flags DUPLICATE / SENT-MISMATCH / UNARMED SEND as 🔴 findings.",
+    "discounted_sends": {
+      "<thread-id>": "duplicate Email 2 from fire 2026-10-06/0935ET (the 0929ET send is the real one) -- OPSR (OK) <thread-id>",
+      "<thread-id>": "duplicate Email 2 from fire 2026-10-06/0935ET (the 0929ET send is the real one) -- [Org 0679] (OK) <thread-id>",
+      "<thread-id>": "duplicate Email 2 from fire 2026-10-06/0935ET (the 0929ET send is the real one) -- [Org 0998] (OK) <thread-id>",
+      "<thread-id>": "duplicate Email 2 from fire 2026-10-06/0935ET (the 0929ET send is the real one) -- SE Oklahoma State (OK) <thread-id>",
+      "<thread-id>": "duplicate Email 2 from fire 2026-10-06/0935ET (the 0929ET send is the real one) -- ELRC 3 (PA) <thread-id>",
+      "<thread-id>": "duplicate Email 2 from fire 2026-10-06/0935ET (the 0929ET send is the real one) -- ELRC 10 (PA) <thread-id>",
+      "<thread-id>": "duplicate Email 2 from fire 2026-10-06/0935ET (the 0929ET send is the real one) -- ELRC 5 Allegheny (PA) <thread-id>",
+      "<thread-id>": "duplicate Email 2 from fire 2026-10-06/0935ET (the 0929ET send is the real one) -- ELRC 18 PHMC (PA) <thread-id>"
+    },
+    "_discounted_sends_why": "INSTALLED 2026-10-12 (CAPA 2026-10-06 follow-through). Chris 2026-10-12, verbatim: 'You are approved to send Email 3 for me, here.' These 8 threads carry Email 2 twice, so own-message counting read them as 3 of 3 sent and the sender would never send Email 3. A message id listed here is not counted as a send in --plan (ingest), --arm (arm_gate) or --verify; it still counts as a listed message, so hidden-message checks are unchanged. Email 3 then comes due 7 days after the first Email 2 (2026-10-13) and goes out through the normal arm/verify path. ELRC 10 also carries the hold label until its To's return date clears.",
+    "auto_reply_overrides": {
+      "<thread-id>": "QCAP / Community Care for Kids (MA), thread <thread-id>: standing 'open for operation, working remotely, will respond as soon as possible' notice from person0188@org0621.example, subject 'Re: ...' so the subject pattern read it as human"
+    },
+    "_auto_reply_overrides_why": "INSTALLED 2026-10-12. {message_id: why}. A message listed here is treated as an auto-reply (not a human reply) by --plan rule 3. Chris 2026-10-12, on QCAP: 'go ahead and schedule the proper, needed followups for these to go out asap.' Per R17.1 an auto-reply is never a reply. Add an id only on Chris's ruling or a nightly R17 classification; never to push a send through."
+  },
+  "_shared_tenant_domains_added_2026_10_08": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "_domain_aliases_added_2026_10_08": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "generic_inbox_policy": "allowed-when-no-named-staff",
+  "_generic_inbox_policy_why": "🆕 2026-10-09 (Chris): 'the 51 orgs with no verifiable named staff: if there is a generic inbox for that org, let's include it in our outreach now.' When an org's own site publishes NO verifiable named-staff address but DOES publish a generic inbox (info@, office@, ccrr@, ...), Email 1 goes To that inbox with the team greeting ('Hi <Org> team,'), V3 class, per the existing E1.7 / preflight V3-to-only-when-no-human rule. No generic inbox on the org's own site -> HELD_NO_ADDRESS_ANY. Known cost (calibration-log 2026-10-09): V3 bounced 3 of 33 observed (9%) vs V2 4 of 182 (2.2%); the 3.0% bounce circuit breaker still binds.",
+  "fit_doubt_policy": "draft-and-flag",
+  "_fit_doubt_policy_why": "🆕 2026-10-09 (Chris): 'Let's include the Fit Doubt groups.' An org held only for fit/provider-function doubt is drafted; its card names the doubt and the thread carries CCR&R outreach/⚠. D-DOUBT still labels; it no longer blocks drafting on FIT. It still blocks on SAFETY (identity/dedup, address provenance).",
+  "_drain_2026_10_10": "<redacted for sharing: 1 str entries of real addresses/domains removed>",
+  "_domain_aliases_added_2026_10_10_drain2": "<redacted for sharing: 1 str entries of real addresses/domains removed>"
+}

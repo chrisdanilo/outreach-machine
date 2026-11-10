@@ -1,0 +1,1155 @@
+{
+ "_README": "THE one settings file (Chris 2026-11-03). Shared sections apply to every machine; 'machines' holds one block per outreach machine with IDENTICAL keys — a new machine is a copy of one block plus a template (Rulebook §5). Paths: {root} = Automations/, {master} = _shared/master/, {marketing} = Marketing/. Where everything lives: _shared/orchestrator/paths.py. The 'why' behind each number is in RULEBOOK.md (Appendix A).",
+ "_holidays_note": "Federal Reserve schedule: a holiday on Saturday is not observed (Fed open the Friday before); a holiday on Sunday is observed Monday. 2026-07-04, 2027-06-19 and 2027-12-25 fall on Saturdays.",
+ "as_of": "2026-11-10",
+ "discovery": {
+  "_README": "Discovery engine caps and order (Rulebook D; Stage 4 2026-10-31). Lower priority sweeps first. Re-sweep intervals reused from Machine 2.",
+  "_om2_search_share_why": "Chris 2026-11-06 (option 2): when a discover run serves both machines, OM-2 batches get this share of the run's searches",
+  "branch_events_per_night": 25,
+  "om2_search_share": 0.7,
+  "partner_pages_file": "2_Discover/ledgers/partner-pages.jsonl",
+  "priority": {
+   "assoc_directory": 35,
+   "branch": 60,
+   "calendar": 20,
+   "directory": 45,
+   "hs_region": 30,
+   "keynoter": 10,
+   "list": 15,
+   "partners": 50,
+   "state_directory": 40,
+   "venue": 70
+  },
+  "region_order": [
+   "TX",
+   "CA",
+   "FL",
+   "NY",
+   "PA",
+   "IL",
+   "OH",
+   "GA",
+   "NC",
+   "MI",
+   "NJ",
+   "VA",
+   "WA",
+   "AZ",
+   "MA",
+   "TN",
+   "IN",
+   "MO",
+   "MD",
+   "WI",
+   "CO",
+   "MN",
+   "SC",
+   "AL",
+   "LA",
+   "KY",
+   "OR",
+   "OK",
+   "CT",
+   "UT",
+   "IA",
+   "NV",
+   "AR",
+   "MS",
+   "KS",
+   "NM",
+   "NE",
+   "ID",
+   "WV",
+   "HI",
+   "NH",
+   "ME",
+   "MT",
+   "RI",
+   "DE",
+   "SD",
+   "ND",
+   "AK",
+   "VT",
+   "WY",
+   "DC",
+   "PR",
+   "ON",
+   "QC",
+   "BC",
+   "AB",
+   "MB",
+   "SK",
+   "NS",
+   "NB",
+   "NL",
+   "PE",
+   "YT",
+   "NT",
+   "NU"
+  ],
+  "resweep_days": {
+   "branch": 120,
+   "calendar": 30,
+   "directory": 120,
+   "hs_region": 90,
+   "keynoter": 60,
+   "list": 60,
+   "partners": 180,
+   "state_directory": 120,
+   "venue": 90
+  },
+  "rows_per_helper": 6,
+  "searches_per_night": 40,
+  "sources_per_night": 30
+ },
+ "draft": {
+  "_README": "Stage 7 (5_Draft/programfiles/draft.py): Email 1 drafts. Code fills the approved template verbatim (only greeting + org short name vary); Zapier creates each draft (clean links, real PDF); Gate 7 checks the raw attachment bytes. Minimums are floors to aim for, never a reason to lower a gate; max_per_night is the ceiling (Chris 2026-10-30: OM-1 10, OM-2 35). Per-machine minimum / ceiling / subject / template / attachment: machines.<OM>.",
+  "_max_per_night_status": "default, pending Chris confirmation (PEND-1)",
+  "attachment_tolerance_pct": 2,
+  "free_mail_domains": [
+   "gmail.com",
+   "yahoo.com",
+   "outlook.com",
+   "hotmail.com",
+   "aol.com",
+   "icloud.com",
+   "comcast.net",
+   "msn.com",
+   "live.com",
+   "me.com",
+   "att.net",
+   "sbcglobal.net",
+   "verizon.net"
+  ],
+  "hubspot_bcc": "<HUBSPOT_BCC_ADDRESS>",
+  "video_url": "https://www.youtube.com/watch?v=iNCItCda-8g",
+  "zapier": {
+   "action": "draft_v2",
+   "attachment_action": "attachment",
+   "selected_api": "GoogleMailV2CLIAPI",
+   "tool_name": "gmail_create_draft"
+  }
+ },
+ "inputs": {
+  "_README": "READ-ONLY inputs. Outside this folder: the do-not-contact register and the Head Start grantee list. seeds/ = legacy files from the old machines that build_master.py still reads to seed ~1,600 organizations (Chris 2026-11-03: never archive them or the nightly rebuild drops orgs). Machine ledgers (contacted / events) live in _shared/machines/. Phase ledgers are named in paths.py, not here.",
+  "dnc_register": "{marketing}/do-not-contact/register.jsonl",
+  "gmail_dir": "{master}/seeds/gmail-2026-10-31/pull",
+  "gmail_threads_2026_10_31": "{master}/seeds/gmail-2026-10-31/threads",
+  "hs_grantees_csv": "{marketing}/Lists/conference-pipeline/head-start-grantees/HS_Grantees_by_Size_2026-10-23.csv",
+  "m1_candidates": "{master}/seeds/OM-1/candidates.jsonl",
+  "m1_contacted_jsonl": "{root}/_shared/machines/OM-1/contacted.jsonl",
+  "m1_hubspot_suppression": "{master}/seeds/OM-1/hubspot-suppression.md",
+  "m1_national_ccrr_csv": "{master}/seeds/OM-1/national-ccrr-list-2026-10-07.csv",
+  "m1_sequence_tracker": "{master}/seeds/OM-1/sequence-tracker.md",
+  "m1_warm": "{master}/seeds/OM-1/warm.jsonl",
+  "m2_cards_bank": "{master}/seeds/OM-2/cards-bank.jsonl",
+  "m2_contacted": "{root}/_shared/machines/OM-2/contacted.jsonl",
+  "m2_events": "{root}/_shared/machines/OM-2/events.jsonl",
+  "m2_events_retired": "{root}/_shared/machines/OM-2/events-retired.jsonl",
+  "m2_handoff_to_m1": "{master}/seeds/OM-2/handoff-to-m1.jsonl",
+  "m2_keynoters": "{master}/seeds/OM-2/keynoters.jsonl",
+  "m2_not_duplicates": "{root}/_shared/machines/OM-2/not-duplicates.jsonl",
+  "m2_organizations": "{master}/seeds/OM-2/organizations.jsonl",
+  "m2_referrers": "{master}/seeds/OM-2/referrers.jsonl",
+  "m2_verify_queue": "{master}/seeds/OM-2/verify-queue.jsonl"
+ },
+ "machines": {
+  "OM-1": {
+   "_existing_clients_note": "PUBLIC COPY: 0 client entries removed (each is {domains: [...], folder, name, why}). Rulebook C4: existing clients are excluded by org domain AND every recipient domain.",
+   "_hard_bounces_note": "PUBLIC COPY: notes trimmed; shape is {address: {org, sent, dsn, note}}.",
+   "attachment": {
+    "filename": "HST_Flyer.pdf",
+    "size_bytes": 3501128,
+    "source_message_id": "<id>"
+   },
+   "catch_all_domains": [
+    "behively.org",
+    "capcjc.org",
+    "caplp.org",
+    "cfc-ca.org",
+    "elcbroward.org",
+    "firstsparkva.org",
+    "icesagency.org",
+    "kcao.org",
+    "milestonesmn.org",
+    "thefamilyconservancy.org",
+    "ecresourcecenter.org"
+   ],
+   "cleanup_departed": {
+    "person0337@4-c.org": {
+     "date": "2026-10-12",
+     "evidence": "[auto-reply quote redacted]",
+     "org": "[org]"
+    },
+    "person1639@childresource.org": {
+     "date": "2026-09-23",
+     "evidence": "[auto-reply quote redacted]",
+     "org": "[org]"
+    }
+   },
+   "cluster": "CL-Q2-26",
+   "domain_aliases": {
+    "4calameda.org": "4c-alameda.org",
+    "4cspassaic.org": "4cspassaic.net",
+    "672care.org": "douglasesd.k12.or.us",
+    "anprojectact.org": "abilitiesnetwork.org",
+    "azccrr.com": "cfraz.org",
+    "blueridgechildren.org": "brpartnershipforchildren.org",
+    "client.example": "client.example",
+    "brightstars.org": "riaeyc.org",
+    "bvjobs.org": "bvcog.org",
+    "cacci.cc": "childcarenetwork.cc",
+    "client.example": "client.example",
+    "caswellchildren.org": "esinc.net",
+    "cc.tcoe.org": "tcoe.org",
+    "ccana.org": "wrpdd.org",
+    "cccboston.org": "bostonabcd.org",
+    "ccgroup.org": "childcaregroup.org",
+    "ccrrofsoutheastga.org": "savannahtech.edu",
+    "ccscny.org": "childcaresolutionscny.org",
+    "ccv.edu": "northernlights.vermont.gov",
+    "charitiesccdos.org": "charitiesccdo.org",
+    "chautauquaopportunities.com": "chautopp.org",
+    "childcare.cherokee.gov": "cherokee.org",
+    "childcare.santacruzcoe.org": "santacruzcoe.org",
+    "client.example": "maine.edu",
+    "childcarechoicesofboston.org": "cccboston.org",
+    "childcareconnection-nj.org": "ccc-nj.org",
+    "childcareconsultants.org": "cccforpa.org",
+    "childcarecpc.org": "cpc-nyc.org",
+    "client.example": "client.example",
+    "childcarehelp.usu.edu": "usu.edu",
+    "childcareillinois.org": "salcommunityservices.org",
+    "childcarepartnership.org": "wdeoc.org",
+    "childcarerockland.org": "rocklandchildcare.org",
+    "childcarescc.org": "sccoe.org",
+    "childcarewestchester.org": "cccwny.org",
+    "childfamilyresources.org": "cfraz.org",
+    "client.example": "client.example",
+    "childresource.org": "pgcrc.org",
+    "clackesd.k12.or.us": "clackesd.org",
+    "communitychildcaresolutions.org": "cccschildcare.org",
+    "connectionsforchildren.org": "cfc-ca.org",
+    "delop.org": "delawareopportunities.org",
+    "eastern.usu.edu": "usu.edu",
+    "ece.fcoe.org": "fcoe.org",
+    "elcfloridasheartland.org": "elcfh.org",
+    "elcoforangecounty.org": "elcoc.org",
+    "elcseminole.org": "seminoleearlylearning.org",
+    "elrc-phmc.org": "phmc.org",
+    "elrc3.com": "earlylearningconnections.org",
+    "extension.msstate.edu": "ext.msstate.edu",
+    "familyenrichment.cc": "familyenrichment.org",
+    "familyplacevt.org": "the-family-place.org",
+    "findchildcarestanislaus.org": "stancoe.org",
+    "futuresfirstkc.org": "thefamilyconservancy.org",
+    "gatewayearlychildhoodalliance.org": "gatewayecalliance.org",
+    "client.example": "client.example",
+    "hcccrr.weebly.com": "harnett.org",
+    "hhs.nd.gov": "nd.gov",
+    "idahostars.org": "uidaho.edu",
+    "iredellsmartstart.org": "icpyc.org",
+    "leapccrr.org": "augusta.edu",
+    "llboearlychildhood.com": "llojibwe.net",
+    "mc3web.org": "mc3.org",
+    "minus9to5.org": "odu.edu",
+    "mrtq.org": "maine.edu",
+    "netxworkforce.org": "netxworks.org",
+    "niagaracap.org": "childcareofniagara.com",
+    "northamptonsmartstart.org": "hnsmartstart.org",
+    "northlandfdn.org": "northlandsbdc.org",
+    "ocfs.ny.gov": "icpoc.org",
+    "paceinfo.org": "paceccw.org",
+    "patchhawaii.org": "patch-hi.org",
+    "personpartnershipforchildren.org": "pcpfc.org",
+    "pfcjoco.org": "pfcjc.org",
+    "qualitycareforchildren.org": "qccga.org",
+    "rowan-smartstart.org": "smartstartrowan.org",
+    "salccc.org": "salcommunityservices.org",
+    "sc-ccrr.org": "mailbox.sc.edu",
+    "shastaecs.org": "shastacoe.org",
+    "smartstartrichmond.org": "richmondsmartstart.org",
+    "stlawrencechildcare.org": "nnymail.com",
+    "swcdcinc.org": "swcdc.org",
+    "sworps.org": "utk.edu",
+    "sworps.tennessee.edu": "utk.edu",
+    "tcrchildcarecorporation.org": "tcrchildcare.org",
+    "thecommunitygroupinc.org": "childcarecircuit.org",
+    "uwvbr.org": "uwrv.org",
+    "westcentralca.org": "westcca.org",
+    "wfswct.org": "workforcesystem.org",
+    "wisconsinchild.org": "ncfrwi.net",
+    "client.example": "client.example",
+    "workforcesolutionstexoma.com": "wfstexoma.org",
+    "workforcesouthplains.org": "spworkforce.org"
+   },
+   "draft_writer": {
+    "email_1": "zapier",
+    "email_2": "zapier",
+    "email_3": "zapier",
+    "fallback": "native",
+    "zapier": {
+     "attachment_lookup_action": {
+      "action": "attachment",
+      "params": [
+       "message_id",
+       "attachment_filename"
+      ],
+      "tool": "execute_zapier_read_action"
+     },
+     "body_type": "html",
+     "connection": "chris@chrisdanilo.com",
+     "email_1_attachment": {
+      "filename": "HST_Flyer.pdf",
+      "size_bytes": 3501128,
+      "source_message_id": "<id>"
+     },
+     "email_3_attachment": {
+      "filename": "HST_3PackStarterKit.pdf",
+      "size_bytes": 7236697,
+      "source_message_id": "<id>"
+     },
+     "html_rules": "write the body as <div dir=\"ltr\"> with one <p> per paragraph and a NEWLINE between every tag - Zapier derives the text/plain part from the HTML and drops line breaks between <li> items when the source has no newlines (CAPA-2026-09-30 s4). Bold is copy; hrefs written clean. Email 1 body = the approved v7 copy (Chris 2026-10-10) as <p> paragraphs, the FOUR results as <ul><li> with their bold as <b> (never <strong>) and the one italic as <i>can</i> in bullet 3 (Leaders who do what they <i>can</i> do to <b>protect themselves from burnout</b>), the video line as <p><b><a href=...>URL</a></b></p>; NO image tag and NO placeholder text where the GIF goes (anything left in would ship) - the card tells Chris where to drop it. Email 3 body = the approved v3 copy as <p> paragraphs with the three kit items as <ul><li>; the template's **bold** renders as <b> in FIVE places (<b>Human Skills Starter Kit.</b> / <b>10 Questions</b> That Stop <b>Small Talk</b> / <b>3 Phrases</b> For <b>Difficult Conversations</b> / <b>1 Technique</b> To Start Meetings... / <b>It's yours.</b>) - ratified by Chris 2026-10-04 from the as-sent form (44 of 44 kit sends since 09-29 carry it); a draft without them is NOT U8-clean.",
+     "label_ids": [
+      "Label_27"
+     ],
+     "never": "update_draft on a Zapier-created draft - the native connector rebuilds the message, strips the attachment and re-wraps the hrefs. An edit = trash the old draft -> Chris deletes it forever -> create the new Zapier draft (reply_parent_rule, 2026-10-04). 'Create new then trash old' is RETIRED: it produced 24 drafts invisible in the conversation view.",
+     "new_thread_action": {
+      "action": "draft_v2",
+      "tool": "execute_zapier_write_action",
+      "tool_name": "gmail_create_draft"
+     },
+     "reply_action": {
+      "action": "draft_v2_reply",
+      "tool": "execute_zapier_write_action",
+      "tool_name": "gmail_create_draft_reply"
+     },
+     "reply_parent_rule": {
+      "detect": "hidden = get_thread(threadId).messageCount - messages it lists - live drafts on the thread (the native connector omits drafts and trashed messages). hidden > 0 => assume a trashed draft is the newest message => the new draft will be COMPOSE-LINK-ONLY. Say so on the card and count it on the Draft writer: line. Never silently create an invisible draft without flagging it.",
+      "normal_nights": "Unaffected: a due follow-up's thread normally ends with Chris's sent mail (or a bounce/auto-reply), which is a visible parent. The risk case is a thread where Chris trashed a draft without sending and the machine drafts it again.",
+      "rebuild": "An edit/rebuild of a Zapier draft = trash the old draft, ASK CHRIS to delete it forever (or empty Trash), THEN create the replacement. If it cannot wait: create it, flag COMPOSE-LINK-ONLY on the card.",
+      "rule": "Create a Zapier reply ONLY when the newest message on the thread is a real message (sent mail, bounce, auto-reply, reply). Trashing an older draft does NOT clear the way; only Chris deleting it FOREVER (Trash > Delete forever, or Empty Trash) removes it from the thread. The machine cannot delete forever.",
+      "subject_check": "BEFORE creating a reply: read the thread with the native get_thread (MINIMAL) and take the newest listed message's subject. If it is not the thread's own subject (ignoring 'Re: ') - i.e. the newest message is a bounce, auto-reply or anything else - do NOT reply on that thread. Create the follow-up with draft_v2 as a NEW thread, subject 'Re: <the thread's subject>', same To/Cc, same body, signature, label; record new_thread on the card and in the ledger status (the recipient still sees a normal 'Re:' email; on Chris's side it is a separate conversation). Done for YWCA 2026-10-04: draft r3352886311815312191 on thread <id>.",
+      "subject_inheritance": "FOUND 2026-10-04 during the 36-draft rebuild: a Zapier reply also inherits the SUBJECT of the message it replies to. YWCA's E1 thread had the Cc hard-bounce as its newest message, so the reply was titled 'Delivery Status Notification (Failure)'. An auto-reply as newest message would give 'Automatic reply: …'. The 15 other Email 2 replies (parent = Email 1) read 'Question about PD/Training at …' with no Re:; the 8 Email 3 replies (parent = sent Email 2) read 'Re: …'."
+     },
+     "selected_api": "GoogleMailV2CLIAPI",
+     "signature": {
+      "delimiter": false,
+      "enabled": true
+     },
+     "thread_id_is": "the Gmail THREAD id (list_drafts/search_threads threadId), never a message id - tested both ways 2026-09-30",
+     "verify": {
+      "both": "exactly ONE live draft on the thread after creation. A pre-existing draft on the thread must be deleted FOREVER by Chris BEFORE the Zapier reply is created (reply_parent_rule) - trashing it is not enough; if that cannot happen tonight, create the reply and flag the card COMPOSE-LINK-ONLY. Never leave two live drafts: if a trash is denied, report BOTH compose links with SEND THIS ONE / DELETE THIS ONE (CAPA-2026-09-30 C1)",
+      "email_1": "native get_draft FULL_CONTENT on the new draft id -> count of 'google.com/url' in html_body must be 0 and the YouTube href is https://www.youtube.com/watch?v=iNCItCda-8g; list_drafts 'subject:\"<subject>\" has:attachment filename:HST_Flyer.pdf' must return the draft id; label_ids contains Label_2 and Label_8. The card then reads: 📎 FLYER ATTACHED BY ZAPIER ✅ <draft id> · GIF: drop HST_WorkshopInAction.gif in by hand directly under the 'AI-powered world.' line, no blank line",
+      "email_2": "native get_draft FULL_CONTENT on the new draft id -> count of 'google.com/url' in html_body must be 0; label_ids contains Label_2; threadId == the Email 1 thread",
+      "email_3": "native list_drafts query 'subject:\"<E1 subject>\" has:attachment filename:pdf' must return the new draft id; NEVER get_draft RAW on an Email 3 (the connector session expires on ~7 MB drafts - CAPA-2026-09-30 C-a); label_ids contains Label_2"
+     }
+    }
+   },
+   "existing_clients": [],
+   "followup_sender": {
+    "arm_batch_size": 8,
+    "arm_ttl_seconds": 180,
+    "artifacts": "runs/<date>/sender/<HHMM><ZONE>/{gather.json, plan.json, readback.json, followup_sends.json} — one folder per fire. The nightly's 'Sender:' line (§0.6) is computed from YESTERDAY's folders by followup_send.py --report-yesterday; never totalled by hand.",
+    "auto_reply_overrides": {
+     "<id>": "[org] — note redacted for the public copy"
+    },
+    "business_days_only": true,
+    "discounted_sends": {
+     "<id>": "[org] — note redacted for the public copy",
+     "<id>": "[org] — note redacted for the public copy",
+     "<id>": "[org] — note redacted for the public copy",
+     "<id>": "[org] — note redacted for the public copy",
+     "<id>": "[org] — note redacted for the public copy",
+     "<id>": "[org] — note redacted for the public copy",
+     "<id>": "[org] — note redacted for the public copy",
+     "<id>": "[org] — note redacted for the public copy"
+    },
+    "due_search": "label:\"CCR&R outreach\" from:me older_than:6d newer_than:45d -label:\"CCR&R outreach/★\" -label:\"CCR&R outreach/X\" -label:\"CCR&R outreach/⚠\" -label:\"CCR&R outreach/⏸\"",
+    "duplicates_cleared": {
+     "<id>": "[org] — note redacted for the public copy",
+     "<id>": "[org] — note redacted for the public copy"
+    },
+    "enabled_emails": [
+     "2",
+     "3"
+    ],
+    "fire_lock_minutes": 50,
+    "gather_shape": "runs/<date>/sender/<fire>/gather.json — {generated, query, drafts_threads: [thread ids with a live draft], threads: [{thread, subject, labels: [union of labelIds], message_count, sends: [{id, date, to, cc, bcc, subject}], others: [{id, sender, date, subject}], complete}]}; the newest own message's plaintext_body goes in sends[-1].body (greeting parse).",
+    "hold_label": "Label_35",
+    "holds_are_labels": true,
+    "holiday_coverage_warn_days": 60,
+    "hubspot_bcc": "<HUBSPOT_BCC_ADDRESS>",
+    "model": "sonnet",
+    "never_send_dates": [
+     "2026-10-12",
+     "2026-11-11",
+     "2026-11-26",
+     "2026-12-25",
+     "2027-01-01",
+     "2027-01-18",
+     "2027-02-15",
+     "2027-05-31",
+     "2027-07-05",
+     "2027-09-06",
+     "2027-10-11",
+     "2027-11-11",
+     "2027-11-25"
+    ],
+    "send_local_time": "07:30",
+    "send_window_end": "23:59",
+    "stage_after_send": {
+     "2": {
+      "add": "Label_30",
+      "remove": "Label_29"
+     },
+     "3": {
+      "add": "Label_31",
+      "remove": "Label_30"
+     }
+    },
+    "state_timezones": {
+     "AK": "America/Anchorage",
+     "AL": "America/Chicago",
+     "AR": "America/Chicago",
+     "AZ": "America/Phoenix",
+     "CA": "America/Los_Angeles",
+     "CO": "America/Denver",
+     "CT": "America/New_York",
+     "DC": "America/New_York",
+     "DE": "America/New_York",
+     "FL": "America/New_York",
+     "GA": "America/New_York",
+     "HI": "Pacific/Honolulu",
+     "IA": "America/Chicago",
+     "ID": "America/Denver",
+     "IL": "America/Chicago",
+     "IN": "America/New_York",
+     "KS": "America/Chicago",
+     "KY": "America/New_York",
+     "LA": "America/Chicago",
+     "MA": "America/New_York",
+     "MD": "America/New_York",
+     "ME": "America/New_York",
+     "MI": "America/New_York",
+     "MN": "America/Chicago",
+     "MO": "America/Chicago",
+     "MS": "America/Chicago",
+     "MT": "America/Denver",
+     "NC": "America/New_York",
+     "ND": "America/Chicago",
+     "NE": "America/Chicago",
+     "NH": "America/New_York",
+     "NJ": "America/New_York",
+     "NM": "America/Denver",
+     "NV": "America/Los_Angeles",
+     "NY": "America/New_York",
+     "OH": "America/New_York",
+     "OK": "America/Chicago",
+     "OR": "America/Los_Angeles",
+     "PA": "America/New_York",
+     "RI": "America/New_York",
+     "SC": "America/New_York",
+     "SD": "America/Chicago",
+     "TN": "America/Chicago",
+     "TX": "America/Chicago",
+     "UT": "America/Denver",
+     "VA": "America/New_York",
+     "VT": "America/New_York",
+     "WA": "America/Los_Angeles",
+     "WI": "America/Chicago",
+     "WV": "America/New_York",
+     "WY": "America/Denver"
+    },
+    "tz_overrides": {},
+    "zapier": {
+     "body_type": "html",
+     "html_rules": "config.draft_writer.zapier.html_rules apply unchanged: <div dir=\"ltr\">, one <p> per paragraph, a NEWLINE between every tag, Email 2 v4 / Email 3 v3 with its five <b> bolds, hrefs clean.",
+     "label_ids": [
+      "Label_27"
+     ],
+     "resolve": {
+      "{{KIT_FILE}}": "execute_zapier_read_action action 'attachment' with message_id = config.draft_writer.zapier.email_3_attachment.source_message_id and attachment_filename = its filename -> the zapier.com/engine/hydrate reference; pass as `file: [ref]`. Fresh every fire, never stored.",
+      "{{SIGNATURE}}": "inspect_zapier_actions(tool_name='gmail_reply_to_email', enum_property='signature') -> the ONE dynamic_enum_values[].value; pass as `signature` with signature_delimiter false. Fresh every fire, never stored (config.draft_writer.zapier.signature._how)."
+     },
+     "selected_api": "GoogleMailV2CLIAPI",
+     "send_action": {
+      "action": "reply_to_message",
+      "tool": "execute_zapier_write_action",
+      "tool_name": "gmail_reply_to_email"
+     },
+     "subject_param_honored": true
+    }
+   },
+   "hard_bounces": {
+    "person1535@ywcanwil.org": {
+     "dsn": "550 5.1.1 Recipient address rejected: User unknown",
+     "org": "[org]",
+     "sent": "2026-09-23"
+    },
+    "person1917@tvoc.org": {
+     "dsn": "550 5.4.1 Recipient address rejected: Access denied [SJ1PEPF00001CDF.namprd05.prod.outlook.com]",
+     "org": "[org]",
+     "sent": "2026-09-04"
+    },
+    "person0278@four-c.org": {
+     "dsn": "550 message blocked",
+     "org": "[org]",
+     "sent": "2026-09-24"
+    },
+    "person0414@client.example": {
+     "dsn": "",
+     "org": "[org]",
+     "sent": "2026-08-11"
+    },
+    "ccr@elcbigbend.org": {
+     "dsn": "",
+     "org": "[org]",
+     "sent": "2026-08-17"
+    },
+    "person0868@salcommunityservices.org": {
+     "dsn": "550 5.1.1 Address not found / unable to receive mail",
+     "org": "[org]",
+     "sent": "2026-09-24"
+    },
+    "findcare@cvcsn.org": {
+     "dsn": "",
+     "org": "[org]",
+     "sent": "2026-08-31"
+    },
+    "person0965@vibrantfuturesmi.org": {
+     "dsn": "550 5.1.1 Recipient address rejected: User unknown",
+     "org": "[org]",
+     "sent": "2026-10-14"
+    },
+    "info@deltahealthalliance.org": {
+     "dsn": "550 5.4.1 Recipient address rejected: Access denied (Exchange Online)",
+     "org": "[org]",
+     "sent": "2026-10-13"
+    },
+    "info@swcdc.org": {
+     "dsn": "",
+     "org": "[org]",
+     "sent": "2026-08-28"
+    },
+    "person1126@rutgers.edu": {
+     "dsn": "550 5.1.1 address not found",
+     "org": "[org]",
+     "sent": "2026-10-01"
+    },
+    "person1201@four-c.org": {
+     "dsn": "550 message blocked",
+     "org": "[org]",
+     "sent": "2026-09-24"
+    },
+    "person1367@chsofnj.org": {
+     "dsn": "550 5.4.1 recipient rejected: access denied",
+     "org": "[org]",
+     "sent": "2026-10-01"
+    },
+    "person1480@clackesd.org": {
+     "dsn": "550 5.2.1 The email account that you tried to reach does not exist / address not found",
+     "org": "[org]",
+     "sent": "2026-10-06"
+    },
+    "person1711@four-c.org": {
+     "dsn": "550 message blocked (DSN: blocked, not \"no such user\")",
+     "org": "[org]",
+     "sent": "2026-09-24"
+    },
+    "person1721@sccapinc.org": {
+     "dsn": "",
+     "org": "[org]",
+     "sent": "2026-08-12"
+    },
+    "person1723@salcommunityservices.org": {
+     "dsn": "550 5.1.1 Address not found / unable to receive mail",
+     "org": "[org]",
+     "sent": "2026-09-24"
+    },
+    "person1889@elcfv.org": {
+     "dsn": "",
+     "org": "[org]",
+     "sent": "2026-08-17"
+    },
+    "person2513@workforcesolutionscb.org": {
+     "dsn": "",
+     "org": "[org]",
+     "sent": "2026-08-24"
+    },
+    "person2526@projectchild.net": {
+     "dsn": "550 No mailbox by that name is currently available",
+     "org": "[org]",
+     "sent": "2026-09-23"
+    }
+   },
+   "label": "OM-1",
+   "market": "MKT-001",
+   "max_per_night": 15,
+   "method": "Trainer",
+   "minimum": 10,
+   "never_recipients": [
+    "<redacted>"
+   ],
+   "role_rank": [
+    "executive_director",
+    "pd_director",
+    "coaching_manager",
+    "program_director",
+    "other_leader",
+    "event_dept_director",
+    "event_contact",
+    "cfp_contact",
+    "other_staff"
+   ],
+   "sequence_gap_days": 7,
+   "sequence_length": 3,
+   "shared_tenant_domains": [
+    "ocfs.ny.gov",
+    "cornell.edu",
+    "dfa.state.ny.us",
+    "nnymail.com",
+    "prodigy.net",
+    "gmail.com",
+    "salisbury.edu",
+    "maine.edu",
+    "edc.org",
+    "sc.edu",
+    "mailbox.sc.edu",
+    "email.sc.edu",
+    "iowaccrr.org",
+    "pine.edu",
+    "rlc.edu",
+    "jalc.edu",
+    "illinois.edu",
+    "rutgers.edu",
+    "dhr.alabama.gov",
+    "pa.gov",
+    "wv.gov",
+    "nebraska.gov",
+    "wyo.gov",
+    "dc.gov"
+   ],
+   "stage_labels": {
+    "0": "Label_28",
+    "1": "Label_29",
+    "2": "Label_30",
+    "3": "Label_31",
+    "attention": "Label_34",
+    "closed": "Label_33",
+    "hold": "Label_35",
+    "parent": "Label_27",
+    "replied": "Label_32"
+   },
+   "starter_kit_source_message_id": "<id>",
+   "subject": "Question about PD/Training at {Short} . . .",
+   "template": "{root}/5_Draft/programfiles/templates/Cold-Outreach-Sequence-CCR&R.md"
+  },
+  "OM-2": {
+   "_existing_clients_note": "PUBLIC COPY: 13 client entries removed (each is {domains: [...], folder, name, why}). Rulebook C4: existing clients are excluded by org domain AND every recipient domain.",
+   "attachment": {
+    "filename": "SpeakerGuide_2027.pdf",
+    "size_bytes": 3414709,
+    "source_message_id": "<id>"
+   },
+   "catch_all_domains": [],
+   "cleanup_departed": {},
+   "cluster": "CL-Q4-26",
+   "domain_aliases": {},
+   "draft_writer": {
+    "email_1": "zapier",
+    "email_2": "zapier",
+    "email_3": "zapier",
+    "fallback": "native",
+    "zapier": {
+     "attachment_lookup_action": {
+      "action": "attachment",
+      "params": [
+       "message_id",
+       "attachment_filename"
+      ],
+      "tool": "execute_zapier_read_action"
+     },
+     "body_type": "html",
+     "connection": "chris@chrisdanilo.com",
+     "email_1_attachment": {
+      "filename": "SpeakerGuide_2027.pdf",
+      "size_bytes": 3414709,
+      "source_message_id": "<id>"
+     },
+     "email_3_attachment": {
+      "filename": "HST_3PackStarterKit.pdf",
+      "size_bytes": 7236697,
+      "source_message_id": "<id>"
+     },
+     "html_rules": "write the body as <div dir=\"ltr\"> with one <p> per paragraph and a NEWLINE between every tag - Zapier derives the text/plain part from the HTML and drops line breaks between <li> items when the source has no newlines (CAPA-2026-09-30 s4). Bold is copy; hrefs written clean. Email 1 body = the approved v7 copy (Chris 2026-10-10) as <p> paragraphs, the FOUR results as <ul><li> with their bold as <b> (never <strong>) and the one italic as <i>can</i> in bullet 3 (Leaders who do what they <i>can</i> do to <b>protect themselves from burnout</b>), the video line as <p><b><a href=...>URL</a></b></p>; NO image tag and NO placeholder text where the GIF goes (anything left in would ship) - the card tells Chris where to drop it. Email 3 body = the approved v3 copy as <p> paragraphs with the three kit items as <ul><li>; the template's **bold** renders as <b> in FIVE places (<b>Human Skills Starter Kit.</b> / <b>10 Questions</b> That Stop <b>Small Talk</b> / <b>3 Phrases</b> For <b>Difficult Conversations</b> / <b>1 Technique</b> To Start Meetings... / <b>It's yours.</b>) - ratified by Chris 2026-10-04 from the as-sent form (44 of 44 kit sends since 09-29 carry it); a draft without them is NOT U8-clean.",
+     "label_ids": [
+      "Label_36",
+      "Label_37"
+     ],
+     "never": "update_draft on a Zapier-created draft - the native connector rebuilds the message, strips the attachment and re-wraps the hrefs. An edit = trash the old draft -> Chris deletes it forever -> create the new Zapier draft (reply_parent_rule, 2026-10-04). 'Create new then trash old' is RETIRED: it produced 24 drafts invisible in the conversation view.",
+     "new_thread_action": {
+      "action": "draft_v2",
+      "tool": "execute_zapier_write_action",
+      "tool_name": "gmail_create_draft"
+     },
+     "reply_action": {
+      "action": "draft_v2_reply",
+      "tool": "execute_zapier_write_action",
+      "tool_name": "gmail_create_draft_reply"
+     },
+     "reply_parent_rule": {
+      "detect": "hidden = get_thread(threadId).messageCount - messages it lists - live drafts on the thread (the native connector omits drafts and trashed messages). hidden > 0 => assume a trashed draft is the newest message => the new draft will be COMPOSE-LINK-ONLY. Say so on the card and count it on the Draft writer: line. Never silently create an invisible draft without flagging it.",
+      "normal_nights": "Unaffected: a due follow-up's thread normally ends with Chris's sent mail (or a bounce/auto-reply), which is a visible parent. The risk case is a thread where Chris trashed a draft without sending and the machine drafts it again.",
+      "rebuild": "An edit/rebuild of a Zapier draft = trash the old draft, ASK CHRIS to delete it forever (or empty Trash), THEN create the replacement. If it cannot wait: create it, flag COMPOSE-LINK-ONLY on the card.",
+      "rule": "Create a Zapier reply ONLY when the newest message on the thread is a real message (sent mail, bounce, auto-reply, reply). Trashing an older draft does NOT clear the way; only Chris deleting it FOREVER (Trash > Delete forever, or Empty Trash) removes it from the thread. The machine cannot delete forever.",
+      "subject_check": "BEFORE creating a reply: read the thread with the native get_thread (MINIMAL) and take the newest listed message's subject. If it is not the thread's own subject (ignoring 'Re: ') - i.e. the newest message is a bounce, auto-reply or anything else - do NOT reply on that thread. Create the follow-up with draft_v2 as a NEW thread, subject 'Re: <the thread's subject>', same To/Cc, same body, signature, label; record new_thread on the card and in the ledger status (the recipient still sees a normal 'Re:' email; on Chris's side it is a separate conversation). Done for YWCA 2026-10-04: draft r3352886311815312191 on thread <id>.",
+      "subject_inheritance": "FOUND 2026-10-04 during the 36-draft rebuild: a Zapier reply also inherits the SUBJECT of the message it replies to. YWCA's E1 thread had the Cc hard-bounce as its newest message, so the reply was titled 'Delivery Status Notification (Failure)'. An auto-reply as newest message would give 'Automatic reply: …'. The 15 other Email 2 replies (parent = Email 1) read 'Question about PD/Training at …' with no Re:; the 8 Email 3 replies (parent = sent Email 2) read 'Re: …'."
+     },
+     "selected_api": "GoogleMailV2CLIAPI",
+     "signature": {
+      "delimiter": false,
+      "enabled": true
+     },
+     "thread_id_is": "the Gmail THREAD id (list_drafts/search_threads threadId), never a message id - tested both ways 2026-09-30",
+     "verify": {
+      "both": "exactly ONE live draft on the thread after creation. A pre-existing draft on the thread must be deleted FOREVER by Chris BEFORE the Zapier reply is created (reply_parent_rule) - trashing it is not enough; if that cannot happen tonight, create the reply and flag the card COMPOSE-LINK-ONLY. Never leave two live drafts: if a trash is denied, report BOTH compose links with SEND THIS ONE / DELETE THIS ONE (CAPA-2026-09-30 C1)",
+      "email_1": "native get_draft FULL_CONTENT on the new draft id -> count of 'google.com/url' in html_body must be 0 and the YouTube href is https://www.youtube.com/watch?v=iNCItCda-8g; list_drafts 'subject:\"<subject>\" has:attachment filename:HST_Flyer.pdf' must return the draft id; label_ids contains Label_2 and Label_8. The card then reads: 📎 FLYER ATTACHED BY ZAPIER ✅ <draft id> · GIF: drop HST_WorkshopInAction.gif in by hand directly under the 'AI-powered world.' line, no blank line",
+      "email_2": "native get_draft FULL_CONTENT on the new draft id -> count of 'google.com/url' in html_body must be 0; label_ids contains Label_2; threadId == the Email 1 thread",
+      "email_3": "native list_drafts query 'subject:\"<E1 subject>\" has:attachment filename:pdf' must return the new draft id; NEVER get_draft RAW on an Email 3 (the connector session expires on ~7 MB drafts - CAPA-2026-09-30 C-a); label_ids contains Label_2"
+     }
+    }
+   },
+   "existing_clients": [],
+   "followup_sender": {
+    "arm_batch_size": 8,
+    "arm_ttl_seconds": 180,
+    "artifacts": "runs/<date>/sender/<HHMM><ZONE>/{gather.json, plan.json, readback.json, followup_sends.json} — one folder per fire. The nightly's 'Sender:' line (§0.6) is computed from YESTERDAY's folders by followup_send.py --report-yesterday; never totalled by hand.",
+    "auto_reply_overrides": {
+     "<id>": "[org] — note redacted for the public copy"
+    },
+    "business_days_only": true,
+    "discounted_sends": {
+     "<id>": "[org] — note redacted for the public copy",
+     "<id>": "[org] — note redacted for the public copy",
+     "<id>": "[org] — note redacted for the public copy",
+     "<id>": "[org] — note redacted for the public copy",
+     "<id>": "[org] — note redacted for the public copy",
+     "<id>": "[org] — note redacted for the public copy",
+     "<id>": "[org] — note redacted for the public copy",
+     "<id>": "[org] — note redacted for the public copy"
+    },
+    "due_search": "label:\"Con Outreach\" from:me older_than:6d newer_than:45d -label:\"Con Outreach/★\" -label:\"Con Outreach/X\" -label:\"Con Outreach/⚠\" -label:\"Con Outreach/⏸\"",
+    "duplicates_cleared": {
+     "<id>": "[org] — note redacted for the public copy",
+     "<id>": "[org] — note redacted for the public copy"
+    },
+    "enabled_emails": [
+     "2",
+     "3"
+    ],
+    "fire_lock_minutes": 50,
+    "followup_add_cc_source": "contacted.jsonl org rows: followup_add_cc: [addresses] — added as Cc on the next reply and kept after",
+    "gather_shape": "runs/<date>/sender/<fire>/gather.json — {generated, query, drafts_threads: [thread ids with a live draft], threads: [{thread, subject, labels: [union of labelIds], message_count, sends: [{id, date, to, cc, bcc, subject}], others: [{id, sender, date, subject}], complete}]}; the newest own message's plaintext_body goes in sends[-1].body (greeting parse).",
+    "hold_label": "Label_44",
+    "holds_are_labels": true,
+    "holiday_coverage_warn_days": 60,
+    "hubspot_bcc": "<HUBSPOT_BCC_ADDRESS>",
+    "model": "sonnet",
+    "never_send_dates": [
+     "2026-10-12",
+     "2026-11-11",
+     "2026-11-26",
+     "2026-12-25",
+     "2027-01-01",
+     "2027-01-18",
+     "2027-02-15",
+     "2027-05-31",
+     "2027-07-05",
+     "2027-09-06",
+     "2027-10-11",
+     "2027-11-11",
+     "2027-11-25"
+    ],
+    "org_state_overrides": {
+     "headstartnc.org": "[org] — note redacted for the public copy",
+     "headstartwest.org": "[org] — note redacted for the public copy",
+     "healthiergeneration.org": "[org] — note redacted for the public copy",
+     "ilheadstart.org": "[org] — note redacted for the public copy",
+     "nd.gov": "[org] — note redacted for the public copy",
+     "new-frame.com": "[org] — note redacted for the public copy",
+     "stvincent.edu": "[org] — note redacted for the public copy"
+    },
+    "send_local_time": "08:00",
+    "send_window_end": "23:59",
+    "sibling_stop": true,
+    "stage_after_send": {
+     "2": {
+      "add": "Label_39",
+      "remove": "Label_38"
+     },
+     "3": {
+      "add": "Label_40",
+      "remove": "Label_39"
+     }
+    },
+    "state_timezones": {
+     "AK": "America/Anchorage",
+     "AL": "America/Chicago",
+     "AR": "America/Chicago",
+     "AZ": "America/Phoenix",
+     "CA": "America/Los_Angeles",
+     "CO": "America/Denver",
+     "CT": "America/New_York",
+     "DC": "America/New_York",
+     "DE": "America/New_York",
+     "FL": "America/New_York",
+     "GA": "America/New_York",
+     "HI": "Pacific/Honolulu",
+     "IA": "America/Chicago",
+     "ID": "America/Denver",
+     "IL": "America/Chicago",
+     "IN": "America/New_York",
+     "KS": "America/Chicago",
+     "KY": "America/New_York",
+     "LA": "America/Chicago",
+     "MA": "America/New_York",
+     "MD": "America/New_York",
+     "ME": "America/New_York",
+     "MI": "America/New_York",
+     "MN": "America/Chicago",
+     "MO": "America/Chicago",
+     "MS": "America/Chicago",
+     "MT": "America/Denver",
+     "NC": "America/New_York",
+     "ND": "America/Chicago",
+     "NE": "America/Chicago",
+     "NH": "America/New_York",
+     "NJ": "America/New_York",
+     "NM": "America/Denver",
+     "NV": "America/Los_Angeles",
+     "NY": "America/New_York",
+     "OH": "America/New_York",
+     "OK": "America/Chicago",
+     "OR": "America/Los_Angeles",
+     "PA": "America/New_York",
+     "RI": "America/New_York",
+     "SC": "America/New_York",
+     "SD": "America/Chicago",
+     "TN": "America/Chicago",
+     "TX": "America/Chicago",
+     "UT": "America/Denver",
+     "VA": "America/New_York",
+     "VT": "America/New_York",
+     "WA": "America/Los_Angeles",
+     "WI": "America/Chicago",
+     "WV": "America/New_York",
+     "WY": "America/Denver"
+    },
+    "tz_overrides": {},
+    "zapier": {
+     "body_type": "html",
+     "html_rules": "config.draft_writer.zapier.html_rules apply unchanged: <div dir=\"ltr\">, one <p> per paragraph, a NEWLINE between every tag, Email 2 v4 / Email 3 v3 with its five <b> bolds, hrefs clean.",
+     "label_ids": [
+      "Label_36"
+     ],
+     "resolve": {
+      "{{KIT_FILE}}": "execute_zapier_read_action action 'attachment' with message_id = config.draft_writer.zapier.email_3_attachment.source_message_id and attachment_filename = its filename -> the zapier.com/engine/hydrate reference; pass as `file: [ref]`. Fresh every fire, never stored.",
+      "{{SIGNATURE}}": "inspect_zapier_actions(tool_name='gmail_reply_to_email', enum_property='signature') -> the ONE dynamic_enum_values[].value; pass as `signature` with signature_delimiter false. Fresh every fire, never stored (config.draft_writer.zapier.signature._how)."
+     },
+     "selected_api": "GoogleMailV2CLIAPI",
+     "send_action": {
+      "action": "reply_to_message",
+      "tool": "execute_zapier_write_action",
+      "tool_name": "gmail_reply_to_email"
+     },
+     "subject_param_honored": true
+    }
+   },
+   "hard_bounces": {},
+   "label": "OM-2",
+   "market": "MKT-002",
+   "max_per_night": 50,
+   "method": "Speaker / MC",
+   "minimum": 35,
+   "never_recipients": [],
+   "role_rank": [
+    "cfp_contact",
+    "event_contact",
+    "event_dept_director",
+    "executive_director",
+    "pd_director",
+    "coaching_manager",
+    "program_director",
+    "other_leader",
+    "other_staff"
+   ],
+   "sequence_gap_days": 7,
+   "sequence_length": 3,
+   "shared_tenant_domains": [],
+   "stage_labels": {
+    "0": "Label_37",
+    "1": "Label_38",
+    "2": "Label_39",
+    "3": "Label_40",
+    "attention": "Label_43",
+    "closed": "Label_42",
+    "hold": "Label_44",
+    "parent": "Label_36",
+    "replied": "Label_41"
+   },
+   "starter_kit_source_message_id": "<id>",
+   "subject": "Question about your conference at {Short} . . .",
+   "template": "{root}/5_Draft/programfiles/templates/Cold-Outreach-Sequence-Conference.md"
+  }
+ },
+ "night": {
+  "_README": "Untimed night run, NEVER SENDS (Chris 2026-10-31: two tasks for safety). ONE start Sun–Thu ~8:41 PM MT: inbox read → label state (Rulebook L) → tomorrow's APPROVED SEND LIST (sendlist.py build; flagged = not approved) → review-hold DRAFTS → the LOOP {discover → qualify → people → draft Email 1} until every machine meets its nightly minimum or is supply-exhausted (or the pass ceiling) → the one report. No step deadlines, no waiting. The 07:00 ET send is the separate send task (_shared/orchestrator/run.py send), its own lock lane.",
+  "_loop_steps_why": "Chris 2026-11-08: the night starts on the shelf the Supply Run stocked — people and drafts first; discover/qualify only for a machine still under its minimum after that",
+  "holders": {
+   "audit": "night-audit",
+   "discover": "discover",
+   "draft": "draft",
+   "inbox": "night-inbox",
+   "labels": "night-labels",
+   "loop": "night-loop",
+   "people": "people",
+   "qualify": "qualify",
+   "report": "report",
+   "review": "night-review",
+   "sendlist": "sendlist"
+  },
+  "loop": {
+   "_apollo_floor_why": "people-step Apollo lookups stop when the cycle's remaining credits fall below this (Claude default 2026-10-31)",
+   "_max_passes_why": "last-resort runaway guard (Chris 2026-10-31); hitting it is reported",
+   "_no_progress": "a machine whose full pass adds 0 drafts, 0 new people-ready orgs and 0 newly qualified orgs is supply-exhausted for the night (Chris 2026-10-31)",
+   "apollo_credit_floor": 500,
+   "max_passes": 25
+  },
+  "loop_steps": [
+   "people",
+   "draft",
+   "discover",
+   "qualify"
+  ],
+  "models": {
+   "orchestrator": "opus",
+   "research_helpers": "sonnet",
+   "yes_no_checks": "haiku"
+  },
+  "pointer_prompt": "Mount the vault: call get_device_info; if connectedFolders is empty, call device_request_folder_access for /Users/<you>/ClaudeVault once. If it is still unreachable, stop and say so. On the device shell run:  python3 \"$HOME/mnt/ClaudeVault/3.Human Skills Training/Marketing/Automations/_shared/orchestrator/run.py\" night   It prints your standing orders. Do exactly what they say, step by step, until they are complete. If it prints FAIL CLOSED, or the file is missing, stop and say so. Never do anything the orders did not print.",
+  "rehearsal_caps": {
+   "discover_branches": 0,
+   "discover_searches": 0,
+   "discover_sources": 1,
+   "draft_per_machine": 1,
+   "people": 1,
+   "qualify": 2
+  },
+  "rehearsal_minimums": {
+   "OM-1": 1,
+   "OM-2": 2
+  },
+  "stale_hours_for_second_start": 2.0,
+  "steps": [
+   "inbox",
+   "audit",
+   "labels",
+   "sendlist",
+   "review",
+   "loop",
+   "report"
+  ],
+  "timezone": "America/Denver"
+ },
+ "outputs": {
+  "csv": "{master}/master-list.csv",
+  "orgs": "{master}/orgs.jsonl",
+  "report": "{master}/build-report.md"
+ },
+ "overrides": "{master}/overrides.json",
+ "pending_rulings": [
+  {
+   "id": "PEND-1",
+   "question": "Nightly Email 1 ceilings: OM-1 15 / OM-2 50 are in use as defaults — pending Chris's confirmation (Stage 7, 2026-10-31).",
+   "setting": "draft.max_per_night"
+  },
+  {
+   "id": "PEND-2",
+   "question": "Address validity: Apollo's per-address validation needs approval on every call, so nightly runs treat validity as UNKNOWN → proceed, flagged (bounces guarded by the 3% breaker) — pending Chris: give that tool standing approval, or keep this default.",
+   "setting": "people.apollo.validity_mode"
+  },
+  {
+   "id": "PEND-3",
+   "question": "People Apollo cannot confirm (common at small orgs) proceed FLAGGED on the strength of the org's own live page (Machine 1's live-page exception) — pending Chris's confirmation of this exception to Rulebook H2.",
+   "setting": "people.apollo.unconfirmed_person"
+  }
+ ],
+ "people": {
+  "_README": "Stage 6 (4_People/programfiles/people.py): find up to 4 people per org by ROLE (Rulebook G) and check every address (Rulebook H): live-page character match or the org's own auto-reply (H6), Apollo identity, validity (hold only on a definite invalid). Chris 2026-10-31. Role order per machine: machines.<OM>.role_rank.",
+  "_domain_check_cap_why": "Rulebook B4 patch 2 (Chris 2026-11-10): at most this many unknown domains are checked in Apollo per run (free people search). Adjust after the first runs.",
+  "apollo": {
+   "_zerobounce_interim_skip_why": "Chris 2026-11-09: until his ZeroBounce account exists, an Apollo-found address that is Verified and on the org's own domain is used, flagged ⚠ ZeroBounce not run. Set false once the validator can run.",
+   "credit_log": "4_People/runs/<RUN>/credits.jsonl",
+   "identity": "apollo_people_match (name + org domain; email given) — confirms the person is real and still at the org; not in Apollo = proceed flagged (the live page is the evidence, Machine 1's live-page exception)",
+   "unconfirmed_person": "proceed_flagged (pending Chris — PEND-3)",
+   "validity": "apollo_email_validation_validate (ZeroBounce-class vendor) or the email_status Apollo returns for that exact address; hold ONLY on a definite invalid; catch-all/unknown proceed flagged",
+   "validity_mode": "unknown_proceeds_flagged (pending Chris — PEND-2)",
+   "zerobounce_interim_skip": true
+  },
+  "batch_size": 5,
+  "capture_chars": 2500,
+  "domain_check_cap": 40,
+  "generic_local_parts": [
+   "info",
+   "office",
+   "admin",
+   "administration",
+   "contact",
+   "contactus",
+   "hello",
+   "events",
+   "event",
+   "conference",
+   "conferences",
+   "registration",
+   "register",
+   "training",
+   "pd",
+   "programs",
+   "program",
+   "team",
+   "staff",
+   "general",
+   "support",
+   "inquiries",
+   "inquiry",
+   "mail",
+   "frontdesk",
+   "reception",
+   "communications",
+   "marketing",
+   "membership",
+   "members",
+   "help",
+   "ask",
+   "webmaster",
+   "hr",
+   "jobs",
+   "careers",
+   "media",
+   "press",
+   "news",
+   "outreach",
+   "ece",
+   "earlylearning",
+   "childcare",
+   "speakers",
+   "proposals",
+   "cfp"
+  ],
+  "max_pages_per_org": 8,
+  "max_recipients": 4,
+  "models": {
+   "people_finding": "sonnet"
+  },
+  "per_night": 60,
+  "recheck_hold_days": 14,
+  "sweep_max_per_org": 8
+ },
+ "qualify": {
+  "_README": "Stage 5 (3_Qualify/programfiles/qualify.py): fit from verified live-page quotes; routing + timing are computed in build_master.py (Rulebook C/E/F). Chris 2026-10-31.",
+  "batch_size": 6,
+  "capture_chars": 2500,
+  "doubtful_recheck_days": 30,
+  "models": {
+   "page_reading": "sonnet",
+   "quote_support_check": "haiku"
+  },
+  "per_night": 120,
+  "unreadable_min_chars": 300
+ },
+ "send_slot": "07:00 America/New_York",
+ "send_task": {
+  "_README": "Chris 2026-10-31: a separate weekday task fires ~06:52 America/New_York, waits in-session to 07:00 ET, sends only the approved list. Only this task gets automatic approval.",
+  "fires": "06:52 America/New_York Mon–Fri",
+  "lists_dir": "7_Send/ledgers/send-lists",
+  "lock_holder": "send (own lock file _shared/orchestrator/.outreach-send-lock)"
+ },
+ "sender": {
+  "_README": "Live sends happen ONLY in the separate 7 AM send task (_shared/orchestrator/run.py send, FS_MODE=send) and ONLY for rows on the night's FINAL approved send list (7_Send/ledgers/send-lists/<date>.json). --intent checks: live true, FS_MODE == live_mode (send), today >= live_from, a business day, 07:00 ET or later, and that the list is today's final approved list. The night run can never send (Chris 2026-10-31).",
+  "arm_fresh_seconds": 180,
+  "bounce_breaker_pct": 3,
+  "bounce_breaker_window_days": 7,
+  "duplicate_window_hours": 24,
+  "hubspot_bcc": "<HUBSPOT_BCC_ADDRESS>",
+  "live": true,
+  "live_from": "2026-11-02",
+  "live_mode": "send",
+  "starter_kit": {
+   "_why": "Email 3 attaches the starter kit (Rulebook I). Same file both machines; Zapier 'attachment' lookup pulls it fresh from these sent messages each fire (old machine configs, read 2026-10-31). Per-machine source message: machines.<OM>.starter_kit_source_message_id.",
+   "filename": "HST_3PackStarterKit.pdf"
+  }
+ },
+ "sequence_gap_days": 7,
+ "supply": {
+  "_README": "THE SUPPLY RUN (Chris 2026-11-08): a separate nightly task at ~1 AM MT, every day, that stocks the shelf for the night run — discover → qualify → events (event-certainty check, pending Chris's ruling on the triggers) → people → rebuild → shelf summary. It never drafts, never touches Gmail, never sends. Its own session = its own 200-web-search platform budget. Timed (unlike the night run): hard stop so it is finished before the 7 AM ET send task.",
+  "_caps_why": "one session's platform budget is 200 web searches SHARED by every helper in the session (learned 2026-11-08 first run: discovery used 133, qualify/people helpers then had none for domain lookups) — 90 for discovery leaves ~110 for qualify/people; adjust after timing logs",
+  "_events_step_why": "runs only once Chris rules on the event-certainty trigger list (proposed 2026-11-08); until then the step is skipped and says so",
+  "_hard_stop_why": "the send task fires 06:52 ET = 04:52 MT; the supply run must have released everything before then",
+  "caps": {
+   "discover_branches": 25,
+   "discover_searches": 90,
+   "discover_sources": 90,
+   "events": 60,
+   "people": 100,
+   "qualify": 200
+  },
+  "events_step_enabled": false,
+  "hard_stop_local": "04:30",
+  "holders": {
+   "discover": "discover",
+   "events": "events",
+   "people": "people",
+   "qualify": "qualify",
+   "shelf": "supply-shelf"
+  },
+  "max_browser_helpers": 5,
+  "models": {
+   "orchestrator": "opus",
+   "research_helpers": "sonnet",
+   "yes_no_checks": "haiku"
+  },
+  "pointer_prompt": "Mount the vault: call get_device_info; if connectedFolders is empty, call device_request_folder_access for /Users/<you>/ClaudeVault once. If it is still unreachable, stop and say so. On the device shell run:  python3 \"$HOME/mnt/ClaudeVault/3.Human Skills Training/Marketing/Automations/_shared/orchestrator/run.py\" supply   It prints your standing orders. Do exactly what they say, step by step, until they are complete. If it prints FAIL CLOSED, or the file is missing, stop and say so. Never do anything the orders did not print.",
+  "stale_hours_for_second_start": 2.0,
+  "steps": [
+   "discover",
+   "qualify",
+   "events",
+   "people",
+   "shelf"
+  ],
+  "timezone": "America/Denver"
+ },
+ "us_bank_holidays_federal_reserve": [
+  "2026-01-01",
+  "2026-01-19",
+  "2026-02-16",
+  "2026-05-25",
+  "2026-06-19",
+  "2026-09-07",
+  "2026-10-12",
+  "2026-11-11",
+  "2026-11-26",
+  "2026-12-25",
+  "2027-01-01",
+  "2027-01-18",
+  "2027-02-15",
+  "2027-05-31",
+  "2027-07-05",
+  "2027-09-06",
+  "2027-10-11",
+  "2027-11-11",
+  "2027-11-25"
+ ]
+}

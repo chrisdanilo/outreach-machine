@@ -1,0 +1,375 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2080" height="5712" viewBox="0 0 2080 5712" font-family="Helvetica,Arial,sans-serif" fill="#1e1e1e">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="140" y="80" font-size="40" fill="#1e1e1e" font-weight="bold">How the Outreach Machine Works</text>
+<text x="140" y="113" font-size="19" fill="#6B6B6B">Human Skills Training  -  as of Nov 10, 2026  -  one engine, one rulebook, one master list, two machines</text>
+<rect x="140" y="140" width="1900" height="92" rx="14" fill="#FFFFFF" stroke="#C9C2B0" stroke-width="1"/>
+<text x="156" y="164" font-size="14" fill="#6B6B6B">HOW TO READ THIS</text>
+<rect x="160" y="176" width="27" height="34" fill="#FFFFFF" stroke="#1e1e1e" stroke-width="2"/>
+<rect x="179" y="176" width="8" height="8" fill="#FAF6EA" stroke="#1e1e1e" stroke-width="1"/>
+<polyline points="165,193 182,193" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<polyline points="165,200 178,200" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<text x="210" y="200" font-size="14" fill="#1e1e1e">a file / ledger</text>
+<rect x="350" y="181" width="32" height="23" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<ellipse cx="366" cy="181" rx="16" ry="5" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<ellipse cx="366" cy="205" rx="16" ry="5" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="400" y="200" font-size="14" fill="#1e1e1e">the master list</text>
+<rect x="540" y="180" width="36" height="25" fill="#FFFFFF" stroke="#1e1e1e" stroke-width="2"/>
+<polyline points="540,180 558,192 576,180" fill="none" stroke="#1e1e1e" stroke-width="2"/>
+<text x="590" y="200" font-size="14" fill="#1e1e1e">Gmail</text>
+<rect x="730" y="176" width="36" height="31" rx="10" fill="#1A1A1A" stroke="#1A1A1A" stroke-width="2"/>
+<text x="736" y="195" font-size="13" fill="#FFDE59">&lt;/&gt;</text>
+<text x="780" y="200" font-size="14" fill="#1e1e1e">fixed program</text>
+<ellipse cx="938" cy="191" rx="18" ry="15" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="938" y="196" font-size="13" text-anchor="middle" font-weight="bold">AI</text>
+<text x="970" y="200" font-size="14" fill="#1e1e1e">AI helper</text>
+<ellipse cx="1127" cy="184" rx="8" ry="8" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<rect x="1115" y="194" width="23" height="16" rx="5" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="1160" y="200" font-size="14" fill="#1e1e1e">Chris, by hand</text>
+<ellipse cx="1318" cy="194" rx="18" ry="18" fill="#FFFFFF" stroke="#1e1e1e" stroke-width="3"/>
+<polyline points="1318,194 1318,182" fill="none" stroke="#1e1e1e" stroke-width="3"/>
+<polyline points="1318,194 1326,199" fill="none" stroke="#1e1e1e" stroke-width="3"/>
+<text x="1350" y="200" font-size="14" fill="#1e1e1e">scheduled task</text>
+<defs><marker id="m0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#1e1e1e" stroke-width="1.6"/></marker></defs>
+<polyline points="1523,200 1520,204 1516,208 1511,210 1505,210 1500,208 1496,204 1493,200 1492,194 1493,188 1496,184 1500,180 1505,178 1511,178 1516,180" fill="none" stroke="#1e1e1e" stroke-width="3" marker-end="url(#m0)"/>
+<text x="1540" y="200" font-size="14" fill="#1e1e1e">repeats</text>
+<polygon points="1715,176 1750,196 1715,216 1680,196" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="1715" y="199" font-size="9" text-anchor="middle" font-weight="bold">GATE</text>
+<text x="1762" y="192" font-size="14" fill="#1e1e1e">a check that</text>
+<text x="1762" y="210" font-size="14" fill="#1e1e1e">can stop it</text>
+<rect x="1870" y="180" width="41" height="25" rx="8" fill="#E8F1FB" stroke="#1e1e1e" stroke-width="1"/>
+<text x="1891" y="196" font-size="10" text-anchor="middle" font-weight="bold">API</text>
+<text x="1920" y="200" font-size="14" fill="#1e1e1e">outside service</text>
+<rect x="140" y="270" width="1900" height="720" rx="14" fill="#F5F1E8" stroke="#C9C2B0" stroke-width="1"/>
+<text x="160" y="312" font-size="24" fill="#1e1e1e" font-weight="bold">0 - THE SETUP:  who we are looking for, and which machine looks for them</text>
+<text x="180" y="371" font-size="17" fill="#1e1e1e" font-weight="bold">ICP FILES</text>
+<text x="180" y="390" font-size="14" fill="#6B6B6B">one per kind of organization</text>
+<rect x="180" y="408" width="27" height="34" fill="#FFFFFF" stroke="#1e1e1e" stroke-width="2"/>
+<rect x="199" y="408" width="8" height="8" fill="#FAF6EA" stroke="#1e1e1e" stroke-width="1"/>
+<polyline points="185,425 202,425" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<polyline points="185,432 198,432" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<text x="222" y="432" font-size="14" fill="#1e1e1e">CCR&amp;R</text>
+<rect x="180" y="452" width="27" height="34" fill="#FFFFFF" stroke="#1e1e1e" stroke-width="2"/>
+<rect x="199" y="452" width="8" height="8" fill="#FAF6EA" stroke="#1e1e1e" stroke-width="1"/>
+<polyline points="185,469 202,469" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<polyline points="185,476 198,476" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<text x="222" y="476" font-size="14" fill="#1e1e1e">Head Start grantee</text>
+<rect x="180" y="496" width="27" height="34" fill="#FFFFFF" stroke="#1e1e1e" stroke-width="2"/>
+<rect x="199" y="496" width="8" height="8" fill="#FAF6EA" stroke="#1e1e1e" stroke-width="1"/>
+<polyline points="185,513 202,513" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<polyline points="185,520 198,520" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<text x="222" y="520" font-size="14" fill="#1e1e1e">state AEYC chapter</text>
+<rect x="180" y="540" width="27" height="34" fill="#FFFFFF" stroke="#1e1e1e" stroke-width="2"/>
+<rect x="199" y="540" width="8" height="8" fill="#FAF6EA" stroke="#1e1e1e" stroke-width="1"/>
+<polyline points="185,557 202,557" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<polyline points="185,564 198,564" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<text x="222" y="564" font-size="14" fill="#1e1e1e">ELC / early learning coalition</text>
+<rect x="180" y="584" width="27" height="34" fill="#FFFFFF" stroke="#1e1e1e" stroke-width="2"/>
+<rect x="199" y="584" width="8" height="8" fill="#FAF6EA" stroke="#1e1e1e" stroke-width="1"/>
+<polyline points="185,601 202,601" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<polyline points="185,608 198,608" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<text x="222" y="608" font-size="14" fill="#1e1e1e">conference host</text>
+<rect x="180" y="628" width="27" height="34" fill="#FFFFFF" stroke="#1e1e1e" stroke-width="2"/>
+<rect x="199" y="628" width="8" height="8" fill="#FAF6EA" stroke="#1e1e1e" stroke-width="1"/>
+<polyline points="185,645 202,645" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<polyline points="185,652 198,652" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<text x="222" y="652" font-size="14" fill="#1e1e1e">state agency</text>
+<rect x="180" y="672" width="27" height="34" fill="#FFFFFF" stroke="#1e1e1e" stroke-width="2"/>
+<rect x="199" y="672" width="8" height="8" fill="#FAF6EA" stroke="#1e1e1e" stroke-width="1"/>
+<polyline points="185,689 202,689" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<polyline points="185,696 198,696" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<text x="222" y="696" font-size="14" fill="#1e1e1e">...</text>
+<defs><marker id="m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#6B6B6B" stroke-width="1.6"/></marker></defs>
+<polyline points="430,426 670,550" fill="none" stroke="#6B6B6B" stroke-width="1" marker-end="url(#m1)"/>
+<polyline points="430,470 670,550" fill="none" stroke="#6B6B6B" stroke-width="1" marker-end="url(#m1)"/>
+<polyline points="430,514 670,550" fill="none" stroke="#6B6B6B" stroke-width="1" marker-end="url(#m1)"/>
+<polyline points="430,558 670,550" fill="none" stroke="#6B6B6B" stroke-width="1" marker-end="url(#m1)"/>
+<polyline points="430,602 670,550" fill="none" stroke="#6B6B6B" stroke-width="1" marker-end="url(#m1)"/>
+<polyline points="430,646 670,550" fill="none" stroke="#6B6B6B" stroke-width="1" marker-end="url(#m1)"/>
+<polyline points="430,690 670,550" fill="none" stroke="#6B6B6B" stroke-width="1" marker-end="url(#m1)"/>
+<text x="430" y="385" font-size="15" fill="#1D4ED8" font-weight="bold">many ICPs</text>
+<text x="430" y="404" font-size="15" fill="#1D4ED8" font-weight="bold">= one MARKET</text>
+<ellipse cx="870" cy="550" rx="170" ry="170" fill="#A5D8FF" stroke="#1D4ED8" stroke-width="3" opacity="0.60"/>
+<ellipse cx="1020" cy="550" rx="170" ry="170" fill="#FFD8A8" stroke="#C2410C" stroke-width="3" opacity="0.60"/>
+<ellipse cx="945" cy="680" rx="170" ry="170" fill="#B2F2BB" stroke="#15803D" stroke-width="3" opacity="0.60"/>
+<text x="800" y="480" font-size="20" fill="#1D4ED8" text-anchor="middle" font-weight="bold">MARKET</text>
+<text x="800" y="502" font-size="14" fill="#1D4ED8" text-anchor="middle">who we</text>
+<text x="800" y="520" font-size="14" fill="#1D4ED8" text-anchor="middle">talk to</text>
+<text x="1090" y="480" font-size="20" fill="#C2410C" text-anchor="middle" font-weight="bold">MESSAGE</text>
+<text x="1090" y="502" font-size="14" fill="#C2410C" text-anchor="middle">what we</text>
+<text x="1090" y="520" font-size="14" fill="#C2410C" text-anchor="middle">say</text>
+<text x="945" y="795" font-size="20" fill="#15803D" text-anchor="middle" font-weight="bold">METHOD</text>
+<text x="945" y="816" font-size="14" fill="#15803D" text-anchor="middle">how we deliver it</text>
+<ellipse cx="945" cy="587" rx="62" ry="29" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="945" y="594" font-size="18" text-anchor="middle" font-weight="bold">CLUSTER</text>
+<text x="580" y="901" font-size="16" fill="#1e1e1e">A CLUSTER is one Market + one Message + one Method (the TLBS three-circles model).</text>
+<text x="580" y="921" font-size="16" fill="#1e1e1e">Many ICP files add up to one Market; a Market is one third of a cluster.</text>
+<polyline points="1170,590 1370,420" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#m0)"/>
+<polyline points="1170,610 1370,610" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#m0)"/>
+<text x="1540" y="345" font-size="15" fill="#6B6B6B">one machine per cluster</text>
+<rect x="1380" y="360" width="300" height="110" rx="14" fill="#FFFFFF" stroke="#1e1e1e" stroke-width="2"/>
+<text x="1530" y="402" font-size="15" text-anchor="middle" font-weight="bold">CLUSTER 001</text>
+<text x="1530" y="421" font-size="15" text-anchor="middle">Training days</text>
+<text x="1530" y="439" font-size="15" text-anchor="middle">Market: CCR&amp;Rs + their kin</text>
+<polyline points="1680,415 1720,415" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#m0)"/>
+<rect x="1720" y="360" width="300" height="110" rx="14" fill="#FFDE59" stroke="#1e1e1e" stroke-width="3"/>
+<text x="1870" y="402" font-size="15" text-anchor="middle" font-weight="bold">MACHINE OM-1</text>
+<text x="1870" y="421" font-size="15" text-anchor="middle">minimum 10 Email 1 drafts</text>
+<text x="1870" y="439" font-size="15" text-anchor="middle">a night, ceiling 15</text>
+<rect x="1380" y="550" width="300" height="110" rx="14" fill="#FFFFFF" stroke="#1e1e1e" stroke-width="2"/>
+<text x="1530" y="592" font-size="15" text-anchor="middle" font-weight="bold">CLUSTER 002</text>
+<text x="1530" y="611" font-size="15" text-anchor="middle">Conference keynote + MC</text>
+<text x="1530" y="629" font-size="15" text-anchor="middle">Market: orgs running a conference</text>
+<polyline points="1680,605 1720,605" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#m0)"/>
+<rect x="1720" y="550" width="300" height="110" rx="14" fill="#FFDE59" stroke="#1e1e1e" stroke-width="3"/>
+<text x="1870" y="592" font-size="15" text-anchor="middle" font-weight="bold">MACHINE OM-2</text>
+<text x="1870" y="611" font-size="15" text-anchor="middle">minimum 35 a night, ceiling 50</text>
+<text x="1870" y="629" font-size="15" text-anchor="middle">timed to the event date</text>
+<rect x="1380" y="700" width="27" height="34" fill="#FFDE59" stroke="#1e1e1e" stroke-width="3"/>
+<rect x="1399" y="700" width="8" height="8" fill="#FAF6EA" stroke="#1e1e1e" stroke-width="1"/>
+<polyline points="1385,717 1402,717" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<polyline points="1385,724 1398,724" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+<text x="1424" y="713" font-size="15" fill="#6B6B6B">A machine = one settings block + one email template.</text>
+<text x="1424" y="732" font-size="15" fill="#6B6B6B">Same engine, same Rulebook, same master list. No new code.</text>
+<rect x="140" y="1060" width="1900" height="150" rx="14" fill="#F5F1E8" stroke="#C9C2B0" stroke-width="1"/>
+<ellipse cx="184" cy="1100" rx="22" ry="22" fill="#FFFFFF" stroke="#1e1e1e" stroke-width="3"/>
+<polyline points="184,1100 184,1086" fill="none" stroke="#1e1e1e" stroke-width="3"/>
+<polyline points="184,1100 194,1107" fill="none" stroke="#1e1e1e" stroke-width="3"/>
+<text x="216" y="1108" font-size="24" fill="#1e1e1e" font-weight="bold">1 - THE NIGHT RUN  -  Sun-Thu 8:41 PM, one scheduled task on Chris&#x27;s Mac  -  makes drafts and lists, NEVER sends</text>
+<rect x="216" y="1128" width="36" height="31" rx="10" fill="#1A1A1A" stroke="#1A1A1A" stroke-width="2"/>
+<text x="222" y="1147" font-size="13" fill="#FFDE59">&lt;/&gt;</text>
+<text x="268" y="1148" font-size="16" fill="#6B6B6B">One program prints the one next step; the run does it, saves a checkpoint, asks again. A crashed run resumes where it stopped.</text>
+<rect x="216" y="1171" width="32" height="23" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<ellipse cx="232" cy="1171" rx="16" ry="5" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<ellipse cx="232" cy="1195" rx="16" ry="5" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="268" y="1186" font-size="16" fill="#6B6B6B">THE MASTER LIST (one row per organization, both machines) is read by every phase and rebuilt after every phase. Gmail is the truth.</text>
+<rect x="600" y="1270" width="980" height="196" rx="14" fill="#A5D8FF" stroke="#1D4ED8" stroke-width="3"/>
+<rect x="618" y="1286" width="38" height="32" rx="11" fill="#1A1A1A" stroke="#1A1A1A" stroke-width="2"/>
+<text x="625" y="1307" font-size="14" fill="#FFDE59">&lt;/&gt;</text>
+<ellipse cx="691" cy="1302" rx="19" ry="16" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="691" y="1307" font-size="14" text-anchor="middle" font-weight="bold">AI</text>
+<text x="736" y="1312" font-size="22" fill="#1D4ED8" font-weight="bold">PHASE 1  -  READ THE INBOX</text>
+<text x="622" y="1353" font-size="17" fill="#1e1e1e">Reads every outreach thread in Gmail in full: what was sent, who replied, what bounced, which</text>
+<text x="622" y="1374" font-size="17" fill="#1e1e1e">auto-replies name a successor (&#x27;I&#x27;ve left - contact Jane&#x27;). Writes down the true state of every thread.</text>
+<rect x="616" y="1392" width="948" height="56" rx="14" fill="#FFFFFF" stroke="#1D4ED8" stroke-width="1" opacity="0.85"/>
+<text x="630" y="1414" font-size="15" fill="#6B6B6B">reads: Gmail, yesterday&#x27;s master list -&gt; writes: the thread-state ledger, the master list rebuilt from</text>
+<text x="630" y="1433" font-size="15" fill="#6B6B6B">Gmail</text>
+<polyline points="1090,1466 1090,1556" fill="none" stroke="#1e1e1e" stroke-width="3" marker-end="url(#m0)"/>
+<rect x="600" y="1556" width="980" height="242" rx="14" fill="#D0EBFF" stroke="#1D4ED8" stroke-width="3"/>
+<rect x="618" y="1572" width="38" height="32" rx="11" fill="#1A1A1A" stroke="#1A1A1A" stroke-width="2"/>
+<text x="625" y="1593" font-size="14" fill="#FFDE59">&lt;/&gt;</text>
+<text x="682" y="1598" font-size="22" fill="#1D4ED8" font-weight="bold">PHASE 1  -  TIDY GMAIL</text>
+<polygon points="1519,1568 1558,1590 1519,1612 1480,1590" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="1519" y="1594" font-size="11" text-anchor="middle" font-weight="bold">GATES</text>
+<text x="622" y="1639" font-size="17" fill="#1e1e1e">Three housekeeping jobs. (a) Stray Email 1 drafts with no label: rewrite, hand to the other</text>
+<text x="622" y="1660" font-size="17" fill="#1e1e1e">machine, or delete - never left for Chris. (b) Put one label on every thread: /0 drafted, /1 /2 /3 sent,</text>
+<text x="622" y="1682" font-size="17" fill="#1e1e1e">star replied, x closed, warning needs Chris, pause hold. (c) Threads Chris must see first get their</text>
+<text x="622" y="1703" font-size="17" fill="#1e1e1e">next email saved as a DRAFT reply, never sent.</text>
+<rect x="616" y="1724" width="948" height="56" rx="14" fill="#FFFFFF" stroke="#1D4ED8" stroke-width="1" opacity="0.85"/>
+<text x="630" y="1746" font-size="15" fill="#6B6B6B">reads: Gmail drafts, the thread states, the label rules -&gt; writes: labels and draft replies in Gmail, the</text>
+<text x="630" y="1765" font-size="15" fill="#6B6B6B">drafts ledger</text>
+<polyline points="1090,1798 1090,1888" fill="none" stroke="#1e1e1e" stroke-width="3" marker-end="url(#m0)"/>
+<rect x="600" y="1888" width="980" height="219" rx="14" fill="#C3FAE8" stroke="#0F766E" stroke-width="3"/>
+<rect x="618" y="1904" width="38" height="32" rx="11" fill="#1A1A1A" stroke="#1A1A1A" stroke-width="2"/>
+<text x="625" y="1925" font-size="14" fill="#FFDE59">&lt;/&gt;</text>
+<text x="682" y="1930" font-size="22" fill="#0F766E" font-weight="bold">PHASE 7 (night half)  -  TOMORROW&#x27;S APPROVED SEND LIST</text>
+<polygon points="1519,1900 1558,1922 1519,1944 1480,1922" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="1519" y="1926" font-size="11" text-anchor="middle" font-weight="bold">GATE</text>
+<text x="622" y="1971" font-size="17" fill="#1e1e1e">For every open thread: is Email 2 or 3 due? 7 days after the last send, business days only, delayed</text>
+<text x="622" y="1992" font-size="17" fill="#1e1e1e">past weekends and holidays, never skipped. Stopped by any reply, stop label, open draft or bounce.</text>
+<text x="622" y="2014" font-size="17" fill="#1e1e1e">Every row must pass every Rulebook check. Anything flagged is NOT approved. Final once written.</text>
+<rect x="616" y="2033" width="948" height="56" rx="14" fill="#FFFFFF" stroke="#0F766E" stroke-width="1" opacity="0.85"/>
+<text x="630" y="2055" font-size="15" fill="#6B6B6B">reads: the master list, the &#x27;every address ever contacted&#x27; ledger, the calendar -&gt; writes: the approved</text>
+<text x="630" y="2074" font-size="15" fill="#6B6B6B">send list (read at 7 AM)</text>
+<polyline points="1090,2107 1090,2197" fill="none" stroke="#1e1e1e" stroke-width="3" marker-end="url(#m0)"/>
+<rect x="1098" y="2182" width="115" height="20" fill="#fff"/>
+<text x="1100" y="2197" font-size="15" fill="#1e1e1e">then the loop</text>
+<rect x="180" y="2197" width="1820" height="1502" rx="14" fill="#FAF6EA" stroke="#C9C2B0" stroke-width="1" stroke-dasharray="8 6"/>
+<polyline points="237,2239 234,2245 229,2249 223,2251 217,2251 211,2249 206,2245 203,2239 202,2233 203,2227 206,2221 211,2217 217,2215 223,2215 229,2217" fill="none" stroke="#1e1e1e" stroke-width="3" marker-end="url(#m0)"/>
+<text x="254" y="2237" font-size="22" fill="#1e1e1e" font-weight="bold">THE LOOP  -  Discover -&gt; Qualify -&gt; People -&gt; Draft, pass after pass, until each machine has its drafts</text>
+<text x="254" y="2262" font-size="15" fill="#6B6B6B">Only for machines still under their minimum. No clock. A pass that adds nothing for a machine = out of supply tonight. Runaway guard: 25 passes.</text>
+<rect x="600" y="2287" width="980" height="242" rx="14" fill="#B2F2BB" stroke="#15803D" stroke-width="3"/>
+<rect x="618" y="2303" width="38" height="32" rx="11" fill="#1A1A1A" stroke="#1A1A1A" stroke-width="2"/>
+<text x="625" y="2324" font-size="14" fill="#FFDE59">&lt;/&gt;</text>
+<ellipse cx="691" cy="2319" rx="19" ry="16" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="691" y="2324" font-size="14" text-anchor="middle" font-weight="bold">AI</text>
+<text x="736" y="2329" font-size="22" fill="#15803D" font-weight="bold">PHASE 2  -  DISCOVER</text>
+<text x="622" y="2370" font-size="17" fill="#1e1e1e">Find organizations and events we do not know yet. The program picks the sources that are due</text>
+<text x="622" y="2391" font-size="17" fill="#1e1e1e">(directories, conference calendars, keynote speakers&#x27; pages, partner pages) and gives each AI helper</text>
+<text x="622" y="2412" font-size="17" fill="#1e1e1e">a batch with an exact search allowance. Helpers read the web in parallel and follow each find outward.</text>
+<text x="622" y="2434" font-size="17" fill="#1e1e1e">The program checks every result before it counts.</text>
+<rect x="616" y="2455" width="948" height="56" rx="14" fill="#FFFFFF" stroke="#15803D" stroke-width="1" opacity="0.85"/>
+<text x="630" y="2477" font-size="15" fill="#6B6B6B">reads: the places-to-look list, the search log (no search is ever repeated), ICP files -&gt; writes: new</text>
+<text x="630" y="2496" font-size="15" fill="#6B6B6B">rows on the master list</text>
+<polyline points="1090,2529 1090,2619" fill="none" stroke="#1e1e1e" stroke-width="3" marker-end="url(#m0)"/>
+<rect x="600" y="2619" width="980" height="219" rx="14" fill="#FFD8A8" stroke="#C2410C" stroke-width="3"/>
+<ellipse cx="637" cy="2651" rx="19" ry="16" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="637" y="2656" font-size="14" text-anchor="middle" font-weight="bold">AI</text>
+<rect x="672" y="2635" width="38" height="32" rx="11" fill="#1A1A1A" stroke="#1A1A1A" stroke-width="2"/>
+<text x="679" y="2656" font-size="14" fill="#FFDE59">&lt;/&gt;</text>
+<text x="736" y="2661" font-size="22" fill="#C2410C" font-weight="bold">PHASE 3  -  QUALIFY, ROUTE, TIME</text>
+<polygon points="1519,2631 1558,2653 1519,2675 1480,2653" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="1519" y="2657" font-size="11" text-anchor="middle" font-weight="bold">FIT?</text>
+<text x="622" y="2702" font-size="17" fill="#1e1e1e">FIT: a quote found on the org&#x27;s own live page must pass its ICP test (doubtful = draft but flag).</text>
+<text x="622" y="2723" font-size="17" fill="#1e1e1e">ROUTE: runs its own conference with an outside keynote -&gt; OM-2; everything else -&gt; OM-1.</text>
+<text x="622" y="2744" font-size="17" fill="#1e1e1e">TIME (OM-2): outreach opens 6 months before the event; silent inside 3 months; too close -&gt; next year.</text>
+<rect x="616" y="2764" width="948" height="56" rx="14" fill="#FFFFFF" stroke="#C2410C" stroke-width="1" opacity="0.85"/>
+<text x="630" y="2786" font-size="15" fill="#6B6B6B">reads: every unjudged org, its live pages, the exclusions (do-not-contact, existing clients, Colorado) -&gt;</text>
+<text x="630" y="2805" font-size="15" fill="#6B6B6B">writes: fit + reason, owner, window</text>
+<polyline points="1090,2838 1090,2928" fill="none" stroke="#1e1e1e" stroke-width="3" marker-end="url(#m0)"/>
+<rect x="600" y="2928" width="980" height="242" rx="14" fill="#D0BFFF" stroke="#6D28D9" stroke-width="3"/>
+<ellipse cx="637" cy="2960" rx="19" ry="16" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="637" y="2965" font-size="14" text-anchor="middle" font-weight="bold">AI</text>
+<rect x="672" y="2944" width="38" height="32" rx="11" fill="#1A1A1A" stroke="#1A1A1A" stroke-width="2"/>
+<text x="679" y="2965" font-size="14" fill="#FFDE59">&lt;/&gt;</text>
+<rect x="726" y="2948" width="44" height="27" rx="9" fill="#E8F1FB" stroke="#1e1e1e" stroke-width="1"/>
+<text x="748" y="2965" font-size="11" text-anchor="middle" font-weight="bold">API</text>
+<text x="790" y="2970" font-size="22" fill="#6D28D9" font-weight="bold">PHASE 4  -  PEOPLE</text>
+<polygon points="1519,2940 1558,2962 1519,2984 1480,2962" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="1519" y="2966" font-size="11" text-anchor="middle" font-weight="bold">3 GATES</text>
+<text x="622" y="3011" font-size="17" fill="#1e1e1e">Find up to 4 people per org (1 To + 3 Cc), chosen by ROLE. An address counts only if it is printed</text>
+<text x="622" y="3032" font-size="17" fill="#1e1e1e">on the org&#x27;s own page or auto-reply - OR a named person with no published address is looked up in</text>
+<text x="622" y="3054" font-size="17" fill="#1e1e1e">Apollo and counts only if Apollo says Verified AND ZeroBounce says valid AND it is on the org&#x27;s own</text>
+<text x="622" y="3075" font-size="17" fill="#1e1e1e">domain. A general inbox is the To only after that lookup found nobody. Zero guesses, ever.</text>
+<rect x="616" y="3096" width="948" height="56" rx="14" fill="#FFFFFF" stroke="#6D28D9" stroke-width="1" opacity="0.85"/>
+<text x="630" y="3118" font-size="15" fill="#6B6B6B">reads: fit orgs with no thread yet, their staff pages, their auto-replies, Apollo -&gt; writes: each org&#x27;s</text>
+<text x="630" y="3137" font-size="15" fill="#6B6B6B">recipients + greeting, or why it is held</text>
+<polyline points="1090,3170 1090,3260" fill="none" stroke="#1e1e1e" stroke-width="3" marker-end="url(#m0)"/>
+<rect x="600" y="3260" width="980" height="219" rx="14" fill="#EEBEFA" stroke="#A21CAF" stroke-width="3"/>
+<rect x="618" y="3276" width="38" height="32" rx="11" fill="#1A1A1A" stroke="#1A1A1A" stroke-width="2"/>
+<text x="625" y="3297" font-size="14" fill="#FFDE59">&lt;/&gt;</text>
+<rect x="672" y="3280" width="44" height="27" rx="9" fill="#E8F1FB" stroke="#1e1e1e" stroke-width="1"/>
+<text x="694" y="3297" font-size="11" text-anchor="middle" font-weight="bold">API</text>
+<text x="736" y="3302" font-size="22" fill="#A21CAF" font-weight="bold">PHASE 5  -  DRAFT EMAIL 1</text>
+<polygon points="1519,3272 1558,3294 1519,3316 1480,3294" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="1519" y="3298" font-size="11" text-anchor="middle" font-weight="bold">GATE 7</text>
+<text x="622" y="3343" font-size="17" fill="#1e1e1e">The program fills the frozen template word for word; only the greeting and the org&#x27;s short name</text>
+<text x="622" y="3364" font-size="17" fill="#1e1e1e">change. Zapier creates the Gmail draft with the PDF attached. A final check reads the raw draft back</text>
+<text x="622" y="3386" font-size="17" fill="#1e1e1e">(attachment, links, Bcc, recipients, subject) before it counts. Never sent by a machine.</text>
+<rect x="616" y="3405" width="948" height="56" rx="14" fill="#FFFFFF" stroke="#A21CAF" stroke-width="1" opacity="0.85"/>
+<text x="630" y="3427" font-size="15" fill="#6B6B6B">reads: orgs with a ready recipient set, Gmail checked first (one thread per org), the template + PDF -&gt;</text>
+<text x="630" y="3446" font-size="15" fill="#6B6B6B">writes: Email 1 DRAFTS in Gmail, the drafts ledger</text>
+<polyline points="1090,3479 1090,3519" fill="none" stroke="#1e1e1e" stroke-width="3" marker-end="url(#m0)"/>
+<polygon points="1090,3519 1350,3594 1090,3669 830,3594" fill="#FFDE59" stroke="#1e1e1e" stroke-width="3"/>
+<text x="1090" y="3590" font-size="17" text-anchor="middle">Every machine at its minimum,</text>
+<text x="1090" y="3611" font-size="17" text-anchor="middle">or out of organizations for tonight?</text>
+<polyline points="830,3594 460,3594 460,2407 595,2407" fill="none" stroke="#1e1e1e" stroke-width="3" marker-end="url(#m0)"/>
+<rect x="386" y="2395" width="149" height="20" fill="#fff"/>
+<text x="460" y="2410" font-size="15" fill="#1e1e1e" text-anchor="middle">NO - another pass</text>
+<polyline points="1090,3699 1090,3759" fill="none" stroke="#1e1e1e" stroke-width="3" marker-end="url(#m0)"/>
+<rect x="1098" y="3744" width="31" height="20" fill="#fff"/>
+<text x="1100" y="3759" font-size="15" fill="#1e1e1e">YES</text>
+<rect x="600" y="3759" width="980" height="219" rx="14" fill="#DBE4FF" stroke="#3730A3" stroke-width="3"/>
+<rect x="618" y="3775" width="38" height="32" rx="11" fill="#1A1A1A" stroke="#1A1A1A" stroke-width="2"/>
+<text x="625" y="3796" font-size="14" fill="#FFDE59">&lt;/&gt;</text>
+<ellipse cx="691" cy="3791" rx="19" ry="16" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="691" y="3796" font-size="14" text-anchor="middle" font-weight="bold">AI</text>
+<text x="736" y="3801" font-size="22" fill="#3730A3" font-weight="bold">PHASE 6  -  REPORT + DOSSIER</text>
+<text x="622" y="3842" font-size="17" fill="#1e1e1e">1. The SENDING DOSSIER: one card per Email 1 draft (the org, its pages, every recipient with its source,</text>
+<text x="622" y="3863" font-size="17" fill="#1e1e1e">the reasoning) - built only from the records, nothing looked up. Chris reads it beside Gmail Drafts.</text>
+<text x="622" y="3884" font-size="17" fill="#1e1e1e">2. The ONE MORNING REPORT: executive summary, then one prioritized issues list with a fix for each.</text>
+<rect x="616" y="3904" width="948" height="56" rx="14" fill="#FFFFFF" stroke="#3730A3" stroke-width="1" opacity="0.85"/>
+<text x="630" y="3926" font-size="15" fill="#6B6B6B">reads: the master list, the night&#x27;s step log, open questions for Chris, Apollo credits -&gt; writes: the</text>
+<text x="630" y="3945" font-size="15" fill="#6B6B6B">dossier, the report, new questions in the rulings log</text>
+<rect x="140" y="4078" width="1900" height="90" rx="14" fill="#F5F1E8" stroke="#C9C2B0" stroke-width="1"/>
+<ellipse cx="184" cy="4124" rx="22" ry="22" fill="#FFFFFF" stroke="#1e1e1e" stroke-width="3"/>
+<polyline points="184,4124 184,4110" fill="none" stroke="#1e1e1e" stroke-width="3"/>
+<polyline points="184,4124 194,4131" fill="none" stroke="#1e1e1e" stroke-width="3"/>
+<text x="216" y="4132" font-size="24" fill="#1e1e1e" font-weight="bold">2 - THE MORNING  -  Mon-Fri  -  the only sending in the whole system happens here</text>
+<polyline points="1090,4018 1090,4078" fill="none" stroke="#1e1e1e" stroke-width="3" marker-end="url(#m0)"/>
+<rect x="1098" y="4063" width="275" height="20" fill="#fff"/>
+<text x="1100" y="4078" font-size="15" fill="#1e1e1e">report + dossier + approved list</text>
+<polyline points="1090,4168 1090,4228" fill="none" stroke="#1e1e1e" stroke-width="3" marker-end="url(#m0)"/>
+<rect x="600" y="4228" width="980" height="242" rx="14" fill="#FFC9C9" stroke="#B91C1C" stroke-width="3"/>
+<ellipse cx="637" cy="4263" rx="19" ry="19" fill="#FFFFFF" stroke="#1e1e1e" stroke-width="3"/>
+<polyline points="637,4263 637,4251" fill="none" stroke="#1e1e1e" stroke-width="3"/>
+<polyline points="637,4263 646,4269" fill="none" stroke="#1e1e1e" stroke-width="3"/>
+<rect x="672" y="4244" width="38" height="32" rx="11" fill="#1A1A1A" stroke="#1A1A1A" stroke-width="2"/>
+<text x="679" y="4265" font-size="14" fill="#FFDE59">&lt;/&gt;</text>
+<rect x="726" y="4248" width="44" height="27" rx="9" fill="#E8F1FB" stroke="#1e1e1e" stroke-width="1"/>
+<text x="748" y="4265" font-size="11" text-anchor="middle" font-weight="bold">API</text>
+<text x="790" y="4270" font-size="22" fill="#B91C1C" font-weight="bold">PHASE 7 (7 AM half)  -  THE SEND</text>
+<polygon points="1519,4240 1558,4262 1519,4284 1480,4262" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="1519" y="4266" font-size="11" text-anchor="middle" font-weight="bold">GO?</text>
+<text x="622" y="4311" font-size="17" fill="#1e1e1e">A SEPARATE scheduled task: fires 6:52 AM ET, waits until 7:00, then sends Emails 2 and 3 - only the</text>
+<text x="622" y="4332" font-size="17" fill="#1e1e1e">rows on the approved list, exactly as listed, each thread re-read live first (a read older than 3 minutes</text>
+<text x="622" y="4354" font-size="17" fill="#1e1e1e">is stale). Anything that changed overnight is skipped and left for tonight&#x27;s run to decide again.</text>
+<text x="622" y="4375" font-size="17" fill="#1e1e1e">Bounce rate over 3% stops everything. The only task allowed to act without asking.</text>
+<rect x="616" y="4396" width="948" height="56" rx="14" fill="#FFFFFF" stroke="#B91C1C" stroke-width="1" opacity="0.85"/>
+<text x="630" y="4418" font-size="15" fill="#6B6B6B">reads: today&#x27;s FINAL approved list, each thread live in Gmail, the templates, its own past sends (a</text>
+<text x="630" y="4437" font-size="15" fill="#6B6B6B">duplicate = full stop) -&gt; writes: sent emails + moved labels in Gmail, the send record</text>
+<polyline points="1090,4470 1090,4560" fill="none" stroke="#1e1e1e" stroke-width="3" marker-end="url(#m0)"/>
+<rect x="600" y="4560" width="980" height="242" rx="14" fill="#FFDE59" stroke="#1A1A1A" stroke-width="3"/>
+<ellipse cx="636" cy="4585" rx="9" ry="9" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<rect x="624" y="4595" width="25" height="17" rx="6" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="682" y="4602" font-size="22" fill="#1A1A1A" font-weight="bold">CHRIS  -  EACH MORNING</text>
+<text x="622" y="4643" font-size="17" fill="#1e1e1e">- adds the GIF and SENDS Email 1 by hand (a machine never does)</text>
+<text x="622" y="4664" font-size="17" fill="#1e1e1e">- writes back to every real reply</text>
+<text x="622" y="4686" font-size="17" fill="#1e1e1e">- rules on flags and open questions</text>
+<text x="622" y="4707" font-size="17" fill="#1e1e1e">- changes a rule only by editing the Rulebook; a number only in the settings file</text>
+<rect x="616" y="4728" width="948" height="56" rx="14" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="1" opacity="0.85"/>
+<text x="630" y="4750" font-size="15" fill="#6B6B6B">reads: the morning report, the dossier beside Gmail Drafts, replies and flags -&gt; writes: Email 1 sent,</text>
+<text x="630" y="4769" font-size="15" fill="#6B6B6B">replies, rulings (tonight&#x27;s run reads them all)</text>
+<polyline points="600,4681 170,4681 170,1310 600,1310" fill="none" stroke="#6B6B6B" stroke-width="2" stroke-dasharray="8 6" marker-end="url(#m1)"/>
+<text x="600" y="4837" font-size="15" fill="#6B6B6B">THE CYCLE (dashed line): what Chris sends and what people reply lands in Gmail. Tonight&#x27;s run reads Gmail first,</text>
+<text x="600" y="4856" font-size="15" fill="#6B6B6B">so every morning&#x27;s actions are in the records by the next night. Nothing is re-done: the ledgers remember.</text>
+<rect x="140" y="4962" width="1900" height="300" rx="14" fill="#F5F1E8" stroke="#C9C2B0" stroke-width="1"/>
+<text x="160" y="5004" font-size="24" fill="#1e1e1e" font-weight="bold">3 - THE EMAIL SEQUENCE  -  same for every machine, one thread per organization, 7 days apart</text>
+<ellipse cx="169" cy="5081" rx="9" ry="9" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<rect x="156" y="5092" width="26" height="18" rx="6" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<rect x="200" y="5042" width="360" height="120" rx="14" fill="#FFDE59" stroke="#1e1e1e" stroke-width="3"/>
+<text x="380" y="5088" font-size="16" text-anchor="middle" font-weight="bold">EMAIL 1</text>
+<text x="380" y="5108" font-size="16" text-anchor="middle">written by the machine, sent by</text>
+<text x="380" y="5128" font-size="16" text-anchor="middle">Chris by hand with the GIF + PDF</text>
+<polyline points="560,5102 690,5102" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#m0)"/>
+<rect x="662" y="5090" width="56" height="20" fill="#fff"/>
+<text x="690" y="5105" font-size="15" fill="#1e1e1e" text-anchor="middle">7 days</text>
+<rect x="690" y="5042" width="360" height="120" rx="14" fill="#FFC9C9" stroke="#B91C1C" stroke-width="2"/>
+<text x="870" y="5088" font-size="16" text-anchor="middle" font-weight="bold">EMAIL 2</text>
+<text x="870" y="5108" font-size="16" text-anchor="middle">short follow-up</text>
+<text x="870" y="5128" font-size="16" text-anchor="middle">sent by the 7 AM task</text>
+<polyline points="1050,5102 1180,5102" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#m0)"/>
+<rect x="1152" y="5090" width="56" height="20" fill="#fff"/>
+<text x="1180" y="5105" font-size="15" fill="#1e1e1e" text-anchor="middle">7 days</text>
+<rect x="1180" y="5042" width="360" height="120" rx="14" fill="#FFC9C9" stroke="#B91C1C" stroke-width="2"/>
+<text x="1360" y="5088" font-size="16" text-anchor="middle" font-weight="bold">EMAIL 3</text>
+<text x="1360" y="5108" font-size="16" text-anchor="middle">value gift + graceful close,</text>
+<text x="1360" y="5128" font-size="16" text-anchor="middle">Starter Kit attached, 7 AM task</text>
+<polyline points="1540,5102 1670,5102" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#m0)"/>
+<rect x="1642" y="5090" width="56" height="20" fill="#fff"/>
+<text x="1670" y="5105" font-size="15" fill="#1e1e1e" text-anchor="middle">7 days</text>
+<rect x="1670" y="5042" width="330" height="120" rx="14" fill="#FAF6EA" stroke="#1e1e1e" stroke-width="2"/>
+<text x="1835" y="5088" font-size="16" text-anchor="middle" font-weight="bold">CLOSED</text>
+<text x="1835" y="5108" font-size="16" text-anchor="middle">no reply 7 days after Email 3;</text>
+<text x="1835" y="5128" font-size="16" text-anchor="middle">never started again by a machine</text>
+<text x="160" y="5217" font-size="15" fill="#6B6B6B">Any real reply stops the sequence and goes to Chris  -  an auto-reply is never a reply  -  a bounce stops the thread  -  weekend or US holiday = delayed to the next business day, never skipped</text>
+<rect x="140" y="5312" width="1900" height="360" rx="14" fill="#F5F1E8" stroke="#C9C2B0" stroke-width="1"/>
+<text x="160" y="5354" font-size="24" fill="#1e1e1e" font-weight="bold">4 - WHAT GOVERNS EVERY STEP</text>
+<rect x="180" y="5382" width="587" height="250" rx="14" fill="#FFDE59" stroke="#1e1e1e" stroke-width="2"/>
+<text x="473" y="5438" font-size="15" text-anchor="middle" font-weight="bold">THE 8 NON-NEGOTIABLES (the Charter)</text>
+<text x="473" y="5456" font-size="15" text-anchor="middle">1. Email 1 is Chris&#x27;s to send</text>
+<text x="473" y="5475" font-size="15" text-anchor="middle">2. One thread per organization</text>
+<text x="473" y="5494" font-size="15" text-anchor="middle">3. Do-not-contact is absolute</text>
+<text x="473" y="5513" font-size="15" text-anchor="middle">4. Zero guessed addresses</text>
+<text x="473" y="5531" font-size="15" text-anchor="middle">5. Email copy is frozen</text>
+<text x="473" y="5550" font-size="15" text-anchor="middle">6. Gmail is the truth</text>
+<text x="473" y="5569" font-size="15" text-anchor="middle">7. The night never sends</text>
+<text x="473" y="5588" font-size="15" text-anchor="middle">8. Doesn&#x27;t add up? Stop and hold</text>
+<rect x="797" y="5382" width="587" height="250" rx="14" fill="#FFFFFF" stroke="#1e1e1e" stroke-width="2"/>
+<text x="1090" y="5447" font-size="15" text-anchor="middle" font-weight="bold">WHO DOES WHAT</text>
+<text x="1090" y="5466" font-size="15" text-anchor="middle">FIXED PROGRAMS (same answer every time):</text>
+<text x="1090" y="5484" font-size="15" text-anchor="middle">bookkeeping, routing, timing, address checks,</text>
+<text x="1090" y="5503" font-size="15" text-anchor="middle">template filling, safety gates, &#x27;the one next step&#x27;.</text>
+<text x="1090" y="5522" font-size="15" text-anchor="middle">AI HELPERS (judgment): read web pages, judge fit,</text>
+<text x="1090" y="5541" font-size="15" text-anchor="middle">find people, sort replies, write the plain-English report.</text>
+<text x="1090" y="5560" font-size="15" text-anchor="middle">The AI never writes email copy, never picks who</text>
+<text x="1090" y="5578" font-size="15" text-anchor="middle">gets emailed, and never sends anything.</text>
+<rect x="1413" y="5382" width="587" height="250" rx="14" fill="#FFFFFF" stroke="#1e1e1e" stroke-width="2"/>
+<text x="1707" y="5447" font-size="15" text-anchor="middle" font-weight="bold">THE GUIDING DOCUMENTS</text>
+<text x="1707" y="5466" font-size="15" text-anchor="middle">CHARTER - why it exists, what it must never become</text>
+<text x="1707" y="5484" font-size="15" text-anchor="middle">RULEBOOK - the rules; changes only from Chris</text>
+<text x="1707" y="5503" font-size="15" text-anchor="middle">VOCABULARY - the words</text>
+<text x="1707" y="5522" font-size="15" text-anchor="middle">SETTINGS FILE - every number, one block per machine</text>
+<text x="1707" y="5541" font-size="15" text-anchor="middle">RULINGS LOG - questions for Chris, his answers</text>
+<text x="1707" y="5560" font-size="15" text-anchor="middle">CAPA LOG - what went wrong, the fix, the prevention</text>
+<text x="1707" y="5578" font-size="15" text-anchor="middle">If a change does not trace to one of these, it is drift.</text>
+</svg>

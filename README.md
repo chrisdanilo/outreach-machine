@@ -54,7 +54,7 @@ Automations/
     master/                    orgs.jsonl (the master list) · master-list.csv · settings.json (THE one settings file) · overrides.json · build_master.py · seeds/
     machines/OM-1, OM-2        each machine's own data and ledgers (contacted threads, events, territory) — no programs
     orchestrator/              run.py · nightrun.py · supplyrun.py · lock.py · invariants.py · rulings.py · paths.py (the one file that knows every folder) · night/ · supply/ · lock files · version log · the three task launchers
-  publish/                     the GitHub export (stale since 10/23; Stage 10 open)
+  publish/                     the public copy: export_public.py rebuilds publish/export/ + a dated zip; pushed to github.com/chrisdanilo/outreach-machine (SHARE-PROCEDURE.md)
   archive/                     everything not in use — nothing live reads it, ever
 ```
 
@@ -63,7 +63,7 @@ Automations/
 | I want to… | Open |
 |---|---|
 | See where everything lives, in one picture | `0_Design-and-Purpose/diagrams/2026-11-03-where-everything-lives.png` |
-| See how a night runs, in one picture | `0_Design-and-Purpose/diagrams/2026-11-02-how-the-outreach-system-runs.png` (the 1 AM Supply Run, added 2026-11-08, is not in this picture yet) |
+| See how the whole machine runs, in one picture | `0_Design-and-Purpose/diagrams/2026-11-10-how-the-outreach-machine-works.png` (setup → night run → supply run → 7 AM send → Chris; the `.excalidraw` beside it is editable) |
 | See what the Supply Run stocked last night | `_shared/orchestrator/supply/runs/supply-<date>/timing.md` (steps, minutes, the shelf table) — the morning report also carries the shelf line |
 | Read this morning's report | `6_Report/ledgers/reports/<today>.md` (details beside it: `<today>-details.md`) |
 | Review the night's Email 1 drafts before sending | `5_Draft/ledgers/dossiers/dossier-<date>.md` (newest), with Gmail Drafts open |
@@ -98,7 +98,7 @@ Automations/
 ## Open items (2026-11-08)
 0. Event-certainty step (Supply Run step 3) waits for Chris's ruling on the trigger list (proposed 2026-11-08 in chat; logged as an open ruling). Until then it is skipped each run and says so.
 1. CAPA 2026-10-31 — permissions for unattended runs (M1-R011): still unresolved. The 7 AM send has sent 0 rows on 11/02 and 11/03.
-2. Stage 10: regenerate the GitHub copy from this folder (`publish/export_public.py` still reads the pre-11/02 layout).
+2. ~~Stage 10: regenerate the GitHub copy~~ — done 2026-11-10: `publish/export_public.py` rewritten for this layout; repo synced; Notion retired.
 3. Rebuild into the night run: dossier step · reply-timing capture (K3) · weekly HubSpot cleanup · bulk label backfill.
 4. The two sender programs (`7_Send/programfiles/send.py` plans; `followup_send.py` sends) — build decision deferred.
 

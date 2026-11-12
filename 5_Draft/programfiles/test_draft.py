@@ -11,7 +11,7 @@ def ok(name, cond): R.append((name, bool(cond))); print(("PASS " if cond else "F
 def org(**kw):
     o = {"org_id": "org:x.org", "name": "Example Child Care Council", "aliases": [], "domains": ["x.org"], "state": "NC", "owner_machine": "OM-1",
          "referrer": False, "threads": [], "fit": {"status": "fit"}, "exclusions": {}, "icps": ["ICP-001"], "flags": [], "outreach": None,
-         "recipients": {"to": {"email": "person0188@x.org", "name": "Ann Lee"}, "cc": [{"email": "person0334@x.org", "name": "Bo Tam"}], "greeting": "Hi [Person 0128] and Bo,"}}
+         "recipients": {"to": {"email": "person0214@x.org", "name": "Ann Lee"}, "cc": [{"email": "person0374@x.org", "name": "Bo Tam"}], "greeting": "Hi [Person 0146] and Bo,"}}
     o.update(kw); return o
 IDX = (set(), {}, {})
 
@@ -24,11 +24,15 @@ for m in ("OM-1", "OM-2"):
     ok("clean video link %s" % m, 'href="https://www.youtube.com/watch?v=iNCItCda-8g"' in b and "google.com/url" not in b)
 
 # greeting naming (G7): bare names on Email 1, every named person, no salutation word
-ok("greeting bare names", draft.e1_greeting("OM-1", "Hi [Person 0175], Megan and Cait,", "CCPPNS") == "Barbara, Megan and Cait")
-ok("greeting named + team", draft.e1_greeting("OM-2", "Hi [Person 0820] and team,", "First 8") == "Kandace and team")
+ok("greeting bare names", draft.e1_greeting("OM-1", "Hi [Person 0207], Megan and Cait,", "CCPPNS") == "Barbara, Megan and Cait")
+ok("greeting named + team", draft.e1_greeting("OM-2", "Hi [Person 0979] and team,", "First 8") == "Kandace and team")
 ok("greeting no names OM-2", draft.e1_greeting("OM-2", "Hi First 8 Memphis team,", "First 8") == "First 8 conference team")
 ok("greeting no names OM-1", draft.e1_greeting("OM-1", "Hi Foo team,", "Foo") == "Hi Foo team")
 ok("short name from acronym", draft.short_name(org(name="California Council of Parent Participation Nursery Schools", aliases=["California Council of Parent Participation Nursery Schools (CCPPNS)"]), {})[0] == "CCPPNS")
+ok("place in brackets is not a short name", draft.short_name(org(name="First 3 Years (Texas)", domains=["first3yearstx.org"]), {})[0] != "Texas")
+ok("city in brackets is not a short name", draft.short_name(org(name="Jewish Federation of South Palm Beach County (Boca)"), {})[0] != "Boca")
+ok("org's own printed short name wins", draft.short_name(org(name="First 3 Years (Texas)", domains=["first3yearstx.org"], self_name={"short": "First3Years", "formal": "First 3 Years", "domain_match": True}), {})[0] == "First3Years")
+ok("printed short name not matching the web address is flagged", "check before sending" in draft.short_name(org(name="Some Org", domains=["zzz.org"], self_name={"short": "QQQ", "domain_match": False}), {})[1])
 ok("short name trimmed", draft.short_name(org(name="Early Learning Coalition of Osceola County"), {})[0] == "ELC Osceola County")
 
 # eligibility blocks (C2/C3/C4/C5)
@@ -38,12 +42,12 @@ ok("existing thread blocked", "thread" in draft.why_not(org(threads=[{"thread_id
 ok("client exclusion blocked", "excluded" in draft.why_not(org(exclusions={"existing_client": {"why": "client"}}), IDX))
 ok("recipient domain = client blocked", "client" in draft.why_not(org(recipients={"to": {"email": "person0006@client.org"}, "cc": [], "greeting": "Hi A,"}), ({"client.org"}, {}, {})))
 ok("recipient domain DNC blocked", "do-not-contact" in draft.why_not(org(), ({("dnc", "x.org")}, {}, {})))
-ok("To on DNC list blocked", "do_not_contact" in draft.why_not(org(), (set(), {"person0188@x.org": "do_not_contact"}, {})))
+ok("To on DNC list blocked", "do_not_contact" in draft.why_not(org(), (set(), {"person0214@x.org": "do_not_contact"}, {})))
 ok("other org's thread domain blocked", "another org" in draft.why_not(org(recipients={"to": {"email": "person0009@y.org"}, "cc": [], "greeting": "Hi A,"}), (set(), {}, {"y.org": "org:y.org"})))
 ok("OM-2 not open blocked", "not open" in draft.why_not(org(owner_machine="OM-2", outreach={"status": "queued_until 2027-01-01"}), IDX))
 ok("referrer blocked", "referrer" in draft.why_not(org(referrer=True), IDX))
 ok("doubtful fit is never drafted — it waits in the dossier for Chris (Rulebook E2, 2026-11-10)", "doubtful" in (draft.why_not(org(fit={"status": "doubtful", "reason": "x"}), IDX) or ""))
-to, cc, fl = draft.recipients_of(org(), (set(), {"person0334@x.org": "bounced"}, {}))
+to, cc, fl = draft.recipients_of(org(), (set(), {"person0374@x.org": "bounced"}, {}))
 ok("bounced Cc dropped + flagged", cc == [] and fl and "dropped" in fl[0])
 
 # Sent-check blocks a duplicate; ceiling makes spares; create order reverse priority; labels at creation
@@ -73,13 +77,13 @@ ok("labels missing -> create list", len(draft.label_ids(d)[1]) == len(draft.LABE
 
 # Gate 7 on synthetic raw MIME
 def raw(att_bytes, name="HST_Flyer.pdf", href="https://www.youtube.com/watch?v=iNCItCda-8g", bcc="<HUBSPOT_BCC_ADDRESS>"):
-    m = EmailMessage(); m["To"] = "person0188@x.org"; m["Cc"] = "person0334@x.org"; m["Subject"] = "S . . ."
+    m = EmailMessage(); m["To"] = "person0214@x.org"; m["Cc"] = "person0374@x.org"; m["Subject"] = "S . . ."
     if bcc: m["Bcc"] = bcc
     m.set_content("x"); m.add_alternative('<p><a href="%s">v</a></p>' % href, subtype="html")
     if att_bytes: m.add_attachment(b"%" * att_bytes, maintype="application", subtype="pdf", filename=name)
     return base64.urlsafe_b64encode(m.as_bytes()).decode()
 want = ("HST_Flyer.pdf", 1000)
-g = lambda r, **kw: gate7.check(gate7.parse(r), want[0], want[1], 2, "<HUBSPOT_BCC_ADDRESS>", "https://www.youtube.com/watch?v=iNCItCda-8g", ["person0188@x.org"], ["person0334@x.org"], "S . . .")
+g = lambda r, **kw: gate7.check(gate7.parse(r), want[0], want[1], 2, "<HUBSPOT_BCC_ADDRESS>", "https://www.youtube.com/watch?v=iNCItCda-8g", ["person0214@x.org"], ["person0374@x.org"], "S . . .")
 ok("gate7 pass", g(raw(1000))["ok"])
 ok("gate7 fail: no attachment", not g(raw(0))["ok"])
 ok("gate7 fail: wrong size", not g(raw(500))["ok"])
@@ -95,5 +99,23 @@ src = open(os.path.join(HERE, "draft.py"), encoding="utf-8").read()
 sf = draft.shortfall({"OM-1": 1, "OM-2": 40}, {"OM-1": 1, "OM-2": 52})
 ok("shortfall reported for OM-1 only, with the reason", list(sf) == ["OM-1"] and "1 of 10 minimum" in sf["OM-1"] and "gates never lowered" in sf["OM-1"])
 ok("never sends (no send action in the drafter)", "reply_to_message" not in src and "send_message" not in src)
+
+# CAPA 2026-11-11 — subject names
+ok("inverted 'Inc. The' is un-inverted", draft.short_name(org(name="Child Center of NY, Inc. The"), {})[0] == "Child Center of NY")
+ok("'Comm. Ct' expands to Community Center", draft.short_name(org(name="Child Development Center of Mosholu Montefiore Comm. Ct"), {})[0] == "Child Development Center of Mosholu Montefiore Community Center")
+ok("an unexpanded dotted abbreviation is HELD", draft.short_name(org(name="Smith Cty. Early Learning Prog."), {})[1].startswith("HOLD"))
+ok("normal names are not held", not draft.short_name(org(name="Capstone Community Action, Inc."), {})[1].startswith("HOLD"))
+ok("St. is allowed", not draft.bad_subject_name("St. Paul Early Learning"))
+ok("middle initial is allowed", not draft.bad_subject_name("Ada S. McKinley Community Services"))
+ok("list tail 'Inc Ny' is dropped", draft.short_name(org(name="Chautauqua Opportunities Inc Ny"), {})[0] == "Chautauqua Opportunities")
+ok("Spanish words are not abbreviations", not draft.bad_subject_name("Chicanos Por La Causa"))
+ok("rule-shortened names are flagged in the dossier", "if \"check before sending\" in how: fl" in src)
+
+# CAPA 2026-11-11 — ghost draft after a Zapier error
+_dl = {"drafts": [{"id": "r1", "messageId": "m1", "threadId": "t1", "toRecipients": ["person1717@sjcoe.net"], "ccRecipients": ["person2821@sjcoe.net"]}]}
+ok("ghost draft adopted when recipients match", draft.adopt_ghost(_dl, {"to": ["person1717@sjcoe.net"], "cc": ["person2821@sjcoe.net"]}) == ("m1", "t1"))
+ok("no ghost when recipients differ", draft.adopt_ghost(_dl, {"to": ["person2915@sjcoe.net"], "cc": []}) == (None, None))
+ok("two matching drafts are held, not guessed", draft.adopt_ghost({"drafts": _dl["drafts"] * 2}, {"to": ["person1717@sjcoe.net"], "cc": ["person2821@sjcoe.net"]})[0] == "MANY")
+ok("a failed create is read back before it is held", "after a FAILED create" in src)
 
 n_ok = sum(1 for _, c in R if c); print("\n%d/%d pass" % (n_ok, len(R))); sys.exit(0 if n_ok == len(R) else 1)

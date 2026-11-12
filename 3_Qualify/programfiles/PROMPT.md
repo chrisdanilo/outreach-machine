@@ -1,19 +1,30 @@
 ---
 title: Qualify helper instructions (one batch file per helper) — Rulebook C, E, F
-updated: 2026-11-10 (whole-calendar read, event kind, past editions, keynote check — Rulebook E3/F)
+updated: 2026-11-11 (Firecrawl first — _shared/WEB-TOOLS.md; read with Firecrawl, store with the VERIFY capture); 2026-11-10 (whole-calendar read, event kind, past editions, keynote check — Rulebook E3/F)
 ---
 
 # Qualify helper (Sonnet)
 
 You get ONE batch file (one org per line) and write ONE result file. You read; the script decides. Never contact anyone,
-never guess, never summarize a page into a "quote". Load tools: ToolSearch "select:WebSearch,WebFetch,mcp__remote-devices__Claude_Browser__tabs_create,mcp__remote-devices__Claude_Browser__navigate,mcp__remote-devices__Claude_Browser__javascript_tool,mcp__remote-devices__device_bash".
+never guess, never summarize a page into a "quote". Load tools: ToolSearch "select:mcp__Firecrawl__firecrawl_search,mcp__Firecrawl__firecrawl_scrape,WebSearch,WebFetch,mcp__remote-devices__Claude_Browser__tabs_create,mcp__remote-devices__Claude_Browser__navigate,mcp__remote-devices__Claude_Browser__javascript_tool,mcp__remote-devices__device_bash".
+
+**WEB TOOLS (Chris 2026-11-11): Firecrawl first.** Read and follow "<ENG>/_shared/WEB-TOOLS.md" for every search and every page read: Firecrawl first, then WebSearch / WebFetch / your Browser-pane tab as fallback; never Firecrawl's agent or people/company tools.
 
 **For each org in the batch:**
-1. Find its own pages: home/about, services or programs, staff/team, and (when `check_events` is true) its conference/event page and any call for speakers. Use WebSearch/WebFetch only to FIND the URLs. Prefer the org's own domain (`domains`). At most 4 pages per org.
+1. Find its own pages: home/about, services or programs, staff/team, and (when `check_events` is true) its conference/event page and any call for speakers. Find the URLs with firecrawl_search (fallback WebSearch) and READ each page with firecrawl_scrape (fallback WebFetch, then your Browser-pane tab). Prefer the org's own domain (`domains`). At most 4 pages per org (re-opening a page to capture it does not count).
    **Partner pages (discovery seeds, Chris 2026-11-04):** if any page you open lists OTHER organizations the org works with ("partners", "key organizations", "resources", "members", "coalition", "funders"), append ONE line per such page to `<ENG>/2_Discover/ledgers/partner-pages.jsonl` with device_bash (`cat >> FILE <<'EOF'` … `EOF`): {"url": "<that page>", "label": "<org name> — <page title>", "found_on": "<org_id>", "state": "<XX or null>", "date": "YYYY-MM-DD"}. Do not read the listed orgs yourself; discovery sweeps the page later. Never contact anyone.
-2. CAPTURE each page in your own Browser-pane tab (tabs_create once, then navigate with that tabId): run the JavaScript printed by
-   `python3 "<ENG>/3_Qualify/programfiles/qualify.py" js --url "<the URL you navigated to>"` and append the returned JSON object as ONE line to a file, then store it:
+   **`domain_hint`** (Chris 2026-11-10): when `domains` is empty and the row has a `domain_hint`, open that site FIRST. It is only a guess from Apollo's
+   company lookup: treat it as the org's site only if a page you capture there names the org; otherwise ignore it and find the site as usual.
+2. CAPTURE each page you will cite (Chris 2026-11-11: read with Firecrawl, the live page still vouches). Choose, from what you read, EVERY exact
+   quote you will use for that page (musts, disqualifiers, events, dates, keynote, cfp, self_name). Then in your own Browser-pane tab (tabs_create once,
+   then navigate with that tabId) run the VERIFY JavaScript printed by
+   `python3 "<ENG>/3_Qualify/programfiles/qualify.py" js --url "<the URL you navigated to>" --quotes '<JSON list of those exact quotes>'`
+   and append the returned JSON object as ONE line to a file, then store it:
    `python3 "<ENG>/3_Qualify/programfiles/qualify.py" capture --run <RUN> <that file>`. (Write the file on the Mac with a quoted heredoc via device_bash.)
+   A quote the page did not confirm comes back under `missing`: drop it (or copy it more exactly and verify again).
+   The Browser pane cannot load the page but Firecrawl read it → store a FIRECRAWL CAPTURE instead (WEB-TOOLS.md §4) with the same capture command.
+   Nothing could read the page → no capture; say why in `note`.
+   (No Firecrawl this batch — FIRECRAWL-OFF — capture as before: `qualify.py js --url "<URL>"` without --quotes gives the keyword capture.)
 3. Answer every Must and every disqualifier of every `candidate_icps` entry with "yes" / "no" / "unknown". Every "yes" or "no" needs
    `url` (a captured page) and `quote`: text copied EXACTLY from that capture's `head` or `lines` (8+ characters; shorter is better than paraphrase).
    A quote that is not on the capture is thrown out and the answer becomes "unknown". If the capture doesn't show it, answer "unknown".
@@ -42,9 +53,15 @@ never guess, never summarize a page into a "quote". Load tools: ToolSearch "sele
    program 7 PM, storytelling, no speaker slot) is not a keynote opportunity: leave it out of `events` and say why in `note`. When unsure, include
    it as an event with a note starting "FUNDRAISER?" (the note travels with the decision so Chris can judge it).
 
+5. The org's own name (Chris 2026-11-10, restoring the old Machine 1 rule of 2026-08-12/14): from the captured home/about page, report how the org
+   NAMES ITSELF — `self_name`: {"short": the short brand or acronym the org prints about itself (logo, masthead, footer, "About <short>" text), or null if
+   it prints none · "short_quote": the captured line that shows it · "formal": its full formal name as printed · "formal_quote" · "url": that captured page}.
+   Never invent an acronym or shorten a name yourself; a place name in brackets ("(Texas)") or an event name is not the org's short name. The program
+   checks the short name against the org's web address.
 **Output** — one JSON line per org, every org, in the result file path you were given:
 {"org_id": "...", "pages_read": ["url", ...],
  "icps": {"ICP-00x": {"musts": [{"criterion": "<exact Must text>", "answer": "yes|no|unknown", "url": "...", "quote": "..."}],
                       "disqualifiers": [{"text": "<exact disqualifier text>", "hit": "yes|no|unknown", "url": "...", "quote": "..."}]}},
- "events": [ {...as above...} ], "note": "1 line"}
-Validate with python that every line parses and every org_id in the batch is present. Final message: per org — pages captured · your answers in one line.
+ "events": [ {...as above...} ],
+ "self_name": {"short": "... or null", "short_quote": "...", "formal": "...", "formal_quote": "...", "url": "..."}, "note": "1 line"}
+Validate with python that every line parses and every org_id in the batch is present. Final message: per org — pages captured · your answers in one line; then the one Firecrawl line (WEB-TOOLS.md §5).

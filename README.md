@@ -7,7 +7,7 @@ standing orders in `_shared/orchestrator/LAUNCHER-*.md`; the Python programs do 
 only judgment (read a web page, judge fit, find people, write the plain-English report). The machine never writes email
 copy, never picks recipients on its own, and never sends Email 1 — Chris does.
 
-**Public copy, synced 2026-11-10** from the live folder by `publish/export_public.py`. Take it and run with it: read this page,
+**Public copy, synced 2026-11-12** from the live folder by `publish/export_public.py`. Take it and run with it: read this page,
 then `0_Design-and-Purpose/CHARTER.md` → `RULEBOOK.md` → the two launchers. Replace the templates, fill `settings.json`,
 point `paths.py` at your folder.
 
@@ -21,7 +21,7 @@ point `paths.py` at your folder.
 business: Human Skills Training
 title: Automations — START HERE. The one folder for the outreach system (OM-1 + OM-2), laid out the way the night runs
 status: live since 2026-10-31 · one folder since 2026-11-02 · phase layout since 2026-11-03 · Supply Run since 2026-11-08
-updated: 2026-11-08
+updated: 2026-11-11 (Firecrawl first: _shared/WEB-TOOLS.md)
 ---
 
 # Automations — start here
@@ -74,6 +74,7 @@ Automations/
 | Read what went wrong and the fix | `0_Design-and-Purpose/capa/INDEX.md` → the CAPA files · each phase's `PhasePurpose/README.md` lists its own |
 | See exactly what the computer is told each night / morning | `_shared/orchestrator/LAUNCHER-night-run.md` · `_shared/orchestrator/LAUNCHER-send.md` |
 | See what one step is told | `<phase>/programfiles/LAUNCHER-<step>.md` |
+| See which web tools the machine uses, and in what order | `_shared/WEB-TOOLS.md` (Firecrawl first, old tools as fallback) |
 | Look at the master list | `_shared/master/master-list.csv` (a read-only view of `orgs.jsonl`) |
 | Understand one phase | `<phase>/PhasePurpose/README.md` |
 | Find anything old, superseded or moved | `archive/README.md` · `archive/MOVES-2026-11-03.tsv` (every move of the 11/03 restructure, old → new) · `archive/MOVES-2026-11-02.tsv` |
@@ -86,6 +87,7 @@ Automations/
 | Scheduled task **Outreach Night Run** (Sun–Thu 8:41 PM MT) | `_shared/orchestrator/run.py night` → prints `_shared/orchestrator/LAUNCHER-night-run.md` |
 | Scheduled task **Outreach Send (approved list only)** (Mon–Fri 6:52 AM ET) | `_shared/orchestrator/run.py send` → prints `_shared/orchestrator/LAUNCHER-send.md` |
 | Scheduled task **Outreach Supply Run** (every day ~1 AM MT; Chris 2026-11-08) | `_shared/orchestrator/run.py supply` → prints `_shared/orchestrator/LAUNCHER-supply.md`; sequenced by `supplyrun.py` (discover → qualify → events → people → shelf; never drafts, never touches Gmail; hard stop 4:30 AM) |
+| Every research helper (discover · qualify · people) | `_shared/WEB-TOOLS.md` — Firecrawl first for every search and page read, then WebSearch / WebFetch / the Browser pane as fallback (Chris 2026-11-11) |
 | Every program | `_shared/orchestrator/paths.py` (where everything is) · `_shared/master/settings.json` (every number) · `_shared/master/orgs.jsonl` (the master list) · `_shared/master/overrides.json` (your data rulings) |
 | Each phase | its own `ledgers/` and `runs/`; the machine data under `_shared/machines/` |
 | Email copy | `5_Draft/programfiles/templates/Cold-Outreach-Sequence-CCR&R.md` (OM-1) · `…-Conference.md` (OM-2) — frozen copy, Rulebook C6 |
@@ -109,4 +111,4 @@ Automations/
 | TLP practice dashboard (`3.Human Skills Training/TLP/bin/funnel_conversion.py`, run by `TLP/bin/tlp_refresh.py`) | `_shared/master/orgs.jsonl` — every Machine 1 thread's sends (`threads[].messages_sent`, `gmail.bounced`, `stage`) for the outreach funnel; `_shared/machines/OM-1/contacted.jsonl` for history only | The dashboard finds both files by name wherever they sit (never in `archive/`), and stops with PROBLEM if it finds none or two. Keep one live copy of each, and keep the fields above, or update that script in the same change. Added 2026-11-05 at Chris's request after the 11/02 and 11/03 restructures broke the dashboard's funnel |
 
 ---
-*Public copy, generated 2026-11-10 by `publish/export_public.py`: people's names, personal email addresses (now `personNNNN@theirorg.org`), phone numbers, existing-client organizations, Gmail message/thread ids and credentials are redacted; organization names, prospect criteria, templates and method are untouched. The 30+ CAPA case files are summarized in `0_Design-and-Purpose/capa/INDEX.md` and not included (they quote prospect pages). Ledgers and run folders are never included.*
+*Public copy, generated 2026-11-12 by `publish/export_public.py`: people's names, personal email addresses (now `personNNNN@theirorg.org`), phone numbers, existing-client organizations, Gmail message/thread ids and credentials are redacted; organization names, prospect criteria, templates and method are untouched. The 30+ CAPA case files are summarized in `0_Design-and-Purpose/capa/INDEX.md` and not included (they quote prospect pages). Ledgers and run folders are never included.*

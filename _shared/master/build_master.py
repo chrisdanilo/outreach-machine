@@ -921,33 +921,101 @@ for tid in sorted(_tm):
     ids_.sort(key=_rank)
     _auto.append({"into": ids_[0], "from": ids_[1:], "reason": "same Gmail thread %s" % tid, "by": "automatic: one thread = one org (Rulebook C2)"})
     _seen.update(ids_[1:])
+def _fold(e, fid):
+    """Fold duplicate row fid into e['into'] (contacts, events, threads, domains, sources unioned)."""
+    r = BYID[e["into"]]
+    f = BYID.pop(fid, None)
+    if not f: OVR_MISSING.append(("merge", fid)); return
+    for k_ in ("domains", "sources", "aliases", "markets"):
+        r[k_] = sorted(set(r[k_]) | set(f[k_]))
+    r["aliases"] = sorted(set(r["aliases"]) | ({f["name"]} - {r["name"]}))
+    have = {c_["email"] for c_ in r["contacts"]}
+    r["contacts"] += [c_ for c_ in f["contacts"] if c_["email"] not in have]
+    r["events"] += [ev for ev in f["events"] if ev not in r["events"]]
+    r["threads"] += [t for t in f["threads"] if t["thread_id"] not in {x["thread_id"] for x in r["threads"]}]
+    r["history"] += f["history"]; r["notes"] += f["notes"]
+    r["icps"] = sorted((set(r["icps"]) | set(f["icps"])) - ({"unclassified"} if set(r["icps"]) | set(f["icps"]) != {"unclassified"} else set()))
+    r["icp_basis"] = dict(f["icp_basis"], **r["icp_basis"])
+    for k_, v_ in f["exclusions"].items():
+        if v_ and not r["exclusions"].get(k_): r["exclusions"][k_] = v_
+    r["state"] = r["state"] or f["state"]; r["country"] = r["country"] or f["country"]
+    r["runs_event"] = r["runs_event"] or f["runs_event"]; r["referrer"] = r["referrer"] or f["referrer"]
+    if r["owner_machine"] == "none": r["owner_machine"] = f["owner_machine"]
+    r["flags"] = r["flags"] + ["merged duplicate row %s — %s (%s)" % (fid, e["reason"], e["by"])]
+    MERGED.append((e["into"], fid)); GONE[fid] = e["into"]
 for e in _auto + OVR.get("merge", []):                     # unambiguous duplicate rows folded into one (applied first; later overrides see the survivor)
-    r = BYID.get(e["into"])
-    if not r: OVR_MISSING.append(("merge", e["into"])); continue
-    for fid in e["from"]:
-        f = BYID.pop(fid, None)
-        if not f: OVR_MISSING.append(("merge", fid)); continue
-        for k_ in ("domains", "sources", "aliases", "markets"):
-            r[k_] = sorted(set(r[k_]) | set(f[k_]))
-        r["aliases"] = sorted(set(r["aliases"]) | ({f["name"]} - {r["name"]}))
-        have = {c_["email"] for c_ in r["contacts"]}
-        r["contacts"] += [c_ for c_ in f["contacts"] if c_["email"] not in have]
-        r["events"] += [ev for ev in f["events"] if ev not in r["events"]]
-        r["threads"] += [t for t in f["threads"] if t["thread_id"] not in {x["thread_id"] for x in r["threads"]}]
-        r["history"] += f["history"]; r["notes"] += f["notes"]
-        r["icps"] = sorted((set(r["icps"]) | set(f["icps"])) - ({"unclassified"} if set(r["icps"]) | set(f["icps"]) != {"unclassified"} else set()))
-        r["icp_basis"] = dict(f["icp_basis"], **r["icp_basis"])
-        for k_, v_ in f["exclusions"].items():
-            if v_ and not r["exclusions"].get(k_): r["exclusions"][k_] = v_
-        r["state"] = r["state"] or f["state"]; r["country"] = r["country"] or f["country"]
-        r["runs_event"] = r["runs_event"] or f["runs_event"]; r["referrer"] = r["referrer"] or f["referrer"]
-        if r["owner_machine"] == "none": r["owner_machine"] = f["owner_machine"]
-        r["flags"] = r["flags"] + ["merged duplicate row %s — %s (%s)" % (fid, e["reason"], e["by"])]
-        MERGED.append((e["into"], fid)); GONE[fid] = e["into"]
+    if not BYID.get(e["into"]): OVR_MISSING.append(("merge", e["into"])); continue
+    for fid in e["from"]: _fold(e, fid)
+# Shared-recipient check (Chris 2026-11-10, Issue 3 prevention; CAPA 2026-11-10 item 5). Two rows that list the SAME person's
+# address: same name or the org's own acronym, and not both already emailed -> one org, folded automatically (logged in the report).
+# Anything else (different names: a board member or partner who sits on two orgs; or both rows already have a live thread)
+# -> both rows carry `shared_recipient` and are held for Chris until he rules: overrides merge (same org) or shared_ok (keep both).
+_SR_STOP = {"the", "of", "and", "for", "inc", "a", "an", "at", "in", "on", "llc", "co"}
+_SR_GENERIC = {"association", "early", "childhood", "child", "care", "education", "children", "center", "county", "young",
+               "head", "start", "family", "services", "inc", "council", "network", "program", "programs", "school", "district"}
+_SR_COMMON_ACR = {"hsa", "ece", "ccr", "ccrr", "aeyc", "aimh", "cec", "dec", "ehs", "hs", "pd", "usa", "us"}
+def _sr_tokens(n):
+    n = re.sub(r"\(.*?\)", "", (n or "").lower())
+    return {t for t in re.findall(r"[a-z0-9]+", n) if t not in _SR_STOP and t not in _SR_GENERIC}
+def _sr_acrs(n):
+    words = [w for w in re.findall(r"[A-Za-z]+", re.sub(r"\(.*?\)", "", n or "")) if w.lower() not in _SR_STOP]
+    a = {x.lower().replace("-", "").replace("&", "") for x in re.findall(r"\b[A-Z][A-Z&-]{2,11}\b", n or "")}
+    a |= {x.lower().replace("-", "") for x in re.findall(r"\(([A-Z][A-Za-z&-]{2,12})\)", n or "")}
+    if len(words) >= 3: a.add("".join(w[0] for w in words).lower())
+    return {x for x in a if len(x) >= 3 and x not in _SR_COMMON_ACR}
+def _sr_same_name(a, b):
+    A, B = _sr_tokens(a), _sr_tokens(b)
+    dice = (2 * len(A & B) / (len(A) + len(B))) if A and B else 0
+    return dice >= 0.75 or bool(_sr_acrs(a) & _sr_acrs(b))
+_SR_OK = {tuple(sorted((GONE.get(x["a"], x["a"]), GONE.get(x["b"], x["b"])))) for x in OVR.get("shared_ok", [])}
+SR_AUTO, SR_HELD = [], []
+def _sr_index():
+    ix = collections.defaultdict(set)
+    for oid, r in BYID.items():
+        if r.get("referrer"): continue
+        for c_ in r["contacts"]:
+            e_ = (c_.get("email") or "").lower().strip()
+            if e_ and (c_.get("status") or "active") not in ("bounced",): ix[e_].add(oid)
+        for t in r["threads"]:
+            for m_ in t.get("messages_sent") or []:
+                for e_ in (m_.get("to") or []) + (m_.get("cc") or []): ix[e_.lower()].add(oid)
+    return ix
+for _pass in range(3):                        # a fold can create a new shared pair; settle in at most three passes
+    _changed = False
+    for e_, ids in sorted(_sr_index().items()):
+        ids = sorted(i for i in ids if i in BYID)
+        for i_ in range(len(ids)):
+            for j_ in range(i_ + 1, len(ids)):
+                a, b = ids[i_], ids[j_]
+                if a not in BYID or b not in BYID or (a, b) in _SR_OK: continue
+                ra, rb = BYID[a], BYID[b]
+                if _sr_same_name(ra["name"], rb["name"]) and not (ra["threads"] and rb["threads"]):
+                    into, fid = sorted((a, b), key=lambda o: (0 if BYID[o]["threads"] else 1,) + _rank(o))
+                    e = {"into": into, "from": [fid], "reason": "same recipient %s and the same name" % e_, "by": "automatic: one person + one name = one org (Chris 2026-11-10)"}
+                    _fold(e, fid); SR_AUTO.append((into, fid, e_)); _changed = True
+    if not _changed: break
+for e_, ids in sorted(_sr_index().items()):
+    ids = sorted(i for i in ids if i in BYID)
+    for i_ in range(len(ids)):
+        for j_ in range(i_ + 1, len(ids)):
+            a, b = ids[i_], ids[j_]
+            if (a, b) in _SR_OK: continue
+            why = "both already have a live email thread" if (BYID[a]["threads"] and BYID[b]["threads"]) else "different names"
+            for x, y in ((a, b), (b, a)):
+                BYID[x].setdefault("shared_recipient", [])
+                if not any(s_["email"] == e_ and s_["other_org"] == y for s_ in BYID[x]["shared_recipient"]):
+                    BYID[x]["shared_recipient"].append({"email": e_, "other_org": y, "other_name": BYID[y]["name"], "why": why})
+            SR_HELD.append((a, b, e_, why))
 OUT = [r for r in OUT if r["org_id"] in BYID]
 for fid, into in GONE.items():          # later overrides that name a merged-away row land on its survivor
     while into in GONE: into = GONE[into]
     BYID[fid] = BYID[into]
+
+# Website hints for Head Start grantees with no website on file (Chris 2026-11-10, Issue 7): a CANDIDATE from Apollo's free lookup, never truth —
+# the qualify / people helper opens it first and it becomes the org's website only when a captured page on it names the org.
+for h in jl(os.path.join(paths.ROOT, "2_Discover", "ledgers", "grantee-domain-hints.jsonl")):
+    r = BYID.get(GONE.get(h["org_id"], h["org_id"]))
+    if r and h.get("hint") and not r["domains"]: r["domain_hint"] = h["hint"]
 
 # ---------------------------------------------------------------- QUALIFY (Stage 5, 3_Qualify/programfiles/qualify.py) — fit decisions from verified live-page quotes
 # Latest decision per org wins (append-only inbox, processed in file order). Applied after duplicate merges and BEFORE
@@ -960,6 +1028,9 @@ Q_APPLIED = collections.Counter()
 def _evmatch(evs, f):
     u = (f.get("url") or "").rstrip("/"); nk = _evkey(f.get("name"))
     return next((x for x in evs if (u and (x.get("url") or "").rstrip("/") == u) or (nk and _evkey(x.get("name")) == nk)), None)
+# The org's own name as printed on its site (Chris 2026-11-10, Issue 4): the newest decision that recorded one wins.
+for d in QI:
+    if d.get("self_name") and BYID.get(GONE.get(d["org_id"], d["org_id"])): BYID[GONE.get(d["org_id"], d["org_id"])]["self_name"] = d["self_name"]
 for oid in sorted(Q_LATEST):
     d = Q_LATEST[oid]; r = BYID.get(oid)
     if not r: OVR_MISSING.append(("qualify", oid)); continue
@@ -1120,6 +1191,7 @@ for oid in sorted(P_LATEST):
         if c_.get("status") == "departed" and x.get("status") == "active": x["status"] = "departed"
         x["source"] = sorted(set(x.get("source") or []) | {"people %s" % d.get("run")})
     r["contacts"].sort(key=lambda c_: c_["email"])
+    if d.get("self_name"): r["self_name"] = d["self_name"]          # the org's own printed name (Chris 2026-11-10, Issue 4)
     if d["decision"] == "ready":
         r["recipients"] = dict(d["recipients"], decided=d.get("decided"), by=d.get("by")); r["people_hold"] = None; r["roster_line"] = d.get("roster_line")
     else:
@@ -1202,6 +1274,9 @@ A("\n## Qualify (Stage 5)\n")
 A("- decisions applied: %s · duplicate events merged: %d" % (dict(sorted(Q_APPLIED.items())) or "none yet", EV_MERGED))
 A("- OM-2 outreach timing (as of %s): %s" % (S["as_of"], dict(sorted(TIMING_COUNT.items()))))
 A("- Moved out of OM-2 because no conference on record counts (Rulebook E3, 2026-11-10): %s" % (dict(sorted(REROUTED.items())) or "none"))
+A("\n## Same person on two rows (Chris 2026-11-10): %d folded automatically · %d pairs held for Chris\n" % (len(SR_AUTO), len(SR_HELD)))
+for a_, b_, e_, w_ in SR_HELD: A("- HELD %s + %s — share %s (%s)" % (a_, b_, e_, w_))
+for a_, b_, e_ in SR_AUTO: A("- folded %s into %s — share %s" % (b_, a_, e_))
 A("\n## Duplicate rows merged (overrides.json merge) (%d)\n" % len(MERGED))
 for a_, b_ in MERGED: A("- %s ← %s" % (a_, b_))
 A("\n## Possible duplicates kept separate (same name + state, different identity) (%d)\n" % len(AMBIG))

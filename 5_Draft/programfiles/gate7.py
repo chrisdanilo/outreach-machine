@@ -7,7 +7,7 @@ in the cloud session on a large tool-result file too.
 
   python3 gate7.py --file <saved get_draft RAW result> --want HST_Flyer.pdf:3501128 [--tol 2]
         [--bcc <HUBSPOT_BCC_ADDRESS>] [--video https://www.youtube.com/watch?v=iNCItCda-8g]
-        [--to person0008@x.org] [--cc person0269@x.org ...] [--subject "..."] [--out result.json]
+        [--to person0008@x.org] [--cc person0305@x.org ...] [--subject "..."] [--out result.json]
 Prints one JSON verdict {"ok", "attachment", "checks", "why"}; exit 0 = PASS, 2 = FAIL.
 """
 import argparse, base64, email, json, re, sys

@@ -256,7 +256,7 @@ CCC . . .`.
 | # | Change | Read |
 |---|---|---|
 | 1 | Subject: "Quick question about PD at X" → **"Question about PD/Training at X"** | Drops "Quick" (a small ask signals a small thing); names Training explicitly |
-| 2 | Greeting: `Hi there,` / `Hi [Person 0279],` → **`Carrie and Stephanie,`** | No salutation word at all. Colder open, more peer-to-peer |
+| 2 | Greeting: `Hi there,` / `Hi [Person 0322],` → **`Carrie and Stephanie,`** | No salutation word at all. Colder open, more peer-to-peer |
 | 3 | **Cut the three Human Skills bullets** (Compassionate Detachment / Self-Management / Adaptive Problem Solving) | The jargon left; `"Human Skills"` now stands alone in quotes |
 | 4 | **Cut two paragraphs** — "This training helps teams…" and "In the last year or so…" | Replaced by the three-bullet results list |
 | 5 | **New results bullets**, each with a bolded phrase | Outcome-first, scannable. Difficult conversations promoted to #1 |
@@ -284,7 +284,7 @@ email got ~25% shorter and every remaining sentence does more work.
 **Subject:** (reply to Email 1 thread — Gmail supplies `Re: {Email 1 subject}` automatically)
 
 **Greeting:** 🔴 **v3 — Email 2 HAS a greeting and it uses "Hey."** Email 1 still opens with bare
-names and no salutation word at all. First names of everyone on the thread: `Hey [Person 0128], Jodi, and Margaret,`
+names and no salutation word at all. First names of everyone on the thread: `Hey [Person 0146], Jodi, and Margaret,`
 
 > ## ✅ v4 — RATIFIED BY CHRIS 2026-08-20. The body sentence below is CURRENT; the v3 form is retired.
 >
@@ -335,7 +335,7 @@ behavior` → **https://www.youtube.com/watch?v=cy5yGGApzDY**
 
 ### 🔴 v2 → v3, same day — ONE WORD, and it settled across seven consecutive sends
 
-**Chris sent Ready Region Blue Ridge alone at 12:39 UTC with `Hi [Person 1161] and Jesse,`. He then sent
+**Chris sent Ready Region Blue Ridge alone at 12:39 UTC with `Hi [Person 1368] and Jesse,`. He then sent
 the remaining seven between 20:15 and 20:21 UTC, all with `Hey`.** A full-body diff of the DSDC send
 (`<id>`) against the v2 template shows **the greeting word is the only difference** —
 every other character, including the bold span and the link in the P.S., is identical.
@@ -377,7 +377,7 @@ Bot) no longer appears in any sequence email. If it is still linked from a lead 
 that is unaffected — this change is scoped to Email 2 only.
 
 ⚠️ **Observed on the send, reported not applied — the greeting named someone who was not on the
-email.** The sent message reads `Hi [Person 1161] and Jesse,` but has **no Cc**; [Person 0753] was pulled
+email.** The sent message reads `Hi [Person 1368] and Jesse,` but has **no Cc**; [Person 0896] was pulled
 from the machine's draft as an unsourced address and was not restored at send. **Greeting names and
 recipient fields can drift apart whenever a recipient is pulled.** The cheap fix is to record the
 four human-added addresses in [[verification-log]] as human-confirmed so they stop being pulled —
@@ -412,7 +412,7 @@ awaiting Chris.
 >    revisited
 >
 > **The sequence now reads:** Email 1 `Carrie and Stephanie,` *(bare, no salutation)* → Email 2
-> `Hey [Person 0279] and Stephanie,` → Email 3 `Hey [Person 0279] and Stephanie,`. **Email 1 stays deliberately
+> `Hey [Person 0322] and Stephanie,` → Email 3 `Hey [Person 0322] and Stephanie,`. **Email 1 stays deliberately
 > distinct; the two follow-ups match each other.**
 >
 > ⚠️ **The BODY is unchanged v1 and stays that way.** Chris, 2026-08-11: *"Leave emails two and three,
@@ -635,7 +635,7 @@ is being dropped from the follow-up.** This is the ONLY sanctioned addition to E
 2026-08-20 16:19:59Z. **This is the form. Use it exactly.**
 
 ```
-Hey [Person 0668],
+Hey [Person 0791],
 
 (I think I got Ryan's email address wrong, so I'm not including him on this)
 
@@ -650,7 +650,7 @@ useful to you and your team's goals?
 | **Placement** | Its own line, **directly under the greeting**, with a blank line either side. Before the ask sentence |
 | **Wording** | `(I think I got <First Name>'s email address wrong, so I'm not including him/her on this)` |
 | 🔴 **Pronoun** | **This is the one place the copy carries a pronoun.** [[method]]'s never-assume-a-pronoun rule still binds. If the person's own bio or signature does not state one, **rewrite to avoid it**: `…so I'm not including them on this` |
-| **Greeting** | Drops the bounced person. `Jackie and Ryan,` → `Hey [Person 0668],` |
+| **Greeting** | Drops the bounced person. `Jackie and Ryan,` → `Hey [Person 0791],` |
 | **When** | Only when a recipient who was on Email 1 **as sent** has hard-bounced. Never for someone merely removed |
 | **How many** | One line covers one person. Two bounces → `(I think I got Ryan's and Pat's email addresses wrong, so I'm not including them on this)` |
 

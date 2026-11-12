@@ -224,10 +224,16 @@ def main():
     def waiting(o): return not o.get("threads") and not any((o.get("exclusions") or {}).values()) and not o.get("referrer") and (o.get("fit") or {}).get("status") in ("fit", "doubtful")
     def site_of(o): return (" · " + md("https://" + o["domains"][0])) if o.get("domains") else ""
     def nm(o): return "%s%s" % (o.get("name"), " (%s)" % o["state"] if o.get("state") else "")
-    q_doubt, q_conf, q_none = [], [], []
+    q_doubt, q_conf, q_none, q_shared = [], [], [], []
+    _sr_seen = set()
     for o in sorted(orgs.values(), key=lambda o: (0 if o.get("owner_machine") == "OM-2" else 1, str(o.get("name")))):
         if not waiting(o): continue
         oo = o.get("outreach") or {}
+        for sr in o.get("shared_recipient") or []:   # Chris 2026-11-10 (Issue 3): one person listed on two orgs
+            k = tuple(sorted((o["org_id"], sr["other_org"])))
+            if k in _sr_seen: continue
+            _sr_seen.add(k)
+            q_shared.append("**Same person on two orgs?** %s and %s both list %s (%s). Same org → merge them · different orgs → keep both" % (nm(o), sr["other_name"], sr["email"], sr.get("why") or "different names"))
         if o.get("routing_unclear"):
             evs = [e for e in o.get("events") or [] if e.get("kind_used") == "unclear"]
             q_conf.append("**Is this a conference?** %s — %s. Yes → OM2 (keynote pitch) · no → %s%s" % (nm(o), "; ".join("%s%s" % (e.get("name") or "unnamed event", " " + md(e["url"]) if e.get("url") else "") for e in evs[:2]), "OM1 (training pitch)" if o.get("owner_machine") == "OM-1" else "no outreach", site_of(o)))
@@ -236,7 +242,7 @@ def main():
                 (" for %s (%s)" % (oo.get("event") or "its conference", oo.get("edition_date") or "no date on record")) if o["owner_machine"] == "OM-2" else "", (o["fit"].get("reason") or "not recorded")[:170], site_of(o)))
         elif o.get("owner_machine") == "none" and set(o.get("icps") or []) & {"ICP-001", "ICP-002", "ICP-003", "ICP-004", "ICP-005", "ICP-006"}:
             q_none.append("**Fits neither machine — what should happen?** %s — %s · %s%s" % (nm(o), ", ".join(o.get("icps") or []), o.get("routing_note") or "no conference on record, and this customer type is conference-only", site_of(o)))
-    queues, more = [q for q in (q_doubt, q_conf, q_none) if q], []
+    queues, more = [q for q in (q_doubt, q_conf, q_none, q_shared) if q], []
     while queues:            # one of each kind in turn, so every kind of decision gets seen
         for q in list(queues):
             more.append(q.pop(0))

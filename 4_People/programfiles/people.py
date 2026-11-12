@@ -86,10 +86,26 @@ def is_generic(e, flag=None):
     if flag is True: return True
     lp = em(e).split("@")[0]
     return lp in GENERIC or bool(re.match(r"^(info|events?|conference|registration|training|admin|office)[._-]", lp))
+_TITLES = r"(?:very\s+rev(?:erend)?|rt\.?\s+rev(?:erend)?|most\s+rev(?:erend)?|rev(?:erend)?|dr|mr|mrs|ms|mx|miss|prof(?:essor)?|fr|father|sr|sister|br|brother|rabbi|pastor|hon|honorable|msgr|deacon|dcn)"
 def first_name(n):
-    n = re.sub(r"^(dr|mr|mrs|ms|mx|prof)\.?\s+", "", str(n or "").strip(), flags=re.I)
-    f = n.split()[0] if n.split() else ""
+    """Fallback only (Chris 2026-11-10, Issue 4): the helper records how the person goes by (greeting_name). When it did not,
+    strip every leading title ('Very Rev.', 'Dr.', 'Sister') and take the first word."""
+    n = str(n or "").strip()
+    while True:
+        m = re.match(r"^%s\.?\s+" % _TITLES, n, flags=re.I)
+        if not m: break
+        n = n[m.end():]
+    f = n.split()[0].strip(",") if n.split() else ""
     return f.title() if f.isupper() and len(f) > 1 else f
+def greet_name(p):
+    """The name to greet a person by. Root rule (old Machine 1, U2/recipient_name_evidence; Chris 2026-11-10): the helper who reads
+    the page records the name the person GOES BY, exactly as printed (a nickname in quotes or brackets wins). It is used only if it
+    is really part of the printed name/quote; otherwise the title-stripping fallback is used and the draft is flagged."""
+    g = str((p or {}).get("greeting_name") or "").strip().strip(",")
+    hay = " ".join(str((p or {}).get(k) or "") for k in ("name", "quote"))
+    if g and not re.match(r"^%s\.?$" % _TITLES, g, flags=re.I) and re.search(r"(?<![A-Za-z])%s(?![A-Za-z])" % re.escape(g), hay, flags=re.I):
+        return g, True
+    return first_name((p or {}).get("name")), False
 
 # ---------------------------------------------------------------- master-list indexes (C2, C4, contact status)
 def indexes(orgs):
@@ -154,7 +170,7 @@ def cmd_next(a):
             for _, o in pick[i:i + bs]:
                 evs = [{k2: e.get(k2) for k2 in ("name", "url", "edition_date", "cfp", "outreach_status")} for e in o.get("events", [])
                        if str(e.get("outreach_status") or "").startswith("open")] or [{k2: e.get(k2) for k2 in ("name", "url", "edition_date", "cfp")} for e in o.get("events", [])][:3]
-                f.write(json.dumps({"org_id": o["org_id"], "name": o["name"], "state": o.get("state"), "domains": o.get("domains", []),
+                f.write(json.dumps({"org_id": o["org_id"], "name": o["name"], "state": o.get("state"), "domains": o.get("domains", []), "domain_hint": o.get("domain_hint"),
                     "machine": o["owner_machine"], "icps": o.get("icps", []), "fit": o["fit"]["status"], "events": evs[:4],
                     "known_contacts": [{k2: c.get(k2) for k2 in ("name", "role", "email", "evidence_url", "status")} for c in o.get("contacts", [])][:8],
                     "role_order": RANK.get(o["owner_machine"], [])}, ensure_ascii=False, sort_keys=True) + "\n")
@@ -248,6 +264,21 @@ def quote_ok(p, caps):
     return bool(c) and q in norm(" \n ".join(c.get("lines", [])))
 
 # ---------------------------------------------------------------- ingest (Gate 1 + master checks)
+def self_name_of(r, org, caps):
+    """The org's own name as printed on its own site (Chris 2026-11-10, Issue 4 — same rule as the qualify step). Recorded here too, so every
+    org gets it the night it is drafted: kept only if the quote is on the capture and contains the name; short name checked against the web address."""
+    sn = r.get("self_name") or {}; out = {}
+    for k in ("short", "formal"):
+        v = str(sn.get(k) or "").strip()
+        if v and norm(v) in norm(sn.get(k + "_quote")) and quote_ok({"quote": sn.get(k + "_quote"), "evidence_url": sn.get("url")}, caps): out[k] = v
+    if not out: return None
+    out["url"] = sn.get("url")
+    if out.get("short"):
+        stems = {base_dom(d).split(".")[0] for d in (org.get("domains") or []) if d}
+        sh = re.sub(r"[^a-z0-9]", "", out["short"].lower())
+        out["domain_match"] = any(sh and (sh in st or (len(sh) >= 4 and st.startswith(sh[:4]))) for st in stems)
+    return out
+
 def cmd_ingest(a):
     rd = os.path.join(PDIR, a.run); st = json.load(open(os.path.join(rd, "state.json")))
     b = next(x for x in st["batches"] if x["k"] == a.batch)
@@ -278,7 +309,7 @@ def cmd_ingest(a):
                 if status.get(e) in ("bounced", "departed", "do_not_contact"): drop = "address is %s in the master list" % status[e]
                 elif d in excl_dom and excl_dom[d][0] != oid: drop = "recipient domain belongs to an excluded org (%s: %s) — Rulebook C4" % (excl_dom[d][0], ",".join(excl_dom[d][1]))
                 elif d in thread_dom and thread_dom[d] != oid: drop = "recipient domain belongs to %s, which already has a thread — one thread per org (C2)" % thread_dom[d]
-            people.append({"name": (p.get("name") or "").strip() or None, "role": p.get("role"), "role_key": p.get("role_key") or "other_staff",
+            people.append({"name": (p.get("name") or "").strip() or None, "greeting_name": p.get("greeting_name"), "role": p.get("role"), "role_key": p.get("role_key") or "other_staff",
                            "email": e or None, "generic": is_generic(e, p.get("generic")) if e else False, "generic_event_inbox": bool(p.get("generic_event_inbox")),
                            "evidence_url": p.get("evidence_url"), "quote": p.get("quote"), "quote_verified": quote_ok(p, caps),
                            "source": p.get("source") or "page", "thread_id": p.get("thread_id"),
@@ -302,9 +333,10 @@ def cmd_ingest(a):
             new = [dict(date=TODAY, run=a.run, org_id=oid, a=pr["a"], b=pr["b"], method="E1.8", verdict="candidate", proof="address printed on the org's own page: %s" % pr["proof"])
                    for pr in e18["pairs"] if tuple(sorted((pr["a"], pr["b"]))) not in known and tuple(sorted((pr["a"], pr["b"]))) not in cand]
             if new: ajl(PAIRS, new); print("  E1.8 candidate for the Apollo check: %s" % ", ".join("%s = %s" % (x["a"], x["b"]) for x in new))
-        named_wo_email = [{"name": n["name"].strip(), "role": n.get("role"), "role_key": n.get("role_key") or guess_role_key(n.get("role"))}
+        named_wo_email = [{"name": n["name"].strip(), "role": n.get("role"), "role_key": n.get("role_key") or guess_role_key(n.get("role")),
+                           "greeting_name": n.get("greeting_name"), "evidence_url": n.get("evidence_url"), "quote": n.get("quote")}
                           for n in (r.get("named_without_email") or []) if n.get("name")][:8]
-        out.append({"org_id": oid, "machine": row["machine"], "name": row["name"], "fit": row["fit"], "domain_discovered": found_dom, "e18": e18,
+        out.append({"org_id": oid, "machine": row["machine"], "name": row["name"], "fit": row["fit"], "domain_discovered": found_dom, "e18": e18, "self_name": self_name_of(r, org, caps),
                     "pages_read": sorted(set(r.get("pages_read") or [])), "staff_page_read": bool(r.get("staff_page_read")),
                     "roster_searched": bool(r.get("roster_searched")), "named_without_email": named_wo_email, "people": people,
                     "note": (r.get("note") or "")[:300]})
@@ -348,6 +380,50 @@ def relevant_unpublished(r, machine):
     cand.sort(key=lambda n: (rank.get(n.get("role_key") or guess_role_key(n.get("role")), 99), norm(n["name"])))
     return cand[:SWEEP_MAX], cand[SWEEP_MAX:]
 
+# ---------------------------------------------------------------- roster search (Chris 2026-11-10, Issue 1): an org whose own pages name NOBODY
+ROSTER_LEDGER = os.path.join(os.path.dirname(SWEEP_LEDGER), "roster-search-ledger.jsonl")
+ROSTER_TITLES = {"OM-2": ["conference", "events", "professional development", "executive director", "program director"],
+                 "OM-1": ["professional development", "training", "executive director", "program director", "coaching"]}
+def cmd_roster_items(a):
+    """Orgs read tonight whose own pages named nobody at all (no person, with or without an address) and whose web address is known: Apollo
+    people search (FREE, no emails) by that domain finds up to 5 people by role. They join the org's named-without-address list and go through
+    the normal H7 sweep (Apollo Verified + ZeroBounce + the org's own domain). One search per org+domain, ever."""
+    led = {r["key"] for r in jl(ROSTER_LEDGER)}; orgs = {o["org_id"]: o for o in jl(ORGS)}; n = 0
+    for oid, r in sorted(pending(a.run).items()):
+        if any(p.get("name") for p in r.get("people") or []) or r.get("named_without_email"): continue
+        doms = [d for d in (orgs.get(oid, {}).get("domains") or ([r["domain_discovered"]] if r.get("domain_discovered") else [])) if d]
+        if not doms: continue
+        k = "%s|%s" % (oid, base_dom(doms[0]))
+        if k in led: continue
+        print(json.dumps({"key": k, "org_id": oid, "org_name": r["name"], "machine": r["machine"], "domain": base_dom(doms[0]),
+                          "titles": ROSTER_TITLES.get(r["machine"], ROSTER_TITLES["OM-1"])}, ensure_ascii=False)); n += 1
+    print("# roster items: %d (orgs whose pages named nobody; one free Apollo people search each)" % n, file=sys.stderr)
+
+def cmd_roster(a):
+    """Input lines {key, org_id, people: [{name, first_name, title, organization_domain}]}, exactly as Apollo returned them. Only people whose
+    Apollo organization is on the searched domain are kept, up to SWEEP_MAX by role; they are added as named-without-address."""
+    rd = os.path.join(PDIR, a.run); pend = pending(a.run); newrows, led = [], []
+    for x in jl(a.file):
+        oid = x.get("org_id"); r = pend.get(oid)
+        if not r: continue
+        dom_ = (x.get("key") or "|").split("|", 1)[1]
+        keep = []
+        for p in x.get("people") or []:
+            od = base_dom(str(p.get("organization_domain") or ""))
+            if not p.get("name") or (od and od != dom_): continue
+            keep.append({"name": p["name"].strip(), "greeting_name": (p.get("first_name") or "").strip() or None, "role": p.get("title"),
+                         "role_key": guess_role_key(p.get("title")), "evidence_url": None, "source": "apollo-roster"})
+        rank = {k: i for i, k in enumerate(RANK.get(r["machine"], []))}
+        keep.sort(key=lambda n: (rank.get(n["role_key"], 99), norm(n["name"])))
+        keep = keep[:SWEEP_MAX]
+        led.append({"key": x.get("key"), "org_id": oid, "date": TODAY, "run": a.run, "found": len(keep)})
+        if keep:
+            r2 = dict(r, named_without_email=keep); newrows.append(r2)
+            print("ROSTER %s: %d people (%s)" % (r["name"], len(keep), ", ".join("%s — %s" % (k["name"], k["role"]) for k in keep)))
+        else: print("ROSTER %s: nobody on %s in Apollo" % (r["name"], dom_))
+    if newrows: ajl(os.path.join(rd, "pending.jsonl"), newrows)
+    ajl(ROSTER_LEDGER, led)
+
 def cmd_sweep_items(a):
     led = sweep_ledger(); orgs = {o["org_id"]: o for o in jl(ORGS)}; n = 0
     for oid, r in sorted(pending(a.run).items()):
@@ -356,6 +432,7 @@ def cmd_sweep_items(a):
             k = skey(oid, p["name"])
             if k in led: continue
             doms = orgs.get(oid, {}).get("domains") or []
+            if not doms and r.get("domain_discovered"): doms = [r["domain_discovered"]]   # CAPA 2026-11-11: domain confirmed at ingest tonight
             print(json.dumps({"key": k, "org_id": oid, "org_name": r["name"], "machine": r["machine"], "domain": doms[0] if doms else None, "domains": doms,
                               "name": p["name"], "role": p.get("role"), "role_key": p.get("role_key")}, ensure_ascii=False)); n += 1
     print("# sweep items: %d (H7: ≤%d per org by role; people already in 4_People/ledgers/sweep-ledger.jsonl are not re-queried)" % (n, SWEEP_MAX), file=sys.stderr)
@@ -486,6 +563,16 @@ def cmd_apollo(a):
     print("apollo verdicts recorded: %d (credits reported: %s)" % (len(rows), sum(cr)))
 
 # ---------------------------------------------------------------- assemble (Rulebook G) -- pure, tested
+_FREE_MAIL = {"gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "aol.com", "icloud.com", "comcast.net", "att.net", "msn.com", "live.com", "me.com", "frontier.com"}
+def _own_inbox_domain(e, org_domains, p=None):
+    """ENG-R008 keeps vendor / event-management inboxes out. Chris 2026-11-10 (Issue 1): an inbox is still the org's OWN when (a) it is on the
+    org's domain, (b) it is on the parent of the org's own sub-site (aimh.gsu.edu -> gsu.edu), or (c) it is a free-mail inbox (gmail…) printed on
+    the org's OWN page — volunteer-run associations (AEYC chapters) use one. A vendor company's domain is none of these."""
+    d = e.split("@")[-1].lower(); bd = base_dom(d)
+    doms = [str(x).lower() for x in (org_domains or []) if x]
+    if bd in {base_dom(x) for x in doms} or any(x == d or x.endswith("." + d) or x.endswith("." + bd) for x in doms): return True
+    return d in _FREE_MAIL and bool(p) and p.get("gate1") == "pass" and own_page(p.get("evidence_url"), doms)
+
 def assemble(org_name, machine, people, apollo, staff_page_read, roster_searched, named_wo_email=(), fit="fit", org_domains=()):
     """people: ingested rows; apollo: {email: verdict}. Returns dict(decision, to, cc, greeting, flags, hold_reason, unblock, considered).
     org_domains (ENG-R008, Chris 2026-11-09): a generic / nameless inbox is accepted ONLY on the org's own domain — a vendor or
@@ -496,7 +583,7 @@ def assemble(org_name, machine, people, apollo, staff_page_read, roster_searched
     for p in people:
         why = None
         if not p.get("email"): why = "no address"
-        elif org_bd and (p.get("generic") or not p.get("name")) and base_dom(p["email"].split("@")[-1].lower()) not in org_bd:
+        elif org_bd and (p.get("generic") or not p.get("name")) and not _own_inbox_domain(p["email"], org_domains, p):
             why = "generic inbox on a non-org domain %s — a vendor/event-management mailbox is never a recipient (ENG-R008)" % p["email"].split("@")[-1].lower()
             flags.append("⚠ %s dropped: generic inbox on a domain that is not the org's (ENG-R008)" % p["email"])
         elif p.get("gate1") != "pass": why = "provenance: " + str(p.get("gate1_why"))
@@ -531,7 +618,9 @@ def assemble(org_name, machine, people, apollo, staff_page_read, roster_searched
         room = MAXR - len(sel)
         ev_inbox = [g for g in generic if g.get("generic_event_inbox")][:room]
         res.update(decision="ready", to=sel[0], cc=sel[1:] + ev_inbox)
-        names = [first_name(p["name"]) for p in sel if first_name(p["name"])]
+        gn = [greet_name(p) for p in sel]
+        names = [g for g, _ in gn if g]
+        if any(not ok for g, ok in gn if g): flags.append("greeting name taken from the printed full name (no page-confirmed name) — check the greeting")
         res["greeting"] = "Hi %s," % (names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1])
         if len(named) > MAXR: flags.append("%d more named people found than the 4-person ceiling — kept the top %d by role" % (len(named) - MAXR, MAXR))
     elif generic:
@@ -544,7 +633,10 @@ def assemble(org_name, machine, people, apollo, staff_page_read, roster_searched
                        unblock="search the full roster (all staff/leadership pages) for named people first")
             return res
         g = generic[0]
-        nw = [first_name(n["name"]) for n in named_wo_email if first_name(n.get("name"))]
+        # named people without an address may be greeted (Rulebook G2 tier 3) ONLY if their page is on the org's own site (CAPA 2026-11-10 item 1)
+        own_nw = [n for n in named_wo_email if n.get("source") != "apollo-roster" and (not org_domains or not n.get("evidence_url") or own_page(n["evidence_url"], org_domains))]
+        if len(own_nw) < len(named_wo_email): flags.append("%d named people left out of the greeting: their page is not on the org's own site" % (len(named_wo_email) - len(own_nw)))
+        nw = [g for g, _ in (greet_name(n) for n in own_nw) if g]
         res.update(decision="ready", to=g, cc=generic[1:MAXR])
         res["greeting"] = ("Hi %s and team," % ", ".join(nw[:3])) if nw else ("Hi %s team," % org_name)
         flags.append("generic inbox as To (Rulebook G2 tier %d)" % (3 if nw else 4))
@@ -606,7 +698,7 @@ def cmd_decide(a):
             contacts.append({"email": p["email"], "name": p["name"], "role": p["role"], "evidence_url": p["evidence_url"],
                              "verification": {"apollo": v.get("identity"), "zerobounce": v.get("validity"), "class": "vendor-resolved (Apollo Verified + ZeroBounce, H7)" if p.get("source") == "apollo-verified" else ("live-page" if p["source"] != "autoreply" else "auto-reply (H6)")},
                              "status": "departed" if v.get("identity") == "departed" else "active"})
-        row = {"org_id": oid, "run": a.run, "decided": TODAY, "machine": r["machine"], "decision": res["decision"],
+        row = {"org_id": oid, "run": a.run, "decided": TODAY, "machine": r["machine"], "decision": res["decision"], "self_name": r.get("self_name"),
                "recipients": {"to": slim(res["to"]) if res["to"] else None, "cc": [slim(p) for p in res["cc"]], "greeting": res["greeting"]} if res["decision"] == "ready" else None,
                "hold_reason": res["hold_reason"], "unblock": res["unblock"], "flags": res["flags"], "contacts": contacts,
                "considered": res["considered"], "pages_read": r["pages_read"], "roster": roster, "roster_line": roster_text(roster),
@@ -677,6 +769,8 @@ def main():
     p = sp.add_parser("js"); p.add_argument("--url"); p.add_argument("--quotes")
     p = sp.add_parser("capture"); p.add_argument("--run", required=True); p.add_argument("file")
     p = sp.add_parser("ingest"); p.add_argument("--run", required=True); p.add_argument("--batch", type=int, required=True); p.add_argument("file")
+    p = sp.add_parser("roster-items"); p.add_argument("--run", required=True)
+    p = sp.add_parser("roster"); p.add_argument("--run", required=True); p.add_argument("file")
     p = sp.add_parser("sweep-items"); p.add_argument("--run", required=True)
     p = sp.add_parser("sweep"); p.add_argument("--run", required=True); p.add_argument("file")
     p = sp.add_parser("carry"); p.add_argument("--run", required=True)
@@ -687,6 +781,6 @@ def main():
     p = sp.add_parser("domains"); p.add_argument("--run", required=True); p.add_argument("file")
     sp.add_parser("stats")
     a = ap.parse_args()
-    {"next": cmd_next, "js": cmd_js, "capture": cmd_capture, "ingest": cmd_ingest, "sweep-items": cmd_sweep_items, "sweep": cmd_sweep, "carry": cmd_carry, "apollo-items": cmd_apollo_items, "apollo": cmd_apollo,
+    {"next": cmd_next, "js": cmd_js, "capture": cmd_capture, "ingest": cmd_ingest, "roster-items": cmd_roster_items, "roster": cmd_roster, "sweep-items": cmd_sweep_items, "sweep": cmd_sweep, "carry": cmd_carry, "apollo-items": cmd_apollo_items, "apollo": cmd_apollo,
      "decide": cmd_decide, "domain-items": cmd_domain_items, "domains": cmd_domains, "stats": cmd_stats}[a.cmd](a)
 if __name__ == "__main__": main()

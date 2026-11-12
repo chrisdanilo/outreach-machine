@@ -145,7 +145,7 @@ def cmd_next(a):
         k = i // bs + 1; bf = os.path.join(rd, "batch_%d.jsonl" % k); rf = os.path.join(rd, "result_%d.jsonl" % k)
         with open(bf, "w", encoding="utf-8") as f:
             for _, o, cand in pick[i:i + bs]:
-                f.write(json.dumps({"org_id": o["org_id"], "name": o["name"], "state": o["state"], "country": o.get("country"), "domains": o["domains"],
+                f.write(json.dumps({"org_id": o["org_id"], "name": o["name"], "state": o["state"], "country": o.get("country"), "domains": o["domains"], "domain_hint": o.get("domain_hint"),
                     "current_icps": o["icps"], "known_events": [{k2: e.get(k2) for k2 in ("name", "url", "next_edition_date", "last_edition_date", "attendance", "cfp", "keynote_path")} for e in o.get("events", [])][:6],
                     "check_events": bool(o.get("events") or o.get("runs_event") or set(cand) & {"ICP-004", "ICP-006"}),
                     "candidate_icps": [{"icp": c, "function_test": IC[c]["function_test"], "musts": IC[c]["musts"], "disqualifiers": IC[c]["disqualifiers"]} for c in cand]},
@@ -272,6 +272,24 @@ def decide(row, res, caps, supp=None):
         if len(f) > 3: evs.append(f)
     return dec, icps_, reason, per, evs, log
 
+def self_name(row, res, caps):
+    """The org's own name as printed on its own site (Chris 2026-11-10, Issue 4; old Machine 1 rule 2026-08-12/14): kept only when the
+    quote is on the capture AND contains the name; the short name is then checked against the org's web address."""
+    sn = res.get("self_name") or {}
+    out = {}
+    for k in ("short", "formal"):
+        v = str(sn.get(k) or "").strip(); q = sn.get(k + "_quote")
+        if v and norm(v) in norm(q) and verified(sn.get("url"), q, caps): out[k] = v
+    if not out: return None
+    out["url"] = sn.get("url")
+    if out.get("short"):
+        from urllib.parse import urlparse
+        doms = list(row.get("domains") or []) + [urlparse(u).netloc for u in (res.get("pages_read") or []) if u]
+        stems = {re.sub(r"^www\.", "", d.lower()).split(".")[0] for d in doms if d}
+        sh = re.sub(r"[^a-z0-9]", "", out["short"].lower())
+        out["domain_match"] = any(sh and (sh in st or st.startswith(sh[:4]) and len(sh) >= 4) for st in stems)
+    return out
+
 def cmd_ingest(a):
     rd = os.path.join(QDIR, a.run); st = json.load(open(os.path.join(rd, "state.json")))
     b = next(x for x in st["batches"] if x["k"] == a.batch)
@@ -288,7 +306,8 @@ def cmd_ingest(a):
             led.append({"org_id": oid, "run": a.run, "date": TODAY, "decision": "unreadable", "retry_after": plus_days(TODAY, 3), "evidence_hash": evidence_hash(orgs.get(oid, {}))})
             print("UNREADABLE %s — retry after 3 days" % row["name"]); continue
         dec, icps_, reason, per, evs, log = decide(row, r, caps)
-        out.append({"org_id": oid, "run": a.run, "decided": TODAY, "decision": dec, "icps": icps_, "reason": reason[:900],
+        sn = self_name(row, r, caps)
+        out.append({"org_id": oid, "run": a.run, "decided": TODAY, "decision": dec, "self_name": sn, "icps": icps_, "reason": reason[:900],
                     "per_icp": {k: {"verdict": v[0], "why": v[1][:400]} for k, v in per.items()}, "events": evs,
                     "pages_read": sorted(urls), "notes": (r.get("note") or "")[:300], "log": log[:12], "by": "qualify %s (verified quotes)" % a.run,
                     "evidence_hash": evidence_hash(orgs.get(oid, {}))})

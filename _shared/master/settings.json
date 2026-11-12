@@ -1,21 +1,22 @@
 {
  "_README": "THE one settings file (Chris 2026-11-03). Shared sections apply to every machine; 'machines' holds one block per outreach machine with IDENTICAL keys — a new machine is a copy of one block plus a template (Rulebook §5). Paths: {root} = Automations/, {master} = _shared/master/, {marketing} = Marketing/. Where everything lives: _shared/orchestrator/paths.py. The 'why' behind each number is in RULEBOOK.md (Appendix A).",
  "_holidays_note": "Federal Reserve schedule: a holiday on Saturday is not observed (Fed open the Friday before); a holiday on Sunday is observed Monday. 2026-07-04, 2027-06-19 and 2027-12-25 fall on Saturdays.",
- "as_of": "2026-11-10",
+ "as_of": "2026-11-11",
  "discovery": {
   "_README": "Discovery engine caps and order (Rulebook D; Stage 4 2026-10-31). Lower priority sweeps first. Re-sweep intervals reused from Machine 2.",
   "_om2_search_share_why": "Chris 2026-11-06 (option 2): when a discover run serves both machines, OM-2 batches get this share of the run's searches",
+  "_priority_why_2026_11_10": "Chris 2026-11-10 (Issue 1, option b): conference discovery works umbrella list pages and association directories first (88% of association finds are clear fits vs 38% for broad event sources), then calendars, keynoters, partners, branch events (Rulebook D6)",
   "branch_events_per_night": 25,
   "om2_search_share": 0.7,
   "partner_pages_file": "2_Discover/ledgers/partner-pages.jsonl",
   "priority": {
-   "assoc_directory": 35,
+   "assoc_directory": 10,
    "branch": 60,
-   "calendar": 20,
+   "calendar": 25,
    "directory": 45,
-   "hs_region": 30,
-   "keynoter": 10,
-   "list": 15,
+   "hs_region": 15,
+   "keynoter": 40,
+   "list": 5,
    "partners": 50,
    "state_directory": 40,
    "venue": 70
@@ -176,12 +177,12 @@
     "ecresourcecenter.org"
    ],
    "cleanup_departed": {
-    "person0337@4-c.org": {
+    "person0377@4-c.org": {
      "date": "2026-10-12",
      "evidence": "[auto-reply quote redacted]",
      "org": "[org]"
     },
-    "person1639@childresource.org": {
+    "person1837@childresource.org": {
      "date": "2026-09-23",
      "evidence": "[auto-reply quote redacted]",
      "org": "[org]"
@@ -482,22 +483,22 @@
     }
    },
    "hard_bounces": {
-    "person1535@ywcanwil.org": {
+    "person1725@ywcanwil.org": {
      "dsn": "550 5.1.1 Recipient address rejected: User unknown",
      "org": "[org]",
      "sent": "2026-09-23"
     },
-    "person1917@tvoc.org": {
+    "person2151@tvoc.org": {
      "dsn": "550 5.4.1 Recipient address rejected: Access denied [SJ1PEPF00001CDF.namprd05.prod.outlook.com]",
      "org": "[org]",
      "sent": "2026-09-04"
     },
-    "person0278@four-c.org": {
+    "person0315@four-c.org": {
      "dsn": "550 message blocked",
      "org": "[org]",
      "sent": "2026-09-24"
     },
-    "person0414@client.example": {
+    "person0462@client.example": {
      "dsn": "",
      "org": "[org]",
      "sent": "2026-08-11"
@@ -507,7 +508,7 @@
      "org": "[org]",
      "sent": "2026-08-17"
     },
-    "person0868@salcommunityservices.org": {
+    "person0974@salcommunityservices.org": {
      "dsn": "550 5.1.1 Address not found / unable to receive mail",
      "org": "[org]",
      "sent": "2026-09-24"
@@ -517,7 +518,7 @@
      "org": "[org]",
      "sent": "2026-08-31"
     },
-    "person0965@vibrantfuturesmi.org": {
+    "person1084@vibrantfuturesmi.org": {
      "dsn": "550 5.1.1 Recipient address rejected: User unknown",
      "org": "[org]",
      "sent": "2026-10-14"
@@ -532,52 +533,52 @@
      "org": "[org]",
      "sent": "2026-08-28"
     },
-    "person1126@rutgers.edu": {
+    "person1270@rutgers.edu": {
      "dsn": "550 5.1.1 address not found",
      "org": "[org]",
      "sent": "2026-10-01"
     },
-    "person1201@four-c.org": {
+    "person1358@four-c.org": {
      "dsn": "550 message blocked",
      "org": "[org]",
      "sent": "2026-09-24"
     },
-    "person1367@chsofnj.org": {
+    "person1544@chsofnj.org": {
      "dsn": "550 5.4.1 recipient rejected: access denied",
      "org": "[org]",
      "sent": "2026-10-01"
     },
-    "person1480@clackesd.org": {
+    "person1669@clackesd.org": {
      "dsn": "550 5.2.1 The email account that you tried to reach does not exist / address not found",
      "org": "[org]",
      "sent": "2026-10-06"
     },
-    "person1711@four-c.org": {
+    "person1919@four-c.org": {
      "dsn": "550 message blocked (DSN: blocked, not \"no such user\")",
      "org": "[org]",
      "sent": "2026-09-24"
     },
-    "person1721@sccapinc.org": {
+    "person1928@sccapinc.org": {
      "dsn": "",
      "org": "[org]",
      "sent": "2026-08-12"
     },
-    "person1723@salcommunityservices.org": {
+    "person1930@salcommunityservices.org": {
      "dsn": "550 5.1.1 Address not found / unable to receive mail",
      "org": "[org]",
      "sent": "2026-09-24"
     },
-    "person1889@elcfv.org": {
+    "person2120@elcfv.org": {
      "dsn": "",
      "org": "[org]",
      "sent": "2026-08-17"
     },
-    "person2513@workforcesolutionscb.org": {
+    "person2806@workforcesolutionscb.org": {
      "dsn": "",
      "org": "[org]",
      "sent": "2026-08-24"
     },
-    "person2526@projectchild.net": {
+    "person2819@projectchild.net": {
      "dsn": "550 No mailbox by that name is currently available",
      "org": "[org]",
      "sent": "2026-09-23"

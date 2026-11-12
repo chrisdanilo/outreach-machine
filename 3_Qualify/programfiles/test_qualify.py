@@ -70,11 +70,11 @@ check("existing client excluded -> none", R.owner(org(markets=["MKT-002"], exclu
 check("R1: existing thread keeps its machine", R.owner(org(threads=[{"thread_id": "t"}], owner_machine="OM-2", markets=["MKT-001"])), "OM-2")
 check("every event counts — no outside-keynote / breakout-only gate (Chris 2026-11-09)", len(R.keynote_events([{"keynote_path": "yes", "breakout_only": "yes"}, {"keynote_path": "no"}, {"keynote_path": "unknown"}])), 3)
 # --- fit decision (verified quotes only)
-caps = {Q.uid("https://a.org/about"): {"url": "https://a.org/about", "chars": 5000, "head": "", "lines": ["We provide training and coaching to child care providers in 12 counties.", "Meet our Professional Development Team: [Person 0685], Training Coordinator", "Register now for our 2026 fall workshops."]}}
+caps = {Q.uid("https://a.org/about"): {"url": "https://a.org/about", "chars": 5000, "head": "", "lines": ["We provide training and coaching to child care providers in 12 counties.", "Meet our Professional Development Team: [Person 0811], Training Coordinator", "Register now for our 2026 fall workshops."]}}
 row = {"current_icps": ["ICP-001"], "candidate_icps": [{"icp": "ICP-001", "musts": ["Performs the CCR&R function", "Has real PD staff named", "Org is open and operating"], "disqualifiers": ["Individual center"]}]}
 def res(q3, a3="yes"): return {"icps": {"ICP-001": {"musts": [
     {"criterion": "Performs the CCR&R function", "answer": "yes", "url": "https://a.org/about", "quote": "We provide training and coaching to child care providers"},
-    {"criterion": "Has real PD staff named", "answer": "yes", "url": "https://a.org/about", "quote": "[Person 0685], Training Coordinator"},
+    {"criterion": "Has real PD staff named", "answer": "yes", "url": "https://a.org/about", "quote": "[Person 0811], Training Coordinator"},
     {"criterion": "Org is open and operating", "answer": a3, "url": "https://a.org/about", "quote": q3}], "disqualifiers": [{"text": "Individual center", "hit": "no"}]}}}
 check("all musts verified -> fit", Q.decide(row, res("Register now for our 2026 fall workshops."), caps)[0], "fit")
 check("quote not on the page -> doubtful", Q.decide(row, res("We are thriving and growing in 2026."), caps)[0], "doubtful")

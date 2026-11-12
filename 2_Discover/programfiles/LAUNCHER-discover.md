@@ -18,6 +18,6 @@ Paths (device shell): MK="$HOME/mnt/ClaudeVault/3.Human Skills Training/Marketin
 5. INGEST each result: python3 2_Discover/programfiles/discover.py ingest --run $RUN --batch <K> <result file>. FAIL CLOSED → send that batch back to its helper with the printed errors (once); if it fails again, leave it pending and report it.
 6. REBUILD. python3 "$ENG/_shared/master/build_master.py"
 7. RELEASE (always): cd "$MK" && python3 _shared/orchestrator/lock.py release discover
-8. REPORT, plain English: batches done/pending; orgs found (new vs already known), events and people captured, keynoters and sources added, searches run and repeats refused; then python3 "$ENG/2_Discover/programfiles/discover.py" stats. End with computer:// links to the run folder and the master list CSV.
+8. REPORT, plain English: batches done/pending; orgs found (new vs already known), events and people captured, keynoters and sources added, searches run and repeats refused; then python3 "$ENG/2_Discover/programfiles/discover.py" stats. End with computer:// links to the run folder and the master list CSV. · Firecrawl (Chris 2026-11-11; add up the helpers' Firecrawl lines): searches · pages read · failures (why) · pages only Firecrawl could read (firecrawl captures) · FIRECRAWL-OFF batches (why) — and put the same counts in this step's `done --note`.
 
 NEVER: email or contact anyone · add an address that is not printed on a page · write to the master list any way but the discovery inbox · search Colorado · continue after FAIL CLOSED except as step 5 says.

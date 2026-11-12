@@ -176,21 +176,56 @@ def _initials(name):
     return "".join(x[0] for x in w if x[0].isalpha()).upper()
 
 
+def _dom_stems(o):
+    rec = o.get("recipients") or {}
+    mail = [p_["email"].split("@")[-1].lower() for p_ in ([rec.get("to")] if rec.get("to") else []) + list(rec.get("cc") or []) if p_ and p_.get("email")]
+    return [re.sub(r"^www\.", "", d.lower()).split(".")[0] for d in list(o.get("domains") or []) + mail if d]
+
+
+def _is_acr(a):
+    """A real acronym: mostly capitals (CCCA, FLAEYC, CCAoA, GA-AIMH) — never an ordinary word like 'Texas' or 'Preschool'."""
+    a = (a or "").strip(); L = [c for c in a if c.isalpha()]
+    return bool(re.fullmatch(r"[A-Z][A-Za-z0-9&-]{1,11}", a)) and a not in LEGAL and a.upper() not in STATE_CODES and a.upper() not in ("THE", "AND", "OF") and sum(c.isupper() for c in L) >= 2 and sum(c.isupper() for c in L) >= 0.6 * len(L)
+
+
+def _subseq(k, ini):
+    it = iter(ini.lower()); return all(ch in it for ch in k)
+
+
+def _acr_checked(a, o, ini):
+    """Chris 2026-11-10: 'the short name should always be checked against their domain'. True = the org's web/mail address or its own
+    initials back the acronym up."""
+    k = re.sub(r"[^a-z0-9]", "", (a or "").lower())
+    if not k: return False
+    if any(k in st or (st in k and len(st) >= 3) for st in _dom_stems(o) if st): return True
+    names = [re.sub(r"\s*\([^)]*\)", "", n or "") for n in [o.get("name")] + list(o.get("aliases") or [])]
+    if any(_subseq(k, _initials(n)) for n in names if _initials(n)): return True
+    up = "".join(c for c in (a or "") if c.isupper()).lower()
+    return len(up) >= 3 and any(_subseq(up, "".join(c for c in n if c.isupper())) for n in names)
+
+
 def short_name(o, shorts=None):
-    """The subject's org name — the OM-1 rule Chris ratified 2026-08-12/14 (method.md Phase 3, restored 2026-11-06):
-    ALWAYS a short form. (1) the org's own short brand (research card, an acronym it prints after its name, or its domain
-    when the domain IS its initials: ecin.org → ECIN, cciu.org → CCIU, bcesc.org → BCESC); (2) else a plain shortening of its
-    own formal name — keep the distinguishing words, drop boilerplate (', Inc.', 'Early Learning Coalition of' → 'ELC'),
-    cut at a dash or colon. Never invent an acronym; never use a legal suffix as a name; no all-caps shouting."""
+    """The subject's org name — the OM-1 rule Chris ratified 2026-08-12/14 (method.md Phase 3), restored at its ROOT 2026-11-10 (Issue 4):
+    (1) the short name the org PRINTS about itself, recorded by the qualify helper from its own site (self_name) and checked against its web
+    address; (2) Machine 2's research card; (3) an acronym the org uses, only if it is a real acronym backed by its web address or initials;
+    (4) else a plain shortening of its own formal name — flagged. Never invent an acronym; never a place or event name in brackets."""
     shorts = shorts if shorts is not None else cards_shorts()
+    sn = o.get("self_name") or {}
+    ini = _initials(re.sub(r"\s*\([^)]*\)", "", o["name"] or ""))
+    if sn.get("short"):
+        if sn.get("domain_match") or _acr_checked(sn["short"], o, ini):
+            return sn["short"], "the org's own short name, printed on its site and matching its web address"
+        return sn["short"], "the org's own short name, printed on its site — does not match its web address, check before sending"
     for d in o.get("domains") or []:
         if shorts.get(d): return shorts[d], "the org's short name from Machine 2's research card"
+    unbacked = None
     for n in [o["name"]] + list(o.get("aliases") or []):
-        for m in re.finditer(r"\(([A-Z][A-Za-z&]{1,11})\)", n or ""):
-            if m.group(1).upper() not in LEGAL: return m.group(1), "the org's own acronym (%s)" % n
+        for m in re.finditer(r"\(([A-Z][A-Za-z0-9&-]{1,11})\)", n or ""):
+            if not _is_acr(m.group(1)): continue
+            if _acr_checked(m.group(1), o, ini): return m.group(1), "the org's own acronym (%s), backed by its web address/initials" % n
+            unbacked = unbacked or m.group(1)
     for n in o.get("aliases") or []:
-        if re.fullmatch(r"[A-Z][A-Z&]{1,9}", (n or "").strip()) and n.strip() not in LEGAL: return n.strip(), "the org's own acronym"
-    ini = _initials(re.sub(r"\s*\([^)]*\)", "", o["name"] or ""))
+        if _is_acr((n or "").strip()) and _acr_checked(n.strip(), o, ini): return n.strip(), "the org's own acronym, backed by its web address/initials"
     rec = o.get("recipients") or {}
     mail_doms = [p_["email"].split("@")[-1].lower() for p_ in ([rec.get("to")] if rec.get("to") else []) + list(rec.get("cc") or []) if p_ and p_.get("email")]
     for d in list(o.get("domains") or []) + [x for x in mail_doms if x not in (o.get("domains") or [])]:   # the org's site AND its staff's email domain (cfsri.org)
@@ -201,16 +236,70 @@ def short_name(o, shorts=None):
         if stem.isalpha() and len(ini) >= 3 and stem.upper().startswith(ini) and stem.upper()[len(ini):] in STATE_CODES \
                 and stem.upper()[len(ini):] == (o.get("state") or "").upper():   # the code must be the org's own state (soesd ≠ SOE + SD)
             return ini, "the org's acronym, as used in its own domain (%s, + state code)" % d
-    s = re.sub(r"\s*\([^)]*\)", "", o["name"] or "").strip()
+    if unbacked: return unbacked, "an acronym in the org's name that its web address does not show — check before sending"
+    s = re.sub(r"\s*\([^)]*\)", "", sn.get("formal") or o["name"] or "").strip()
     s = re.split(r"\s+[-–—:|]\s+", s)[0].strip()
+    s = uninvert(s)                     # 'Child Center of NY, Inc. The' → 'The Child Center of NY, Inc.' (CAPA 2026-11-11)
     for pat, rep in BOILER: s = re.sub(pat, rep, s, flags=re.I).strip()
+    s = expand_abbrev(s)                # 'Mosholu Montefiore Comm. Ct' → '… Community Center' (CAPA 2026-11-11)
     s = re.sub(r"[,\s]+$", "", s)
     if s.isupper() and " " in s:      # 'CAGUAS MUNICIPALITY …' → 'Caguas Municipality …' (one-word codes like MHSA-MS stay)
         s = " ".join(w if w in ("ECE", "PD", "ESC", "ESD", "ISD", "USD", "CAA") else (w.lower() if i and w.lower() in SMALL else w.capitalize())
                      for i, w in enumerate(s.split()))
     if len(s.replace(" ", "")) <= 5 and s.upper() not in ("ECIN",):   # 'Child' from 'Child, Inc.' — too thin: keep the formal name
         s = re.sub(r"\s*\([^)]*\)", "", o["name"] or "").strip()
+    if bad_subject_name(s):            # anything still unreadable is HELD, never drafted (CAPA 2026-11-11)
+        return s, "HOLD: formal name still has an inverted article or an unexpanded abbreviation — Chris to give the short name"
     return s, "formal name shortened by rule — check before sending"
+
+
+# CAPA 2026-11-11 (Chris: "a few org abbreviation issues"): federal/list-style names reach the subject unreadable.
+ABBREV = [(r"\bComm\.?\s+(Ct|Ctr|Cntr)\b\.?", "Community Center"), (r"\b(Ctr|Cntr)\b\.?", "Center"), (r"\bAssn\b\.?", "Association"),
+          (r"\bAssoc\.(?=\s|$)", "Association"), (r"\bSvcs\b\.?", "Services"), (r"\bDept\b\.?", "Department"), (r"\bCnty\b\.?", "County"),
+          (r"\bUniv\.(?=\s|$)", "University"), (r"\bInst\.(?=\s|$)", "Institute"), (r"\bDev\.(?=\s|$)", "Development")]
+
+
+def uninvert(s):
+    """'X, Inc. The' / 'X, The' (directory sort order) → 'The X, Inc.' / 'The X'."""
+    m = re.match(r"^(.*?)[,\s]+(inc\.?|llc|incorporated)?[,\s]*the$", s or "", flags=re.I)
+    if not m: return s
+    core = m.group(1).strip().rstrip(",")
+    return ("The " + core + (", " + m.group(2) if m.group(2) else "")).strip()
+
+
+def expand_abbrev(s):
+    for pat, rep in ABBREV: s = re.sub(pat, rep, s)
+    # list-style tails: '… Inc Ny', '… Il', '… Inc.' → dropped (a title-cased state code or a bare Inc at the end is never part of the name)
+    for _ in range(3):
+        t = re.sub(r"[,\s]+(inc\.?|llc)$", "", s, flags=re.I)
+        t = re.sub(r"\s+([A-Z][a-z])$", lambda m: "" if m.group(1).upper() in STATE_CODES else m.group(0), t)
+        if t == s: break
+        s = t.strip()
+    return s
+
+
+def bad_subject_name(s):
+    """True when a subject name is still not something a person would write: a trailing/inverted 'The', or a dotted or
+    two-letter abbreviation token (e.g. 'Comm.', 'Ct') other than the org's own acronyms/state codes."""
+    if re.search(r"(^|[,\s])the$", s or "", flags=re.I): return True
+    ws = (s or "").split()
+    for i, w in enumerate(ws):
+        w2 = w.strip(",;")
+        if re.fullmatch(r"[A-Z]\.", w2): continue                       # a middle initial ('Ada S. McKinley')
+        if re.fullmatch(r"[A-Z][a-z]{1,4}\.", w2) and w2 not in ("St.", "Mt.", "Ft.", "Inc.", "Co.", "Jr.", "Dr.", "Sr.", "No."): return True
+        if i == len(ws) - 1 and re.fullmatch(r"[A-Z][a-z]", w2) and (w2.upper() in STATE_CODES or w2 in ("Co",)): return True
+    return False
+
+
+def adopt_ghost(dlist, params):
+    """Return (message_id, thread_id) of the ONE draft in a list_drafts read-back whose To and Cc equal the params; ('MANY', None)
+    when several match; (None, None) when none does."""
+    want_to = sorted(x.lower() for x in params.get("to") or []); want_cc = sorted(x.lower() for x in params.get("cc") or [])
+    hits = [x for x in (dlist.get("drafts") or [])
+            if sorted(y.lower() for y in x.get("toRecipients") or []) == want_to and sorted(y.lower() for y in x.get("ccRecipients") or []) == want_cc]
+    if len(hits) > 1: return "MANY", None
+    if not hits: return None, None
+    return hits[0].get("messageId"), hits[0].get("threadId")
 
 
 def e1_greeting(machine, rec_greeting, short):
@@ -267,6 +356,9 @@ def why_not(o, idx, redo=False):
     ex = [k for k, v in (o.get("exclusions") or {}).items() if v]
     if ex: return "excluded: " + ", ".join(ex)
     if (o.get("state") or "").upper() == "CO": return "Colorado (C5)"
+    sr = o.get("shared_recipient") or []
+    if sr:   # Chris 2026-11-10 (Issue 3): one person on two orgs' records — held until he says "same org" (merge) or "keep both" (shared_ok)
+        return "shares %s with %s — in the dossier for Chris's decision (same org, or keep both?)" % (sr[0]["email"], sr[0]["other_name"])
     if m == "OM-2" and ((o.get("outreach") or {}).get("status") or "") != "open_now":
         return "outreach not open (%s)" % ((o.get("outreach") or {}).get("status") or "no event on record")
     rec = o.get("recipients")
@@ -370,20 +462,27 @@ def step_select(d, s):
     orgs = load_orgs(); idx = indexes(orgs); shorts = cards_shorts()
     redo = s.get("redo") or {}
     if redo: orgs = [o for o in orgs if o["org_id"] in redo]
+    # A targeted run (Chris 2026-11-10, the Hawaii sweep): <run folder>/only.json = {"org_ids": [...], "why": "..."} drafts ONLY those orgs,
+    # on top of the night's drafts — the nightly ceiling does not apply; every other check (why_not, Gmail checks, Gate 7) is unchanged.
+    only = rj(os.path.join(d, "only.json"))
+    if only: orgs = [o for o in orgs if o["org_id"] in set(only.get("org_ids") or [])]
     elig, why = [], collections.Counter()
     for o in orgs:
         w = why_not(o, idx, redo=bool(redo))
+        if not w and short_name(o, shorts)[1].startswith("HOLD"):
+            w = "subject name unreadable (inverted article / abbreviation) — Chris to give the short name"
         if w: why[(o.get("owner_machine"), w.split(" (")[0].split(":")[0])] += 1; continue
         elig.append(o)
     elig.sort(key=priority)
     cands = []
     for m in MACHINES:
-        allow = len(redo) if redo else allowance(d)[m]
+        allow = len(redo) if redo else (len(only.get("org_ids") or []) if only else allowance(d)[m])
         if allow <= 0: continue          # the night loop is not working this machine this pass
         pool = [o for o in elig if o["owner_machine"] == m][: (allow + 2) if is_reh(d) else int(allow * 1.5) + 2]
         for o in pool:
             to, cc, fl = recipients_of(o, idx)
             short, how = short_name(o, shorts)
+            if "check before sending" in how: fl = fl + ["⚠ subject name '%s': %s" % (short, how)]   # CAPA 2026-11-11: rule-shortened names flagged too
             g = e1_greeting(m, o["recipients"].get("greeting"), short)
             q, dq = sent_queries(o, to, cc)
             cands.append({"n": len(cands) + 1, "org_id": o["org_id"], "org_name": o["name"], "org_domain": (o.get("domains") or [None])[0],
@@ -428,7 +527,7 @@ def step_gate(d, s, cands, labs):
             dj = rj(os.path.join(d, "raw", "drafts_%d.json" % c["n"])) or {}
             nd = sum(1 for x in (dj.get("drafts") or []) if x.get("id") != c["supersedes"])
         if nd: held.append(dict(c, status="HELD", reason="a draft to this org already exists in Gmail (C2)")); continue
-        if not s.get("redo") and taken[c["machine"]] >= allowance(d)[c["machine"]]: held.append(dict(c, status="SPARE", reason="tonight's ceiling reached — first in line next night")); continue
+        if not s.get("redo") and not rj(os.path.join(d, "only.json")) and taken[c["machine"]] >= allowance(d)[c["machine"]]: held.append(dict(c, status="SPARE", reason="tonight's ceiling reached — first in line next night")); continue
         taken[c["machine"]] += 1
         for a in addrs: seen_addr[a] = c["org_name"]
         rows.append(c)
@@ -498,10 +597,21 @@ def cmd_next(a):
         if k in res and res[k].get("final"): continue
         zr = rj(R("zapier_%d.json" % n))
         mid = find_key(zr, ["id", "messageId", "message_id"]); thread_id = find_key(zr, ["threadId", "thread_id"])
-        if not mid:
-            res[k] = {"final": True, "status": "HELD", "reason": "Zapier did not return the new draft (create failed; not retried tonight)"}
-            wj(os.path.join(d, "verify.json"), res); continue
         dl = R("draftlist_%d.json" % n)
+        if not mid:
+            # CAPA 2026-11-11 (SJCOE): Zapier can return an error (503) AFTER Gmail created the draft. Never assume "not created":
+            # read Drafts back by subject; adopt exactly one draft whose recipients match; otherwise hold with the evidence.
+            if not os.path.exists(dl):
+                print("STEP 5 VERIFY after a FAILED create (%s): list_drafts(query=%s, pageSize 10) -> save VERBATIM as %s ; then rerun next."
+                      % (p["org_name"], json.dumps('subject:"%s"' % p["params"]["subject"]), dl)); return 0
+            mid, thread_id = adopt_ghost(rj(dl) or {}, p["params"])
+            if mid == "MANY":
+                res[k] = {"final": True, "status": "HELD", "reason": "create returned an error and Drafts holds more than one matching draft — check Gmail"}
+                wj(os.path.join(d, "verify.json"), res); continue
+            if not mid:
+                res[k] = {"final": True, "status": "HELD", "reason": "Zapier did not return the new draft and the read-back found none (create failed; not retried tonight)"}
+                wj(os.path.join(d, "verify.json"), res); continue
+            print("  ghost draft adopted for %s: Zapier errored but Gmail has message %s — continuing to Gate 7" % (p["org_name"], mid))
         if not os.path.exists(dl):
             print("STEP 5 VERIFY (%s): list_drafts(query=%s, pageSize 10) -> save VERBATIM as %s ; then rerun next."
                   % (p["org_name"], json.dumps('subject:"%s"' % p["params"]["subject"]), dl)); return 0

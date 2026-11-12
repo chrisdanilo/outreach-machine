@@ -56,6 +56,8 @@ def selfcheck():
         except Exception as ex: bad.append(f"{os.path.relpath(cfgp, MK)}: {ex}")
     for p in paths.LAUNCHERS.values():
         if not os.path.exists(p): bad.append(f"missing launcher: {os.path.relpath(p, MK)}")
+    wt = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "WEB-TOOLS.md")   # Firecrawl-first web-tool order every research helper reads (Chris 2026-11-11)
+    if not os.path.exists(wt): bad.append("missing _shared/WEB-TOOLS.md (the helpers' web-tool order)")
     lock = paths.LOCK
     if os.path.exists(lock):
         try: json.load(open(lock))

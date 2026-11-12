@@ -111,11 +111,11 @@ if not _copy_name:
 COPY = pathlib.Path(paths.TEMPLATES) / _copy_name
 FIXTURES = {
     "outreach-machine": {"thread": "1a0cda2aaddc2259", "subject": "Question about PD/Training at X . . .", "tz": "America/Los_Angeles",
-                         "to": "person1948@cdrv.org", "cc1": "person1577@cdrv.org", "other": "person2340@cdrv.org",
-                         "bounce": "person2250@cdrv.org", "greet1": "Jane and Alex", "first": "Jane", "last": "Alex"},
+                         "to": "person2185@cdrv.org", "cc1": "person1768@cdrv.org", "other": "person2619@cdrv.org",
+                         "bounce": "person2524@cdrv.org", "greet1": "Jane and Alex", "first": "Jane", "last": "Alex"},
     "outreach-machine-002-conference": {"thread": "1a1791bce1009660", "subject": "Question about your conference at ETSU . . .", "tz": "America/Chicago",
-                         "to": "person2019@etsu.edu", "cc1": "person2226@etsu.edu", "other": "person2341@etsu.edu",
-                         "bounce": "person2251@etsu.edu", "greet1": "Pat and Sam", "first": "Pat", "last": "Sam"},
+                         "to": "person2262@etsu.edu", "cc1": "person2497@etsu.edu", "other": "person2620@etsu.edu",
+                         "bounce": "person2525@etsu.edu", "greet1": "Pat and Sam", "first": "Pat", "last": "Sam"},
 }
 FX = FIXTURES.get({"OM-1": "outreach-machine", "OM-2": "outreach-machine-002-conference"}.get(ROOT.name, ROOT.name), FIXTURES["outreach-machine-002-conference"])
 CONFIG = pathlib.Path(paths.SETTINGS)
@@ -380,7 +380,7 @@ def render_html(body_md, greeting, parenthetical, links):
 
 
 def greeting_names(first_line):
-    """'Jane, Alex, and Pat,' / 'Hey [Person 1262] and Sam,' -> ['Jane','Alex','Pat'] / ['Pat','Sam'].
+    """'Jane, Alex, and Pat,' / 'Hey [Person 1490] and Sam,' -> ['Jane','Alex','Pat'] / ['Pat','Sam'].
     Returns (names, problem)."""
     s = first_line.strip().rstrip(",:").strip()
     s = GREETING_WORDS.sub("", s)
@@ -1517,7 +1517,7 @@ def cmd_selftest(args):
     check("DSN newest, bounce not yet in config -> hold", run([mk([base], [dnew])], t((2026, 9, 30), 8, 45)), "hold", "hard_bounces")
     # a human replied, Chris wrote back (own is newest) -> the sequence is over, never send a cold follow-up into a conversation
     hr = {"id": "o9", "date": "2026-09-25T12:00:00Z", "sender": FX["other"], "subject": "Re: " + FX["subject"]}
-    check("human reply earlier, Chris replied after -> hold", run([mk([base, own(2, "2026-09-26T12:00:00Z", body="Hey [Person 0685],\n\nThanks")], [hr])], t((2026, 10, 7), 8, 45)), "hold", "human message")
+    check("human reply earlier, Chris replied after -> hold", run([mk([base, own(2, "2026-09-26T12:00:00Z", body="Hey [Person 0811],\n\nThanks")], [hr])], t((2026, 10, 7), 8, 45)), "hold", "human message")
     ar = {"id": "o8", "date": "2026-09-23T17:00:00Z", "sender": FX["cc1"], "subject": "Automatic reply: " + FX["subject"]}
     check("auto-reply earlier (not newest) -> proceeds", run([mk([own(1, "2026-09-23T16:44:00Z"), own(2, "2026-09-30T16:00:00Z", body="Hey " + FX["greet1"] + ",\n\nIs it")], [ar])], t((2026, 10, 7), 8, 45)), "armable")
     dsn = {"id": "o7", "date": "2026-09-23T16:45:00Z", "sender": "mailer-daemon@googlemail.com", "subject": "Delivery Status Notification (Failure)"}

@@ -24,6 +24,8 @@ status: rulings of 2026-11-03 (Chris); read with RULEBOOK.md §A
 | **Seeds** | legacy inputs | Read-only files from the old machines that the master-list builder still reads (`_shared/master/seeds/`). Never archived, or the rebuild drops ~1,600 orgs. |
 | **Orchestrator** | runner, scheduler | `_shared/orchestrator/` — the programs that sequence the night, hold the locks, and print the standing orders. |
 | **Launcher** | prompt, task text | A `LAUNCHER-*.md` file: the standing orders a scheduled task or a step prints and follows word for word. |
+| **Firecrawl** | the scraper, the web tool | A paid web-reading service connected to Claude (2026-11-11). The research helpers search and read pages with it FIRST; the old tools (web search, page fetch, the Browser pane) are the fallback. It never decides anything and never supplies email addresses. Order and limits: `_shared/WEB-TOOLS.md`. |
+| **Firecrawl capture** | — | Evidence stored from Firecrawl's copy of a page, used ONLY when the Browser pane cannot open that page. Marked `source: firecrawl`. Otherwise the live page in the Browser pane still vouches for every quote and address. |
 
 Terms from the Rulebook (§A) still apply unchanged: ICP, Market, Cluster, Source, Business day.
 
